@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "517531274132",
+    "project_id": "mediapp-1c35b",
+    "storage_bucket": "mediapp-1c35b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517531274132:android:482f5386ec92de041b9d81",
+        "android_client_info": {
+          "package_name": "io.banana.project_docere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517531274132-i3b02rnsvkmgsphmvkmsphdcgq1jjov3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCozq5lWVsc-8dWObh0-80NGAar4UB_FUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517531274132-i3b02rnsvkmgsphmvkmsphdcgq1jjov3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

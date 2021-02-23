@@ -1,69 +1,68 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:project_docere/framework/ui/login/login_pg.dart';
 
 import 'injection_container.dart' as di;
+import 'med_app.dart';
 
 void main() async {
-  await di.init();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: LoginPage(),
-    );
+  State createState() {
+    return _AppState();
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class _AppState extends State<MyApp> {
+  // Set default `_initialized` and `_error` state to false
+  bool _initialized = false;
+  bool _error = false;
 
-  final String title;
+  void initializeFlutterFire() async {
+    try {
+      await di.init();
+      await Firebase.initializeApp();
+      setState(() {
+        _initialized = true;
+      });
+    } catch (e) {
+      setState(() {
+        _error = true;
+      });
+    }
+  }
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void initState() {
+    initializeFlutterFire();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    // Show error message if initialization failed
+    if (_error) {
+      return MaterialApp(
+        home: Center(
+          child: Text(
+            "Something went wrong",
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-    );
+      ); //SomethingWentWrong();
+    }
+
+    // Show a loader until FlutterFire is initialized
+    if (!_initialized) {
+      return MaterialApp(
+        home: Center(
+          child: Text("Loading"),
+        ),
+      ); // Loading();
+    }
+
+    return MedApp();
   }
 }
