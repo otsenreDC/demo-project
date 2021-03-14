@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
 import 'package:provider/provider.dart';
 
 import 'framework/ui/doctors/doctor_list_vm.dart';
@@ -11,15 +13,18 @@ class MedApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: sl<DoctorListViewModel>())
+        ChangeNotifierProvider(create: (_) => sl<DoctorListViewModel>())
       ],
       child: MaterialApp(
+        routes: {
+          HomePage.routeName: (context) => HomePage(),
+          CreateAppointmentPage.routeName: (context) => CreateAppointmentPage()
+        },
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.lightGreen,
+          primarySwatch: Colors.green,
           fontFamily: 'Segoe',
         ),
-        home: HomePage(),
       ),
     );
   }

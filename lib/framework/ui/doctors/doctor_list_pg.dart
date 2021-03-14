@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/domain/models/doctor.dart';
+import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
 import 'package:project_docere/framework/ui/doctors/doctor_list_vm.dart';
+import 'package:project_docere/framework/ui/widgets/doctor_card_wg.dart';
 import 'package:provider/provider.dart';
-
-import 'doctor_cart_wg.dart';
 
 class DoctorListPage extends StatelessWidget {
   @override
@@ -17,6 +17,13 @@ class DoctorListPage extends StatelessWidget {
         itemCount: _doctors.length,
         itemBuilder: (BuildContext context, int index) => DoctorCardWidget(
           doctor: _doctors[index],
+          onTap: (Doctor doctor) {
+            Navigator.pushNamed(
+              context,
+              CreateAppointmentPage.routeName,
+              arguments: CreateAppointmentArguments(doctor: doctor),
+            );
+          },
         ),
       ),
     );

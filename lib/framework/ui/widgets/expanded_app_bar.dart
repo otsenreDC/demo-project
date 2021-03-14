@@ -31,13 +31,10 @@ class ExpandedAppBar extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 15,
+                width: 8,
               ),
               Icon(Icons.wb_sunny)
             ],
-          ),
-          SizedBox(
-            height: 15,
           ),
           Text(
             "Selecciona tu doctor",

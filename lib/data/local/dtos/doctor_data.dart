@@ -13,7 +13,7 @@ class DoctorData {
 
   Doctor toDomain() {
     return Doctor(
-      profileId: this.code,
+      profileReference: this.code,
       name: this.name,
       specialty: this.specialty,
     );

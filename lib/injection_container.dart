@@ -1,9 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:project_docere/data/local/data_sources/db_data_source.dart';
+import 'package:project_docere/data/remote/data_sources/doctor/appointment_firestore_ds.dart';
 import 'package:project_docere/data/remote/data_sources/doctor/firestore_data_source.dart';
+import 'package:project_docere/domain/data_sources/appointments_data_source.dart';
 import 'package:project_docere/domain/data_sources/doctors_data_source.dart';
+import 'package:project_docere/domain/repositories/patient/appointment_repository.dart';
+import 'package:project_docere/domain/repositories/patient/doctor_repository.dart';
 import 'package:project_docere/domain/repositories/patient/patient_repository.dart';
+import 'package:project_docere/domain/use_cases/appointments/create_appointment_uc.dart';
+import 'package:project_docere/domain/use_cases/doctors/get_current_calendar_uc.dart';
+import 'package:project_docere/domain/view_models/confirm_appointment/confirm_appointment_vm.dart';
+import 'package:project_docere/domain/view_models/create_appointment/create_appointment_vm.dart';
 import 'package:project_docere/framework/helpers/network_info_helper.dart';
 import 'package:project_docere/framework/ui/doctors/doctor_list_vm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +29,9 @@ Future<void> init() async {
   sl.registerLazySingleton<IDoctorRemoteDataSource>(
     () => DoctorFirestoreDataSource(sl()),
   );
+  sl.registerLazySingleton<IAppointmentRemoteDataSource>(
+    () => AppointmentFirestoreDataStore(sl()),
+  );
 
   // Repositories
   sl.registerLazySingleton<IPatientRepository>(
@@ -31,16 +42,40 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<IDoctorRepository>(
+    () => DoctorRepository(
+      remoteDataSource: sl(),
+      connectionChecker: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<IAppointmentRepository>(
+    () => AppointmentRepository(
+      dataStore: sl(),
+    ),
+  );
+
   // Use cases
   sl.registerLazySingleton(
     () => GetListDoctorsUseCase(sl()),
+  );
+
+  sl.registerLazySingleton(
+    () => GetCurrentCalendarUseCase(sl()),
+  );
+
+  sl.registerLazySingleton(
+    () => CreateAppointmentUseCase(sl(), sl()),
   );
 
   // View models
   sl.registerFactory(
     () => DoctorListViewModel(getPatientDoctorsUseCase: sl()),
   );
-
+  sl.registerFactory(
+    () => CreateAppointmentViewModel(sl()),
+  );
+  sl.registerFactory(() => ConfirmAppointmentViewModel(sl()));
   // Core
 
   // External

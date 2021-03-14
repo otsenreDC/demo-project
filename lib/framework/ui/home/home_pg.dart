@@ -19,6 +19,7 @@ const List<Destination> allDestinations = <Destination>[
 ];
 
 class HomePage extends StatefulWidget {
+  static final String routeName = "/";
   @override
   State createState() {
     return _HomePageState();
@@ -96,7 +97,7 @@ class _HomePageState extends State<HomePage>
       onNotification: _handleScrollNotification,
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(150),
+          preferredSize: Size.fromHeight(120),
           child: ExpandedAppBar(),
         ),
         body: Stack(
