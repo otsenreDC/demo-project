@@ -24,10 +24,10 @@ class DoctorCardWidget extends StatelessWidget {
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
               child: CircleAvatar(
-                maxRadius: 30,
-                minRadius: 30,
+                maxRadius: 25,
+                minRadius: 25,
                 backgroundImage: NetworkImage(
                   "https://cdn2.iconfinder.com/data/icons/avatar-business-people-set-one/128/avatar-25-512.png",
                 ),
@@ -45,30 +45,12 @@ class DoctorCardWidget extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 5),
                   Text(
                     doctor.specialty,
                     style: TextStyle(
                       fontSize: 12,
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: Colors.grey,
-                        size: 15,
-                      ),
-                      Text(
-                        "AQUI LA CLINICA",
-                        style: TextStyle(
-                          fontSize: 10,
-                        ),
-                      ),
-                    ],
-                  )
                 ],
               ),
             )

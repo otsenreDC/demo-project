@@ -84,10 +84,10 @@ class ConfirmAppointmentViewModel extends ChangeNotifier {
     setUIState = UILoading();
     _createAppointmentUseCase
         .execute(
-            _centerInfo.idReference,
-            _doctor.idReference,
+            _centerInfo,
+            _doctor,
             _centerInfo.calendarReference,
-            _centerInfo.secretaries.first?.profileReference,
+            _centerInfo.secretaries.first,
             "pacientes/1234",
             _daySlot.inOrderOfArrival,
             _day,

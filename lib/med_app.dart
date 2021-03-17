@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project_docere/framework/ui/appointments/appointment_details_pg.dart';
 import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,9 @@ class MedApp extends StatelessWidget {
       child: MaterialApp(
         routes: {
           HomePage.routeName: (context) => HomePage(),
-          CreateAppointmentPage.routeName: (context) => CreateAppointmentPage()
+          CreateAppointmentPage.routeName: (context) => CreateAppointmentPage(),
+          AppointmentDetailsPage.routeName: (context) =>
+              AppointmentDetailsPage()
         },
         title: 'Flutter Demo',
         theme: ThemeData(

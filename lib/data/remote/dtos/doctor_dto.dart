@@ -48,10 +48,31 @@ class DoctorDTO {
         name: this.name,
         lastName: this.lastName,
         specialty: this.specialty,
-        centerInfo: this.centerInfo.map((c) => c.toDomain()).toList());
+        centerInfo: this.centerInfo?.map((c) => c.toDomain())?.toList());
+  }
+
+  Map<String, dynamic> toJson() {
+    return Map.fromEntries([
+      MapEntry(_keyName, name),
+      MapEntry(_keyLastName, lastName),
+      MapEntry(_keySpecialty, specialty),
+    ]);
+  }
+
+  factory DoctorDTO.fromDomain(Doctor doctor) {
+    return DoctorDTO(
+        id: null,
+        idReference: doctor.idReference,
+        profileReference: doctor.profileReference,
+        name: doctor.name,
+        lastName: doctor.lastName,
+        specialty: doctor.specialty,
+        centerInfo: null);
   }
 
   factory DoctorDTO.fromJson(String id, Map<String, dynamic> json) {
+    if (json == null) return null;
+
     final idReference = json[_keyIdReference] as DocumentReference;
     final profileReference = json[_keyProfileReference] as DocumentReference;
 
@@ -65,8 +86,8 @@ class DoctorDTO {
       lastName: json[_keyLastName],
       specialty: json[_keySpecialty],
       centerInfo: centerInfo
-          .map((info) => CenterInfoDTO.fromJson(info as Map<String, dynamic>))
-          .toList(),
+          ?.map((info) => CenterInfoDTO.fromJson(info as Map<String, dynamic>))
+          ?.toList(),
     );
   }
 }

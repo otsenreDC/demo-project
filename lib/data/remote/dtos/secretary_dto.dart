@@ -30,7 +30,17 @@ class SecretaryDTO {
     );
   }
 
+  factory SecretaryDTO.fromDomain(Secretary secretary) {
+    return SecretaryDTO(
+        idReference: secretary.idReference,
+        profileReference: secretary.profileReference,
+        name: secretary.name,
+        phone: secretary.phone);
+  }
+
   factory SecretaryDTO.fromJson(Map<String, dynamic> json) {
+    if (json == null) return null;
+
     final idReference = json[_keyIdReference] as DocumentReference;
     final profileReference = json[_keyProfileReference] as DocumentReference;
 
@@ -39,5 +49,14 @@ class SecretaryDTO {
         profileReference: profileReference?.path,
         name: json[_keyName],
         phone: json[_keyPhone]);
+  }
+
+  Map<String, dynamic> toJson() {
+    return Map.fromEntries(
+      [
+        MapEntry(_keyName, name),
+        MapEntry(_keyPhone, phone),
+      ],
+    );
   }
 }

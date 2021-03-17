@@ -1,6 +1,9 @@
 import 'package:either_option/either_option.dart';
+import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/day.dart';
+import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/failure.dart';
+import 'package:project_docere/domain/models/secretary.dart';
 import 'package:project_docere/domain/repositories/patient/appointment_repository.dart';
 import 'package:project_docere/domain/repositories/patient/doctor_repository.dart';
 
@@ -17,10 +20,10 @@ class CreateAppointmentUseCase {
   }
 
   Future<Either<Failure, bool>> execute(
-    String centerProfileReference,
-    String doctorProfileReference,
+    CenterInfo centerInfo,
+    Doctor doctor,
     String calendarReference,
-    String secretaryProfileReference,
+    Secretary secretary,
     String patientProfileReference,
     bool inOrderOfArrival,
     Day day,
@@ -28,9 +31,9 @@ class CreateAppointmentUseCase {
     DateTime selectedDateTime,
   ) async {
     final createAppointmentResult = await _appointmentRepository.create(
-      centerProfileReference,
-      doctorProfileReference,
-      secretaryProfileReference,
+      centerInfo,
+      doctor,
+      secretary,
       patientProfileReference,
       inOrderOfArrival ? "order" : "hour",
       _appointmentAtDate(slot, selectedDateTime),
@@ -41,7 +44,7 @@ class CreateAppointmentUseCase {
 
     if (!slot.inOrderOfArrival) {
       updateDoctorResult = await _doctorRepository.updateDaySlot(
-        doctorProfileReference,
+        doctor.idReference,
         calendarReference,
         day,
         slot,

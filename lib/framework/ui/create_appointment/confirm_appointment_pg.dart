@@ -5,7 +5,7 @@ import 'package:project_docere/domain/models/day.dart';
 import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/ui_state.dart';
 import 'package:project_docere/domain/routers/routes.dart';
-import 'package:project_docere/domain/view_models/confirm_appointment/confirm_appointment_vm.dart';
+import 'package:project_docere/domain/view_models/appointments/confirm_appointment_vm.dart';
 import 'package:project_docere/framework/ui/widgets/day_widget.dart';
 import 'package:project_docere/framework/ui/widgets/doctor_card_wg.dart';
 import 'package:project_docere/framework/ui/widgets/error_wg.dart';

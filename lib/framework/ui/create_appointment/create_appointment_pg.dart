@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/day.dart';
 import 'package:project_docere/domain/models/doctor.dart';
-import 'package:project_docere/domain/view_models/create_appointment/create_appointment_vm.dart';
+import 'package:project_docere/domain/view_models/appointments/create_appointment_vm.dart';
 import 'package:project_docere/framework/ui/widgets/date_selector_wg.dart';
 import 'package:project_docere/framework/ui/widgets/doctor_app_bar.dart';
 import 'package:project_docere/framework/ui/widgets/hours_wg.dart';

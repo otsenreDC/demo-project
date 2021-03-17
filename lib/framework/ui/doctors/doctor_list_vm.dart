@@ -3,11 +3,11 @@ import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/use_cases/doctors/get_list_doctors_use_case.dart';
 
 class DoctorListViewModel extends ChangeNotifier {
-  final GetListDoctorsUseCase getPatientDoctorsUseCase;
+  final GetListDoctorsUseCase _getPatientDoctorsUseCase;
 
   List<Doctor> _doctors;
 
-  DoctorListViewModel({@required this.getPatientDoctorsUseCase});
+  DoctorListViewModel(this._getPatientDoctorsUseCase);
 
   set _setDoctors(List<Doctor> newValue) {
     _doctors = newValue;
@@ -24,7 +24,7 @@ class DoctorListViewModel extends ChangeNotifier {
   }
 
   void _loadDoctors() {
-    getPatientDoctorsUseCase.execute('42').then(
+    _getPatientDoctorsUseCase.execute('42').then(
           (value) => {
             if (value is List<Doctor>)
               {

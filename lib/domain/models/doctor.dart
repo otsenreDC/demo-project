@@ -8,6 +8,10 @@ class Doctor {
   String lastName;
   String specialty;
 
+  String get fullName {
+    return "$name $lastName";
+  }
+
   List<CenterInfo> centerInfo;
 
   Doctor({

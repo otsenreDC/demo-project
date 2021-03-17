@@ -8,18 +8,6 @@ class TimeWidget extends StatelessWidget {
 
   TimeWidget({this.time, this.inOrderOfArrival});
 
-  // factory TimeWidget.from(DaySlot daySlot) {
-  //   if (daySlot.inOrderOfArrival) {
-  //     return TimeWidget(
-  //       time: DateTime.now(),
-  //       inOrderOfArrival: true,
-  //     );
-  //   } else {
-  //     return (TimeWidget(
-  //         time: daySlot.start.toDate(), inOrderOfArrival: false));
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Container(

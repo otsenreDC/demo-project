@@ -22,10 +22,10 @@ class SecretaryCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             child: CircleAvatar(
-              maxRadius: 24,
-              minRadius: 24,
+              maxRadius: 25,
+              minRadius: 25,
               backgroundImage: NetworkImage(
                 "https://cdn2.iconfinder.com/data/icons/avatar-business-people-set-one/128/avatar-25-512.png",
               ),

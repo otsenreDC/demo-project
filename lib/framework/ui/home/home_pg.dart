@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:project_docere/framework/ui/appointments/appointment_list_pg.dart';
 import 'package:project_docere/framework/ui/doctors/doctor_list_pg.dart';
 import 'package:project_docere/framework/ui/widgets/expanded_app_bar.dart';
 
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage>
   Widget _getPage(int index) {
     switch (index) {
       case 1:
-        return Container(color: Colors.amber);
+        return AppointmentListPage();
       case 2:
         return Container(color: Colors.purple);
       default:

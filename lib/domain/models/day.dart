@@ -9,7 +9,6 @@ class Day {
   Day({this.id, this.workday, this.holiday, this.daySlots});
 
   DateTime toDateTime() {
-    print(DateTime(2021, 0, id, 0, 0, 0, 0, 0).toString());
     return DateTime.now();
   }
 }
