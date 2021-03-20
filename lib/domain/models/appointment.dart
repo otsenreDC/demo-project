@@ -29,9 +29,19 @@ class Appointment {
     this.status,
   });
 
+  static String attentionOrderHour = "hour";
+  static String attentionOrderArrival = "order";
+
   bool get isCheckedIn => status == AppointmentStatus.checkedIn;
+
   bool get isScheduled => status == AppointmentStatus.scheduled;
+
   bool get isCancelled => status == AppointmentStatus.cancelled;
+
+  bool get isAttentionOnOrderOfArrival =>
+      attentionOrder == attentionOrderArrival;
+
+  bool get isAttentionByHour => attentionOrder == attentionOrderHour;
 }
 
 enum AppointmentStatus {

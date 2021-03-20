@@ -12,11 +12,12 @@ class AppointmentListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) {
-        return sl<AppointmentListViewModel>();
+        final viewModel = sl<AppointmentListViewModel>();
+        viewModel.loadAppointments();
+        return viewModel;
       },
       child: Consumer<AppointmentListViewModel>(
         builder: (_, viewModel, __) {
-          viewModel.loadAppointments();
           return ListView.builder(
             itemCount: viewModel.appointmentCount,
             itemBuilder: (context, index) {
@@ -46,6 +47,7 @@ class AppointmentCard extends StatelessWidget {
   final String doctorName;
   final String doctorSpecialty;
   final DateTime appointmentAt;
+  final bool isAttentionOrderHour;
   final String centerName;
 
   const AppointmentCard({
@@ -53,6 +55,7 @@ class AppointmentCard extends StatelessWidget {
     @required this.doctorName,
     @required this.doctorSpecialty,
     @required this.appointmentAt,
+    @required this.isAttentionOrderHour,
     @required this.centerName,
   }) : super(key: key);
 
@@ -61,6 +64,7 @@ class AppointmentCard extends StatelessWidget {
       doctorName: appointment.doctor.fullName,
       doctorSpecialty: appointment.doctor.specialty,
       appointmentAt: appointment.appointmentAt.toDate(),
+      isAttentionOrderHour: appointment.isAttentionByHour,
       centerName: appointment.centerInfo.name,
     );
   }
@@ -130,10 +134,17 @@ class AppointmentCard extends StatelessWidget {
                 margin: EdgeInsets.only(left: 4, right: 4),
                 child: Row(
                   children: [
-                    Text(
-                      DateTimeHelper.format(appointmentAt,
-                          pattern: DATE_FORMAT_TIME),
-                      style: TextStyle(color: Colors.white),
+                    Expanded(
+                      child: Text(
+                        isAttentionOrderHour
+                            ? DateTimeHelper.format(appointmentAt,
+                                pattern: DATE_FORMAT_TIME)
+                            : "Orden",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     )
                   ],
                 ),

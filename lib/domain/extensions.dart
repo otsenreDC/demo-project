@@ -14,3 +14,9 @@ class DateTimeHelper {
     return formatter.format(date);
   }
 }
+
+extension DateTimeExt on DateTime {
+  int get dayOfYear {
+    return this.difference(DateTime(this.year, 1, 1, 0, 0)).inDays;
+  }
+}

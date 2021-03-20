@@ -82,4 +82,25 @@ class AppointmentFirestoreDataStore implements IAppointmentRemoteDataSource {
       return Left(Failure());
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> updateTime(
+    String appointmentReference,
+    Timestamp appointmentAt,
+    String attentionOrder,
+  ) async {
+    try {
+      await _firestore.doc(appointmentReference).update(
+            Map.fromEntries(
+              [
+                MapEntry("attentionOrder", attentionOrder),
+                MapEntry("appointmentAt", appointmentAt),
+              ],
+            ),
+          );
+      return Right(true);
+    } catch (e) {
+      return Left(Failure());
+    }
+  }
 }

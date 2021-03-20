@@ -5,6 +5,7 @@ import 'package:project_docere/framework/ui/appointments/appointment_details_pg.
 import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
 import 'package:provider/provider.dart';
 
+import 'framework/ui/appointments/appointment_edit_pg.dart';
 import 'framework/ui/doctors/doctor_list_vm.dart';
 import 'framework/ui/home/home_pg.dart';
 import 'injection_container.dart';
@@ -21,7 +22,8 @@ class MedApp extends StatelessWidget {
           HomePage.routeName: (context) => HomePage(),
           CreateAppointmentPage.routeName: (context) => CreateAppointmentPage(),
           AppointmentDetailsPage.routeName: (context) =>
-              AppointmentDetailsPage()
+              AppointmentDetailsPage(),
+          AppointmentEditPage.routeName: (context) => AppointmentEditPage()
         },
         title: 'Flutter Demo',
         theme: ThemeData(

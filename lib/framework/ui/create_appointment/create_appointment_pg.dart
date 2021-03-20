@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_docere/domain/extensions.dart';
 import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/day.dart';
 import 'package:project_docere/domain/models/doctor.dart';
@@ -176,11 +177,10 @@ class _HourSectionState extends State<HourSection> {
               onDateChanged: (date) {
                 setState(() {
                   _selectedHour = null;
-                  _selectedDay = calendarStatus.data.days.firstWhere(
-                      (element) =>
-                          element.id ==
-                          date.difference(DateTime(2021, 1, 1, 0, 0)).inDays,
-                      orElse: () => null);
+                  _selectedDay = calendarStatus.data.days
+                      .firstWhere((element) => element.id == date.dayOfYear,
+                          // date.difference(DateTime(2021, 1, 1, 0, 0)).inDays,
+                          orElse: () => null);
                   _selectedDateTime = date;
                 });
               },

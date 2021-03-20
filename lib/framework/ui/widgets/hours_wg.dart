@@ -8,7 +8,8 @@ class HoursWidget extends StatelessWidget {
   final DaySlot selectedHour;
   final Function(DaySlot) onTap;
 
-  HoursWidget({@required this.day, this.selectedHour, @required this.onTap});
+  HoursWidget({@required this.day, this.selectedHour, @required this.onTap})
+      : super(key: UniqueKey());
 
   @override
   Widget build(BuildContext context) {

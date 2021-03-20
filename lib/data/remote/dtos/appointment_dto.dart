@@ -66,7 +66,7 @@ class AppointmentDTO {
       MapEntry(_keyPatientReference, patientReference),
       MapEntry(_keyCenterReference, centerInfo.toJson(firestore)),
       MapEntry(_keySecretaryReference, secretary.toJson()),
-      MapEntry(_keyDoctorReference, doctor.toJson()),
+      MapEntry(_keyDoctorReference, doctor.toJson(firestore)),
       MapEntry(_keyStatus, status)
     ]);
   }

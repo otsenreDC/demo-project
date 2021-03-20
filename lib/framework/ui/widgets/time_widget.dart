@@ -26,9 +26,9 @@ class TimeWidget extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              inOrderOfArrival
+              inOrderOfArrival == true
                   ? "Oden de llegada"
-                  : DateTimeHelper.format(time, pattern: "hh:mm a"),
+                  : DateTimeHelper.format(time, pattern: "h  :  mm   a"),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.white,

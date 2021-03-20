@@ -51,8 +51,9 @@ class DoctorDTO {
         centerInfo: this.centerInfo?.map((c) => c.toDomain())?.toList());
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(FirebaseFirestore firestore) {
     return Map.fromEntries([
+      MapEntry(_keyIdReference, firestore.doc(idReference)),
       MapEntry(_keyName, name),
       MapEntry(_keyLastName, lastName),
       MapEntry(_keySpecialty, specialty),

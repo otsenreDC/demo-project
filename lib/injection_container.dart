@@ -9,10 +9,12 @@ import 'package:project_docere/domain/repositories/patient/appointment_repositor
 import 'package:project_docere/domain/repositories/patient/doctor_repository.dart';
 import 'package:project_docere/domain/repositories/patient/patient_repository.dart';
 import 'package:project_docere/domain/use_cases/appointments/change_appointment_status_uc.dart';
+import 'package:project_docere/domain/use_cases/appointments/change_appointment_time.dart';
 import 'package:project_docere/domain/use_cases/appointments/create_appointment_uc.dart';
 import 'package:project_docere/domain/use_cases/appointments/get_appointments_uc.dart';
 import 'package:project_docere/domain/use_cases/doctors/get_current_calendar_uc.dart';
 import 'package:project_docere/domain/view_models/appointments/appointment_details_vm.dart';
+import 'package:project_docere/domain/view_models/appointments/appointment_edit_vm.dart';
 import 'package:project_docere/domain/view_models/appointments/confirm_appointment_vm.dart';
 import 'package:project_docere/framework/helpers/network_info_helper.dart';
 import 'package:project_docere/framework/ui/doctors/doctor_list_vm.dart';
@@ -63,6 +65,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => CreateAppointmentUseCase(sl(), sl()));
   sl.registerLazySingleton(() => GetAppointmentsUseCase(sl()));
   sl.registerLazySingleton(() => ChangeAppointmentStatusUseCase(sl()));
+  sl.registerLazySingleton(() => ChangeAppointmentTimeUseCase(sl(), sl()));
 
   // View models
   sl.registerFactory(() => DoctorListViewModel(sl()));
@@ -70,6 +73,7 @@ Future<void> init() async {
   sl.registerFactory(() => ConfirmAppointmentViewModel(sl()));
   sl.registerFactory(() => AppointmentListViewModel(sl()));
   sl.registerFactory(() => AppointmentDetailsViewModel(sl()));
+  sl.registerFactory(() => AppointmentEditViewModel(sl(), sl()));
   // Core
 
   // External

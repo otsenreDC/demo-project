@@ -1,4 +1,5 @@
 import 'package:either_option/either_option.dart';
+import 'package:project_docere/domain/helpers/appointment_helper.dart';
 import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/day.dart';
 import 'package:project_docere/domain/models/doctor.dart';
@@ -35,7 +36,7 @@ class CreateAppointmentUseCase {
       doctor,
       secretary,
       patientProfileReference,
-      inOrderOfArrival ? "order" : "hour",
+      AppointmentHelper.attentionOrder(inOrderOfArrival),
       _appointmentAtDate(slot, selectedDateTime),
       "",
     );
@@ -60,6 +61,8 @@ class CreateAppointmentUseCase {
   }
 
   DateTime _appointmentAtDate(DaySlot hour, DateTime day) {
+    if (hour.inOrderOfArrival) return null;
+
     final slotDateTime = hour.startInDateTime();
     final appointmentAt = DateTime(
       day.year,

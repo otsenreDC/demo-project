@@ -28,6 +28,12 @@ abstract class IAppointmentRepository {
     String appointmentReference,
     AppointmentStatus newStatus,
   );
+
+  Future<Either<Failure, bool>> updateTime(
+    String appointmentReference,
+    Timestamp appointmentAt,
+    String attentionOrder,
+  );
 }
 
 class AppointmentRepository implements IAppointmentRepository {
@@ -87,6 +93,25 @@ class AppointmentRepository implements IAppointmentRepository {
       final result = await dataStore.updateStatus(
         appointmentReference,
         newStatus.string(),
+      );
+
+      return result;
+    } catch (e) {
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateTime(
+    String appointmentReference,
+    Timestamp appointmentAt,
+    String attentionOrder,
+  ) async {
+    try {
+      final result = await dataStore.updateTime(
+        appointmentReference,
+        appointmentAt,
+        attentionOrder,
       );
 
       return result;

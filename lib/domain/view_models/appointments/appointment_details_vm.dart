@@ -13,6 +13,10 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
     this._appointment = appointment;
   }
 
+  Appointment get getAppointment {
+    return _appointment;
+  }
+
   String get doctorName {
     return _appointment?.doctor?.fullName;
   }
@@ -43,6 +47,10 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
 
   String get secretaryPhone {
     return _appointment?.secretary?.phone;
+  }
+
+  bool get isAttentionOrderInOrderOfArrival {
+    return _appointment?.isAttentionOnOrderOfArrival == true;
   }
 
   bool get canBeCheckedIn {

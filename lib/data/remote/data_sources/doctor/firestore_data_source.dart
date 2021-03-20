@@ -73,7 +73,10 @@ class DoctorFirestoreDataSource extends IDoctorRemoteDataSource {
     final slots = day.daySlots;
     final slotToUpdate =
         slots.firstWhere((child) => child.start == daySlot.start);
-    slotToUpdate.taken = true;
+
+    slotToUpdate.appointmentReference = daySlot.appointmentReference;
+    slotToUpdate.taken = daySlot.taken;
+    slotToUpdate.start = daySlot.start;
 
     try {
       await _firestore

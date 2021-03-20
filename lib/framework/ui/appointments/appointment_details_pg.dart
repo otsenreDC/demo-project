@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/domain/models/appointment.dart';
 import 'package:project_docere/domain/view_models/appointments/appointment_details_vm.dart';
+import 'package:project_docere/framework/ui/appointments/appointment_edit_pg.dart';
 import 'package:project_docere/framework/ui/widgets/doctor_card_wg.dart';
 import 'package:project_docere/framework/ui/widgets/round_text_wg.dart';
 import 'package:project_docere/framework/ui/widgets/secretary_card.dart';
@@ -41,7 +42,7 @@ class AppointmentDetailsPage extends StatelessWidget {
                 DoctorCardWidget(doctor: viewModel.doctor),
                 TimeWidget(
                   time: viewModel.timeToStart,
-                  inOrderOfArrival: false,
+                  inOrderOfArrival: viewModel.isAttentionOrderInOrderOfArrival,
                 ),
                 SimpleCenterCard(
                     name: viewModel.centerName,
@@ -95,7 +96,17 @@ class AppointmentDetailsPage extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(left: 30, right: 30),
                   child: ElevatedButton(
-                    onPressed: viewModel.canBeEdited ? () {} : null,
+                    onPressed: viewModel.canBeEdited
+                        ? () {
+                            Navigator.pushNamed(
+                              context,
+                              AppointmentEditPage.routeName,
+                              arguments: AppointmentEditArguments(
+                                viewModel.getAppointment,
+                              ),
+                            );
+                          }
+                        : null,
                     child: Text("Editar"),
                   ),
                 ),
