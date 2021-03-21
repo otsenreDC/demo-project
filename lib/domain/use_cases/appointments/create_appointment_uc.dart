@@ -4,6 +4,7 @@ import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/day.dart';
 import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/failure.dart';
+import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/models/secretary.dart';
 import 'package:project_docere/domain/repositories/patient/appointment_repository.dart';
 import 'package:project_docere/domain/repositories/patient/doctor_repository.dart';
@@ -25,7 +26,7 @@ class CreateAppointmentUseCase {
     Doctor doctor,
     String calendarReference,
     Secretary secretary,
-    String patientProfileReference,
+    Patient patient,
     bool inOrderOfArrival,
     Day day,
     DaySlot slot,
@@ -35,7 +36,7 @@ class CreateAppointmentUseCase {
       centerInfo,
       doctor,
       secretary,
-      patientProfileReference,
+      patient,
       AppointmentHelper.attentionOrder(inOrderOfArrival),
       _appointmentAtDate(slot, selectedDateTime),
       "",

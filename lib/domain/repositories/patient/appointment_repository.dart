@@ -3,12 +3,14 @@ import 'package:either_option/either_option.dart';
 import 'package:project_docere/data/remote/dtos/appointment_dto.dart';
 import 'package:project_docere/data/remote/dtos/center_dto.dart';
 import 'package:project_docere/data/remote/dtos/doctor_dto.dart';
+import 'package:project_docere/data/remote/dtos/patient_dto.dart';
 import 'package:project_docere/data/remote/dtos/secretary_dto.dart';
 import 'package:project_docere/domain/data_sources/appointments_data_source.dart';
 import 'package:project_docere/domain/models/appointment.dart';
 import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/failure.dart';
+import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/models/secretary.dart';
 
 abstract class IAppointmentRepository {
@@ -16,7 +18,7 @@ abstract class IAppointmentRepository {
     CenterInfo centerInfo,
     Doctor doctor,
     Secretary secretary,
-    String patientReference,
+    Patient patient,
     String attentionOrder,
     DateTime appointmentAt,
     String comments,
@@ -49,7 +51,7 @@ class AppointmentRepository implements IAppointmentRepository {
     CenterInfo centerInfo,
     Doctor doctor,
     Secretary secretary,
-    String patientReference,
+    Patient patient,
     String attentionOrder,
     DateTime appointmentAt,
     String comments,
@@ -62,7 +64,7 @@ class AppointmentRepository implements IAppointmentRepository {
       centerInfo: CenterInfoDTO.fromDomain(centerInfo),
       doctor: DoctorDTO.fromDomain(doctor),
       secretary: SecretaryDTO.fromDomain(secretary),
-      patientReference: patientReference,
+      patient: PatientDTO.fromDomain(patient),
       status: AppointmentStatus.scheduled.string(),
     );
     return dataStore.create(appointment);

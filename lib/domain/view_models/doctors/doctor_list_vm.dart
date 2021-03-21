@@ -34,9 +34,9 @@ class DoctorListViewModel extends ChangeNotifier {
 
   void _loadDoctors() async {
     if (_session.isPatient) {
-      final result = _getPatientDoctorsUseCase.execute('42');
+      final result = await _getPatientDoctorsUseCase.execute('42');
       if (result is List<Doctor>) {
-        _setDoctors = result as List<Doctor>;
+        _setDoctors = result;
       } else {
         _setDoctors = List.empty();
       }

@@ -30,9 +30,7 @@ class DoctorListPage extends StatelessWidget {
               {
                 return DoctorSecretaryCard(
                   doctor: _doctors[index],
-                  onTap: (Doctor doctor) {
-                    _navigateCreateAppointment(context, doctor);
-                  },
+                  onTap: null,
                 );
               }
             case Rol.Patient:

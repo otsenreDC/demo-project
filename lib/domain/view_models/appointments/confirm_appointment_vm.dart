@@ -4,6 +4,7 @@ import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/day.dart';
 import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/failure.dart';
+import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/models/ui_state.dart';
 import 'package:project_docere/domain/use_cases/appointments/create_appointment_uc.dart';
 
@@ -88,7 +89,11 @@ class ConfirmAppointmentViewModel extends ChangeNotifier {
             _doctor,
             _centerInfo.calendarReference,
             _centerInfo.secretaries.first,
-            "pacientes/1234",
+            Patient(
+              lastName: "Guzmán",
+              name: "Luis",
+              idReference: "pacientes/tiJAkHwEm1qh7wh4eEj2",
+            ),
             _daySlot.inOrderOfArrival,
             _day,
             _daySlot,

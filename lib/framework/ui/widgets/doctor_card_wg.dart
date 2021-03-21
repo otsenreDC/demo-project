@@ -80,7 +80,9 @@ class DoctorSecretaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(doctor),
+      onTap: () {
+        if (onTap != null) onTap(doctor);
+      },
       child: Card(
         margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
         elevation: 0,

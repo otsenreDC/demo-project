@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/data/remote/dtos/center_dto.dart';
 import 'package:project_docere/data/remote/dtos/doctor_dto.dart';
+import 'package:project_docere/data/remote/dtos/patient_dto.dart';
 import 'package:project_docere/data/remote/dtos/secretary_dto.dart';
 import 'package:project_docere/domain/models/appointment.dart';
 
@@ -12,7 +13,7 @@ final String _keyCreatedAt = "createdAt";
 final String _keyCenterReference = "centerInfo";
 final String _keyDoctor = "doctor";
 final String _keyDoctorReference = "doctorReference";
-final String _keyPatientReference = "patient";
+final String _keyPatient = "patient";
 final String _keySecretaryReference = "secretary";
 final String _keyStatus = "status";
 
@@ -24,7 +25,7 @@ class AppointmentDTO {
   Timestamp createdAt;
   CenterInfoDTO centerInfo;
   DoctorDTO doctor;
-  String patientReference;
+  PatientDTO patient;
   SecretaryDTO secretary;
   String status;
 
@@ -35,7 +36,7 @@ class AppointmentDTO {
       @required this.createdAt,
       @required this.centerInfo,
       @required this.doctor,
-      @required this.patientReference,
+      @required this.patient,
       @required this.secretary,
       @required this.status});
 
@@ -45,8 +46,7 @@ class AppointmentDTO {
         comments: json[_keyComments],
         appointmentAt: json[_keyAppointmentAt],
         createdAt: json[_keyCreatedAt],
-        patientReference:
-            (json[_keyPatientReference] as DocumentReference)?.path,
+        patient: PatientDTO.fromJson(json[_keyPatient]),
         centerInfo: CenterInfoDTO.fromJson(json[_keyCenterReference]),
         doctor: DoctorDTO.fromJson(null, json[_keyDoctor]),
         secretary: SecretaryDTO.fromJson(json[_keySecretaryReference]),
@@ -54,28 +54,23 @@ class AppointmentDTO {
   }
 
   Map<String, dynamic> toJson(FirebaseFirestore firestore) {
-    final patientReference =
-        (this.patientReference != null && this.patientReference.isNotEmpty
-            ? firestore.doc(this.patientReference)
-            : null);
-
     return Map.fromEntries([
       MapEntry(_keyAttentionOrder, attentionOrder),
       MapEntry(_keyComments, comments),
       MapEntry(_keyAppointmentAt, appointmentAt),
       MapEntry(_keyCreatedAt, createdAt),
-      MapEntry(_keyPatientReference, patientReference),
+      MapEntry(_keyPatient, patient.toJson(firestore)),
       MapEntry(_keyCenterReference, centerInfo.toJson(firestore)),
       MapEntry(_keySecretaryReference, secretary.toJson()),
       MapEntry(_keyDoctor, doctor.toJson(firestore)),
-      MapEntry(_keyDoctorReference, doctor.idReference),
+      MapEntry(_keyDoctorReference, firestore.doc(doctor.idReference)),
       MapEntry(_keyStatus, status)
     ]);
   }
 
   Appointment toDomain() => Appointment(
       appointmentReference: appointmentReference,
-      patientReference: patientReference,
+      patient: patient.toDomain(),
       secretary: secretary.toDomain(),
       doctor: doctor.toDomain(),
       centerInfo: centerInfo.toDomain(),

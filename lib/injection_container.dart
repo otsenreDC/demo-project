@@ -33,7 +33,8 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   // Session
-  final _currentTestSession = SecretarySessionTmp();
+  final _currentTestSession = //PatientSessionTmp();
+      SecretarySessionTmp();
   sl.registerLazySingleton<Session>(
     () => _currentTestSession,
   );

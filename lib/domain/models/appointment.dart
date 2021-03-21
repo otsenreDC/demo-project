@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/models/secretary.dart';
 
 import 'center_info.dart';
@@ -12,7 +13,7 @@ class Appointment {
   Timestamp createdAt;
   CenterInfo centerInfo;
   Doctor doctor;
-  String patientReference;
+  Patient patient;
   Secretary secretary;
   AppointmentStatus status = AppointmentStatus.scheduled;
 
@@ -22,7 +23,7 @@ class Appointment {
     this.doctor,
     this.secretary,
     this.centerInfo,
-    this.patientReference,
+    this.patient,
     this.createdAt,
     this.comments,
     this.attentionOrder,
