@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_docere/domain/extensions.dart';
 import 'package:project_docere/domain/models/appointment.dart';
 import 'package:project_docere/domain/view_models/appointments/appointment_list_secretary_vm.dart';
-import 'package:project_docere/framework/ui/appointments/patient/appointment_details_pg.dart';
+import 'package:project_docere/framework/ui/appointments/secretary/appointment_secretary_details_pg.dart';
 import 'package:project_docere/framework/ui/widgets/doctor_card_wg.dart';
 import 'package:project_docere/injection_container.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +42,10 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Divider(),
+                Divider(
+                  height: 30,
+                  color: Colors.black54,
+                ),
                 viewModel.appointmentCount == 0
                     ? Text("Doctor no seleccionado")
                     : ListView.builder(
@@ -54,9 +57,9 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                             onTap: () {
                               Navigator.pushNamed(
                                 context,
-                                AppointmentDetailsPage.routeName,
-                                arguments: AppointmentDetailsArguments(
-                                  appointment: viewModel.appointmentAt(0),
+                                AppointmentSecretaryDetailsPage.routeName,
+                                arguments: AppointmentSecretaryDetailsArguments(
+                                  appointment: viewModel.appointmentAt(index),
                                 ),
                               );
                             },

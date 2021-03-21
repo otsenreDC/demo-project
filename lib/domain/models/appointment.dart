@@ -49,6 +49,7 @@ enum AppointmentStatus {
   checkedIn,
   scheduled,
   confirmed,
+  inMedicalConsultation,
   undetermined
 }
 
@@ -66,6 +67,9 @@ extension AppointmentStatusString on AppointmentStatus {
     if (this.index == AppointmentStatus.confirmed.index) {
       return "CONFIRMED";
     }
+    if (this.index == AppointmentStatus.inMedicalConsultation.index) {
+      return "IN_MEDICAL_CONSULTATION";
+    }
     return "UNDETERMINED";
   }
 }
@@ -82,6 +86,9 @@ AppointmentStatus appointmentStatusFromString(String status) {
   }
   if (status == "CONFIRMED") {
     return AppointmentStatus.confirmed;
+  }
+  if (status == "IN_MEDICAL_CONSULTATION") {
+    return AppointmentStatus.inMedicalConsultation;
   }
   return AppointmentStatus.undetermined;
 }
