@@ -5,8 +5,13 @@ import 'package:project_docere/domain/models/doctor.dart';
 class DoctorPatientCard extends StatelessWidget {
   final Doctor doctor;
   final Function(Doctor) onTap;
+  final bool isSelected;
 
-  DoctorPatientCard({@required this.doctor, this.onTap});
+  DoctorPatientCard({
+    @required this.doctor,
+    this.onTap,
+    this.isSelected = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class DoctorPatientCard extends StatelessWidget {
             15,
           ),
         ),
-        color: Colors.grey[200],
+        color: isSelected ? Colors.lightBlueAccent[200] : Colors.grey[200],
         child: Row(
           children: [
             Padding(
@@ -64,8 +69,13 @@ class DoctorPatientCard extends StatelessWidget {
 class DoctorSecretaryCard extends StatelessWidget {
   final Doctor doctor;
   final Function(Doctor) onTap;
+  final bool isSelected;
 
-  DoctorSecretaryCard({@required this.doctor, this.onTap});
+  DoctorSecretaryCard({
+    @required this.doctor,
+    this.onTap,
+    this.isSelected = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +89,7 @@ class DoctorSecretaryCard extends StatelessWidget {
             15,
           ),
         ),
-        color: Colors.lightBlue[200],
+        color: isSelected ? Colors.lightBlueAccent[200] : Colors.grey[200],
         child: Row(
           children: [
             Padding(
@@ -94,7 +104,7 @@ class DoctorSecretaryCard extends StatelessWidget {
             ),
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(

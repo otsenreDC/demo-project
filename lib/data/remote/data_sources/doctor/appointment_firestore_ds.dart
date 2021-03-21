@@ -65,6 +65,35 @@ class AppointmentFirestoreDataStore implements IAppointmentRemoteDataSource {
   }
 
   @override
+  Future<Either<Failure, List<AppointmentDTO>>> listByDoctor(
+    String doctorReference,
+  ) async {
+    try {
+      final reference = _firestore.collection(_collectionAppointments);
+      final query = reference.where(
+        "doctorReference",
+        isEqualTo: _firestore.doc(doctorReference),
+      );
+      final QuerySnapshot result = await query.get();
+
+      final appointments = result.docs.map(
+        (json) {
+          final appointment = AppointmentDTO.fromJson(
+            json.data(),
+          );
+
+          appointment.appointmentReference = "citas/${json.id}";
+          return appointment;
+        },
+      ).toList();
+
+      return Right(appointments);
+    } catch (e) {
+      return Left(Failure());
+    }
+  }
+
+  @override
   Future<Either<Failure, bool>> updateStatus(
     String appointmentReference,
     String newStatus,

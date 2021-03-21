@@ -10,7 +10,8 @@ final String _keyAttentionOrder = "attentionOrder";
 final String _keyComments = "comments";
 final String _keyCreatedAt = "createdAt";
 final String _keyCenterReference = "centerInfo";
-final String _keyDoctorReference = "doctor";
+final String _keyDoctor = "doctor";
+final String _keyDoctorReference = "doctorReference";
 final String _keyPatientReference = "patient";
 final String _keySecretaryReference = "secretary";
 final String _keyStatus = "status";
@@ -47,7 +48,7 @@ class AppointmentDTO {
         patientReference:
             (json[_keyPatientReference] as DocumentReference)?.path,
         centerInfo: CenterInfoDTO.fromJson(json[_keyCenterReference]),
-        doctor: DoctorDTO.fromJson(null, json[_keyDoctorReference]),
+        doctor: DoctorDTO.fromJson(null, json[_keyDoctor]),
         secretary: SecretaryDTO.fromJson(json[_keySecretaryReference]),
         status: json[_keyStatus]);
   }
@@ -66,7 +67,8 @@ class AppointmentDTO {
       MapEntry(_keyPatientReference, patientReference),
       MapEntry(_keyCenterReference, centerInfo.toJson(firestore)),
       MapEntry(_keySecretaryReference, secretary.toJson()),
-      MapEntry(_keyDoctorReference, doctor.toJson(firestore)),
+      MapEntry(_keyDoctor, doctor.toJson(firestore)),
+      MapEntry(_keyDoctorReference, doctor.idReference),
       MapEntry(_keyStatus, status)
     ]);
   }

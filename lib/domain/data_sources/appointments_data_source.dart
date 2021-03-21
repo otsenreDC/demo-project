@@ -6,6 +6,10 @@ import 'package:project_docere/domain/models/failure.dart';
 abstract class IAppointmentDataSource {
   Future<Either<Failure, List<AppointmentDTO>>> list();
 
+  Future<Either<Failure, List<AppointmentDTO>>> listByDoctor(
+    String doctorReference,
+  );
+
   Future<Either<Failure, String>> create(
     AppointmentDTO appointmentDTO,
   );

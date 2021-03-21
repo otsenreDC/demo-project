@@ -2,16 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:project_docere/domain/models/appointment.dart';
 import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/session.dart';
-import 'package:project_docere/domain/use_cases/appointments/get_appointments_uc.dart';
+import 'package:project_docere/domain/use_cases/doctors/get_doctor_appointments_uc.dart';
 import 'package:project_docere/domain/use_cases/doctors/get_secretary_doctors_uc.dart';
 
 class AppointmentListSecretaryViewModel extends ChangeNotifier {
   Session _session;
-  GetAppointmentsUseCase _appointmentsUseCase;
+  GetDoctorAppointmentsUseCase _getDoctorAppointmentsUseCase;
   GetSecretaryDoctorUseCase _getSecretaryDoctorUseCase;
 
   List<Appointment> _appointments;
   List<Doctor> _doctors;
+  int _selectedDoctorPosition = 0;
 
   set _setAppointments(List<Appointment> appointments) {
     _appointments = appointments;
@@ -28,6 +29,9 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
 
   set _setDoctors(List<Doctor> doctors) {
     _doctors = doctors;
+    if (doctors.isNotEmpty) {
+      _loadAppointments(doctors.first.idReference);
+    }
     notifyListeners();
   }
 
@@ -39,8 +43,16 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
     return _doctors == null ? 0 : _doctors.length;
   }
 
+  set setSelectedDoctor(int position) {
+    _selectedDoctorPosition = position;
+    notifyListeners();
+  }
+
+  int get getSelectedDoctorPosition {
+    return _selectedDoctorPosition;
+  }
+
   void init() {
-    // _loadAppointments();
     _loadDoctors();
   }
 
@@ -62,12 +74,12 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
 
   AppointmentListSecretaryViewModel(
     this._session,
-    this._appointmentsUseCase,
+    this._getDoctorAppointmentsUseCase,
     this._getSecretaryDoctorUseCase,
   );
 
   void _loadAppointments(String doctorReference) async {
-    final result = await _appointmentsUseCase.execute();
+    final result = await _getDoctorAppointmentsUseCase.execute(doctorReference);
 
     result.fold(
       (failure) => null,

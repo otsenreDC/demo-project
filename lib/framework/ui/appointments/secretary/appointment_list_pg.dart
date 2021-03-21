@@ -26,15 +26,17 @@ class AppointmentListSecretaryPage extends StatelessWidget {
               children: [
                 Container(
                   width: double.infinity,
-                  height: 100,
+                  height: 90,
                   child: Center(
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: viewModel.doctorsCount,
                       itemBuilder: (context, index) => Container(
                         width: 300,
-                        child: DoctorPatientCard(
+                        child: DoctorSecretaryCard(
                           doctor: viewModel.doctorAt(index),
+                          isSelected:
+                              viewModel.getSelectedDoctorPosition == index,
                         ),
                       ),
                     ),
