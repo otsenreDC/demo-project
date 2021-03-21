@@ -49,6 +49,20 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
     return _appointment?.secretary?.phone;
   }
 
+  PatientDetails get patientDetails {
+    return PatientDetails(
+      _appointment?.patient?.fullName,
+      "(888) 555-1234",
+      "000-1234567-8",
+      "01/01/1970",
+      "Santiago",
+    );
+  }
+
+  String get appointmentStatus {
+    return _appointment?.status?.readable();
+  }
+
   bool get isAttentionOrderInOrderOfArrival {
     return _appointment?.isAttentionOnOrderOfArrival == true;
   }
@@ -58,11 +72,16 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
   }
 
   bool get canBeCancelled {
-    return _appointment?.isCancelled == false;
+    return _appointment?.isScheduled == true ||
+        _appointment?.isCheckedIn == true;
   }
 
   bool get canBeEdited {
     return _appointment?.isScheduled == true;
+  }
+
+  bool get canLetThePatientPass {
+    return _appointment?.isCheckedIn == true;
   }
 
   void checkIn() async {
@@ -71,6 +90,17 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
 
     result.fold((failure) => _handleError(),
         (success) => success ? _setChecked() : _handleError());
+  }
+
+  void letThePatientSeeTheDoctor() async {
+    final result = await _changeAppointmentStatusUseCase.execute(
+        _appointment.appointmentReference,
+        AppointmentStatus.inMedicalConsultation);
+
+    result.fold(
+      (failure) => _handleError(),
+      (success) => success ? _setInMedicalConsultation() : _handleError(),
+    );
   }
 
   void cancel() async {
@@ -88,10 +118,31 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void _setInMedicalConsultation() {
+    _appointment.status = AppointmentStatus.inMedicalConsultation;
+    notifyListeners();
+  }
+
   void _setCanceled() {
     _appointment.status = AppointmentStatus.cancelled;
     notifyListeners();
   }
 
   void _handleError() {}
+}
+
+class PatientDetails {
+  final String name;
+  final String phone;
+  final String personalId;
+  final String birthday;
+  final String city;
+
+  PatientDetails(
+    this.name,
+    this.phone,
+    this.personalId,
+    this.birthday,
+    this.city,
+  );
 }

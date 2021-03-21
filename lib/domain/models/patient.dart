@@ -4,4 +4,6 @@ class Patient {
   String lastName;
 
   Patient({this.idReference, this.name, this.lastName});
+
+  String get fullName => "$name $lastName";
 }

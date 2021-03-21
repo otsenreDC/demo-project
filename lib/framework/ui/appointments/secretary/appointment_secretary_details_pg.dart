@@ -36,8 +36,8 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
           builder: (_, viewModel, __) {
             return ListView(
               children: [
-                Text("Nombre del paciente"),
-                Text("Status de la cita"),
+                Text(viewModel.patientDetails.name),
+                Text(viewModel.appointmentStatus),
                 TimeWidget(
                   time: viewModel.timeToStart,
                   inOrderOfArrival: viewModel.isAttentionOrderInOrderOfArrival,
@@ -59,14 +59,14 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.all(8),
-                  margin: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                  margin: EdgeInsets.fromLTRB(60, 10, 60, 10),
                   color: Colors.grey,
                   child: Column(
                     children: [
-                      Text("888 777 1234"),
-                      Text("000-7287874-7"),
-                      Text("01/01/2020"),
-                      Text("Santiago, Rep. Dom.")
+                      Text(viewModel.patientDetails.phone),
+                      Text(viewModel.patientDetails.personalId),
+                      Text(viewModel.patientDetails.birthday),
+                      Text(viewModel.patientDetails.city)
                     ],
                   ),
                 ),
@@ -80,7 +80,11 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(left: 30, right: 30),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: viewModel.canLetThePatientPass
+                        ? () {
+                            viewModel.letThePatientSeeTheDoctor();
+                          }
+                        : null,
                     child: Text("Hacerlo pasar"),
                   ),
                 ),

@@ -73,6 +73,25 @@ extension AppointmentStatusString on AppointmentStatus {
     }
     return "UNDETERMINED";
   }
+
+  String readable() {
+    if (this.index == AppointmentStatus.cancelled.index) {
+      return "Cancleada";
+    }
+    if (this.index == AppointmentStatus.checkedIn.index) {
+      return "Registrado";
+    }
+    if (this.index == AppointmentStatus.scheduled.index) {
+      return "Agendado";
+    }
+    if (this.index == AppointmentStatus.confirmed.index) {
+      return "Confirmado";
+    }
+    if (this.index == AppointmentStatus.inMedicalConsultation.index) {
+      return "En consulta";
+    }
+    return "Indeterminado";
+  }
 }
 
 AppointmentStatus appointmentStatusFromString(String status) {
