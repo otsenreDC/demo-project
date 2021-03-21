@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project_docere/framework/ui/appointments/appointment_details_pg.dart';
+import 'package:project_docere/framework/ui/appointments/patient/appointment_details_pg.dart';
 import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
 import 'package:provider/provider.dart';
 
-import 'framework/ui/appointments/appointment_edit_pg.dart';
-import 'framework/ui/doctors/doctor_list_vm.dart';
+import 'domain/view_models/doctors/doctor_list_vm.dart';
+import 'framework/ui/appointments/patient/appointment_edit_pg.dart';
 import 'framework/ui/home/home_pg.dart';
 import 'injection_container.dart';
 

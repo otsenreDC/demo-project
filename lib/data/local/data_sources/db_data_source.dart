@@ -39,7 +39,13 @@ class DoctorDatabaseDataSource extends IDoctorLocalDataSource {
 
   @override
   Future<Either<Failure, bool>> updateDaySlot(String doctorIdReference,
-      String calendarIdReference, DayDTO day, DaySlotDTO daySlot) {
-    return Future.value(Right(true));
+      String calendarIdReference, DayDTO day, DaySlotDTO daySlot) async {
+    return Left(Failure());
+  }
+
+  @override
+  Future<Either<Failure, List<Doctor>>> getSecretaryDoctors(
+      String secretaryReference) async {
+    return Left(Failure());
   }
 }

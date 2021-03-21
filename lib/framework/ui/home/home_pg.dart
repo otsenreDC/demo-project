@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:project_docere/framework/ui/appointments/appointment_list_pg.dart';
+import 'package:project_docere/domain/models/session.dart';
+import 'package:project_docere/domain/view_models/doctors/doctor_list_vm.dart';
+import 'package:project_docere/framework/ui/appointments/patient/appointment_list_pg.dart';
+import 'package:project_docere/framework/ui/appointments/secretary/appointment_list_pg.dart';
 import 'package:project_docere/framework/ui/doctors/doctor_list_pg.dart';
 import 'package:project_docere/framework/ui/widgets/expanded_app_bar.dart';
+import 'package:provider/provider.dart';
 
 class Destination {
   const Destination(this.index, this.title, this.icon);
@@ -21,6 +25,7 @@ const List<Destination> allDestinations = <Destination>[
 
 class HomePage extends StatefulWidget {
   static final String routeName = "/";
+
   @override
   State createState() {
     return _HomePageState();
@@ -43,7 +48,16 @@ class _HomePageState extends State<HomePage>
   Widget _getPage(int index) {
     switch (index) {
       case 1:
-        return AppointmentListPage();
+        {
+          final rol = Provider.of<DoctorListViewModel>(context).sessionRol;
+          Widget to;
+          if (rol == Rol.Secretary)
+            to = AppointmentListSecretaryPage();
+          else
+            to = AppointmentListPage();
+
+          return to;
+        }
       case 2:
         return Container(color: Colors.purple);
       default:

@@ -2,40 +2,70 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/domain/extensions.dart';
 import 'package:project_docere/domain/models/appointment.dart';
-import 'package:project_docere/domain/view_models/appointments/appointment_list_vm.dart';
-import 'package:project_docere/framework/ui/appointments/appointment_details_pg.dart';
+import 'package:project_docere/domain/view_models/appointments/appointment_list_secretary_vm.dart';
+import 'package:project_docere/framework/ui/appointments/patient/appointment_details_pg.dart';
+import 'package:project_docere/framework/ui/widgets/doctor_card_wg.dart';
 import 'package:project_docere/injection_container.dart';
 import 'package:provider/provider.dart';
 
-class AppointmentListPage extends StatelessWidget {
+class AppointmentListSecretaryPage extends StatelessWidget {
+  static String routeName = "appointments/secretary";
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) {
-        final viewModel = sl<AppointmentListViewModel>();
-        viewModel.loadAppointments();
+        final viewModel = sl<AppointmentListSecretaryViewModel>();
+        viewModel.init();
         return viewModel;
       },
-      child: Consumer<AppointmentListViewModel>(
+      child: Consumer<AppointmentListSecretaryViewModel>(
         builder: (_, viewModel, __) {
-          return ListView.builder(
-            itemCount: viewModel.appointmentCount,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    AppointmentDetailsPage.routeName,
-                    arguments: AppointmentDetailsArguments(
-                      appointment: viewModel.appointmentAt(index),
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  child: Center(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: viewModel.doctorsCount,
+                      itemBuilder: (context, index) => Container(
+                        width: 300,
+                        child: DoctorPatientCard(
+                          doctor: viewModel.doctorAt(index),
+                        ),
+                      ),
                     ),
-                  );
-                },
-                child: AppointmentCard.fromAppointment(
-                  viewModel.appointmentAt(index),
+                  ),
                 ),
-              );
-            },
+                Divider(),
+                viewModel.appointmentCount == 0
+                    ? Text("Doctor no seleccionado")
+                    : ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: viewModel.appointmentCount,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                AppointmentDetailsPage.routeName,
+                                arguments: AppointmentDetailsArguments(
+                                  appointment: viewModel.appointmentAt(0),
+                                ),
+                              );
+                            },
+                            child: AppointmentCard.fromAppointment(
+                              viewModel.appointmentAt(0),
+                            ),
+                          );
+                        },
+                      ),
+              ],
+            ),
           );
         },
       ),

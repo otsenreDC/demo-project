@@ -90,4 +90,33 @@ class DoctorFirestoreDataSource extends IDoctorRemoteDataSource {
       return Left(Failure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<Doctor>>> getSecretaryDoctors(
+    String secretaryReference,
+  ) async {
+    try {
+      final doctorReference = _firestore.collection(_collectionDoctors);
+      final query = doctorReference.where("secretaryReferences",
+          arrayContains: _firestore.doc(secretaryReference));
+
+      final snapshot = await query.get();
+
+      Iterator<DocumentSnapshot> docs = snapshot.docs.iterator;
+
+      final List<Doctor> doctors = List.empty(growable: true);
+
+      while (docs.moveNext()) {
+        final currentId = docs.current.id;
+        final Map<String, dynamic> doctor = docs.current.data();
+        doctors.add(
+          DoctorDTO.fromJson(currentId, doctor).toDomain(),
+        );
+      }
+
+      return Right(doctors);
+    } catch (e) {
+      return Left(Failure());
+    }
+  }
 }

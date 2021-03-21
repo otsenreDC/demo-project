@@ -19,6 +19,10 @@ abstract class IDoctorDataSource {
     DayDTO day,
     DaySlotDTO daySlot,
   );
+
+  Future<Either<Failure, List<Doctor>>> getSecretaryDoctors(
+    String secretaryReference,
+  );
 }
 
 abstract class IDoctorRemoteDataSource extends IDoctorDataSource {}

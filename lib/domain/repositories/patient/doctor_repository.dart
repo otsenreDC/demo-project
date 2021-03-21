@@ -5,6 +5,7 @@ import 'package:project_docere/domain/data_sources/doctors_data_source.dart';
 import 'package:project_docere/domain/helpers/netork_info_helper.dart';
 import 'package:project_docere/domain/models/calendar.dart';
 import 'package:project_docere/domain/models/day.dart';
+import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/failure.dart';
 
 abstract class IDoctorRepository {
@@ -20,6 +21,10 @@ abstract class IDoctorRepository {
     String calendarIdReference,
     Day day,
     DaySlot daySlot,
+  );
+
+  Future<Either<Failure, List<Doctor>>> getSecretaryDoctors(
+    String secretaryReference,
   );
 }
 
@@ -85,6 +90,22 @@ class DoctorRepository extends IDoctorRepository {
         return Left(Failure());
       }
     } else {
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Doctor>>> getSecretaryDoctors(
+      String secretaryReference) async {
+    try {
+      final result = await remoteDataSource.getSecretaryDoctors(
+        secretaryReference,
+      );
+      return result.fold(
+        (failure) => Left(failure),
+        (doctors) => Right(doctors),
+      );
+    } catch (e) {
       return Left(Failure());
     }
   }

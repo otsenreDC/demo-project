@@ -90,7 +90,7 @@ class ConfirmAppointmentPage extends StatelessWidget
                           viewModel.appointmentSlot.inOrderOfArrival,
                     ),
                     Text("Doctor"),
-                    DoctorCardWidget(doctor: viewModel.doctor),
+                    DoctorPatientCard(doctor: viewModel.doctor),
                     Text("Centro Médico"),
                     SimpleCenterCard(
                         name: viewModel.centerName,
