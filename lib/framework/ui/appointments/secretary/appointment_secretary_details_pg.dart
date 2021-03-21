@@ -57,6 +57,19 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
                     ],
                   ),
                 ),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  margin: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                  color: Colors.grey,
+                  child: Column(
+                    children: [
+                      Text("888 777 1234"),
+                      Text("000-7287874-7"),
+                      Text("01/01/2020"),
+                      Text("Santiago, Rep. Dom.")
+                    ],
+                  ),
+                ),
                 DoctorPatientCard(doctor: viewModel.doctor),
                 SimpleCenterCard(
                     name: viewModel.centerName,
