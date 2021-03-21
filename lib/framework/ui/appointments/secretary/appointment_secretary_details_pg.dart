@@ -36,7 +36,10 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
           builder: (_, viewModel, __) {
             return ListView(
               children: [
-                Text(viewModel.patientDetails.name),
+                Text(
+                  viewModel.patientDetails.name,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
                 Text(viewModel.appointmentStatus),
                 TimeWidget(
                   time: viewModel.timeToStart,
