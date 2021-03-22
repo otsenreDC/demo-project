@@ -62,8 +62,6 @@ class CreateAppointmentUseCase {
   }
 
   DateTime _appointmentAtDate(DaySlot hour, DateTime day) {
-    if (hour.inOrderOfArrival) return null;
-
     final slotDateTime = hour.startInDateTime();
     final appointmentAt = DateTime(
       day.year,
