@@ -21,172 +21,76 @@ class AppointmentListSecretaryPage extends StatelessWidget {
       },
       child: Consumer<AppointmentListSecretaryViewModel>(
         builder: (_, viewModel, __) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 90,
-                  child: Center(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: viewModel.doctorsCount,
-                      itemBuilder: (context, index) => Container(
-                        width: 300,
-                        child: DoctorSecretaryCard(
-                          doctor: viewModel.doctorAt(index),
-                          isSelected:
-                              viewModel.getSelectedDoctorPosition == index,
+          return Stack(
+            children: [
+              SingleChildScrollView(
+                padding: EdgeInsets.only(bottom: 60),
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 90,
+                      child: Center(
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: viewModel.doctorsCount,
+                          itemBuilder: (context, index) => Container(
+                            width: 300,
+                            child: DoctorSecretaryCard(
+                              doctor: viewModel.doctorAt(index),
+                              isSelected:
+                                  viewModel.getSelectedDoctorPosition == index,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                Divider(
-                  height: 30,
-                  color: Colors.black54,
-                ),
-                viewModel.appointmentCount == 0
-                    ? Text("Doctor no seleccionado")
-                    : ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: viewModel.appointmentCount,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                AppointmentSecretaryDetailsPage.routeName,
-                                arguments: AppointmentSecretaryDetailsArguments(
-                                  appointment: viewModel.appointmentAt(index),
+                    Divider(
+                      height: 30,
+                      color: Colors.black54,
+                    ),
+                    viewModel.appointmentCount == 0
+                        ? Text("Doctor no seleccionado")
+                        : ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: 20, //viewModel.appointmentCount,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppointmentSecretaryDetailsPage.routeName,
+                                    arguments:
+                                        AppointmentSecretaryDetailsArguments(
+                                      appointment: viewModel.appointmentAt(0),
+                                    ),
+                                  );
+                                },
+                                child: SecretaryAppointmentCard.fromAppointment(
+                                  viewModel.appointmentAt(0),
                                 ),
                               );
                             },
-                            child: SecretaryAppointmentCard.fromAppointment(
-                              viewModel.appointmentAt(0),
-                            ),
-                          );
-                        },
-                      ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class PatientAppointmentCard extends StatelessWidget {
-  final String name;
-  final String doctorSpecialty;
-  final DateTime appointmentAt;
-  final bool isAttentionOrderHour;
-  final String centerName;
-
-  const PatientAppointmentCard({
-    Key key,
-    @required this.name,
-    @required this.doctorSpecialty,
-    @required this.appointmentAt,
-    @required this.isAttentionOrderHour,
-    @required this.centerName,
-  }) : super(key: key);
-
-  factory PatientAppointmentCard.fromAppointment(Appointment appointment) {
-    return PatientAppointmentCard(
-      name: appointment.doctor.fullName,
-      doctorSpecialty: appointment.doctor.specialty,
-      appointmentAt: appointment.appointmentAt.toDate(),
-      isAttentionOrderHour: appointment.isAttentionByHour,
-      centerName: appointment.centerInfo.name,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-          15,
-        ),
-      ),
-      color: Colors.grey[200],
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                margin: EdgeInsets.only(right: 8),
-                // color: Colors.indigo,
-                child: CircleAvatar(
-                  maxRadius: 25,
-                  minRadius: 25,
-                  backgroundImage: NetworkImage(
-                    "https://cdn2.iconfinder.com/data/icons/avatar-business-people-set-one/128/avatar-25-512.png",
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(doctorSpecialty),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        centerName,
-                        maxLines: 3,
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                width: 80,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                margin: EdgeInsets.only(left: 4, right: 4),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        isAttentionOrderHour
-                            ? DateTimeHelper.format(appointmentAt,
-                                pattern: DATE_FORMAT_TIME)
-                            : "Orden",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
+                          ),
                   ],
                 ),
               ),
+              Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(30, 8, 30, 8),
+                  width: double.infinity,
+                  color: Colors.white,
+                  child: OutlinedButton(
+                    onPressed: () {},
+                    child: Text("Nueva cita"),
+                  ),
+                ),
+              )
             ],
-          ),
-        ),
+          );
+        },
       ),
     );
   }

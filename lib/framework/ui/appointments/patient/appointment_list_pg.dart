@@ -31,7 +31,7 @@ class AppointmentListPage extends StatelessWidget {
                     ),
                   );
                 },
-                child: AppointmentCard.fromAppointment(
+                child: PatientAppointmentCard.fromAppointment(
                   viewModel.appointmentAt(index),
                 ),
               );
@@ -43,14 +43,14 @@ class AppointmentListPage extends StatelessWidget {
   }
 }
 
-class AppointmentCard extends StatelessWidget {
+class PatientAppointmentCard extends StatelessWidget {
   final String doctorName;
   final String doctorSpecialty;
   final DateTime appointmentAt;
   final bool isAttentionOrderHour;
   final String centerName;
 
-  const AppointmentCard({
+  const PatientAppointmentCard({
     Key key,
     @required this.doctorName,
     @required this.doctorSpecialty,
@@ -59,8 +59,8 @@ class AppointmentCard extends StatelessWidget {
     @required this.centerName,
   }) : super(key: key);
 
-  factory AppointmentCard.fromAppointment(Appointment appointment) {
-    return AppointmentCard(
+  factory PatientAppointmentCard.fromAppointment(Appointment appointment) {
+    return PatientAppointmentCard(
       doctorName: appointment.doctor.fullName,
       doctorSpecialty: appointment.doctor.specialty,
       appointmentAt: appointment.appointmentAt.toDate(),
