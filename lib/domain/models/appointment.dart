@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_docere/domain/models/insurance.dart';
 import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/models/secretary.dart';
 
@@ -16,6 +17,7 @@ class Appointment {
   Patient patient;
   Secretary secretary;
   AppointmentStatus status = AppointmentStatus.scheduled;
+  Insurance insurance;
 
   Appointment({
     this.appointmentReference,
@@ -43,6 +45,8 @@ class Appointment {
       attentionOrder == attentionOrderArrival;
 
   bool get isAttentionByHour => attentionOrder == attentionOrderHour;
+
+  bool get hasInsurance => insurance?.authorizationNumber != null;
 }
 
 enum AppointmentStatus {

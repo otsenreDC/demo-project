@@ -84,6 +84,12 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
     return _appointment?.isCheckedIn == true;
   }
 
+  bool get canAddInsurance {
+    return (_appointment?.isScheduled == true ||
+            _appointment?.isCheckedIn == true) &&
+        _appointment?.hasInsurance == false;
+  }
+
   void checkIn() async {
     final result = await _changeAppointmentStatusUseCase.execute(
         _appointment.appointmentReference, AppointmentStatus.checkedIn);

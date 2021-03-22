@@ -46,18 +46,25 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
                   inOrderOfArrival: viewModel.isAttentionOrderInOrderOfArrival,
                 ),
                 Text("Info del paciente"),
-                Container(
-                  child: Column(
-                    children: [
-                      Text("Seguro"),
-                      SizedBox(
-                        child: Container(
-                          color: Colors.grey,
+                GestureDetector(
+                  onTap: viewModel.canAddInsurance ? () {} : null,
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Text("Seguro"),
+                        SizedBox(
+                          child: Container(
+                            color: Colors.grey,
+                            child: Icon(
+                              Icons.image,
+                              size: 60,
+                            ),
+                          ),
+                          width: 280,
+                          height: 160,
                         ),
-                        width: 250,
-                        height: 100,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Container(
