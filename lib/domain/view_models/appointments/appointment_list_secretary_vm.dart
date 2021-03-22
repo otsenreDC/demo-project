@@ -52,6 +52,23 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
     return _selectedDoctorPosition;
   }
 
+  bool get canCreateAppointment {
+    return _selectedDoctorPosition != null &&
+        _doctors?.isNotEmpty == true &&
+        _selectedDoctorPosition >= 0 &&
+        _selectedDoctorPosition <= _doctors.length;
+  }
+
+  Doctor get getSelectedDoctor {
+    try {
+      return _selectedDoctorPosition == null
+          ? null
+          : _doctors[_selectedDoctorPosition];
+    } catch (e) {
+      return null;
+    }
+  }
+
   void init() {
     _loadDoctors();
   }

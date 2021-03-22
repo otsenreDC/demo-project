@@ -2,14 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/domain/extensions.dart';
 import 'package:project_docere/domain/models/appointment.dart';
+import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/view_models/appointments/appointment_list_secretary_vm.dart';
 import 'package:project_docere/framework/ui/appointments/secretary/appointment_secretary_details_pg.dart';
+import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
 import 'package:project_docere/framework/ui/widgets/doctor_card_wg.dart';
 import 'package:project_docere/injection_container.dart';
 import 'package:provider/provider.dart';
 
 class AppointmentListSecretaryPage extends StatelessWidget {
   static String routeName = "appointments/secretary";
+
+  void _navigateCreateAppointment(BuildContext context, Doctor doctor) {
+    Navigator.pushNamed(
+      context,
+      CreateAppointmentPage.routeName,
+      arguments: CreateAppointmentArguments(doctor: doctor),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +93,13 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                   width: double.infinity,
                   color: Colors.white,
                   child: OutlinedButton(
-                    onPressed: () {},
                     child: Text("Nueva cita"),
+                    onPressed: viewModel.canCreateAppointment
+                        ? () {
+                            final doctor = viewModel.getSelectedDoctor;
+                            _navigateCreateAppointment(context, doctor);
+                          }
+                        : null,
                   ),
                 ),
               )
