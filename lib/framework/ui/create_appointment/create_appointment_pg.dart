@@ -5,6 +5,7 @@ import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/day.dart';
 import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/view_models/appointments/create_appointment_vm.dart';
+import 'package:project_docere/framework/ui/create_appointment/input_patient_info.dart';
 import 'package:project_docere/framework/ui/widgets/date_selector_wg.dart';
 import 'package:project_docere/framework/ui/widgets/doctor_app_bar.dart';
 import 'package:project_docere/framework/ui/widgets/hours_wg.dart';
@@ -31,6 +32,7 @@ class CreateAppointmentPage extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => ConfirmAppointmentPage(
+            patient: viewModel.getPatient,
             doctor: viewModel.getDoctor,
             centerInfo: viewModel.getSelectedCenter,
             day: viewModel.getSelectedDate,
@@ -63,48 +65,54 @@ class CreateAppointmentPage extends StatelessWidget {
         ),
         body: Consumer<CreateAppointmentViewModel>(
           builder: (_, viewModel, __) {
-            return Container(
-              child: ListView(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Centros Médicos",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(
-                        Icons.local_hospital_outlined,
-                        size: 15,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: _doctor.centerInfo.map((CenterInfo center) {
-                      return SimpleCenterCard(
-                        name: center.name,
-                        address: center.address,
-                        selected: viewModel.centerIsSelected(center),
-                        onTap: () {
-                          viewModel.setSelectedCenter = center;
-                        },
-                      );
-                    }).toList(),
-                  ),
-                  HourSection(
-                    key: UniqueKey(),
-                    calendarStatus: viewModel.getCalendarStatus,
-                    onSlotSelected: (day, slot, dateTime) {
-                      viewModel.setSelectedDate = day;
-                      viewModel.setSelectedHour = slot;
-                      viewModel.setSelectedDateTime = dateTime;
-                      _navigateToConfirmationPage(context, viewModel);
+            return viewModel.needPatientInfo
+                ? PatientInfoForm(
+                    (patient) {
+                      viewModel.setPatient = patient;
                     },
                   )
-                ],
-              ),
-            );
+                : Container(
+                    child: ListView(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Centros Médicos",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(width: 8),
+                            Icon(
+                              Icons.local_hospital_outlined,
+                              size: 15,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: _doctor.centerInfo.map((CenterInfo center) {
+                            return SimpleCenterCard(
+                              name: center.name,
+                              address: center.address,
+                              selected: viewModel.centerIsSelected(center),
+                              onTap: () {
+                                viewModel.setSelectedCenter = center;
+                              },
+                            );
+                          }).toList(),
+                        ),
+                        HourSection(
+                          key: UniqueKey(),
+                          calendarStatus: viewModel.getCalendarStatus,
+                          onSlotSelected: (day, slot, dateTime) {
+                            viewModel.setSelectedDate = day;
+                            viewModel.setSelectedHour = slot;
+                            viewModel.setSelectedDateTime = dateTime;
+                            _navigateToConfirmationPage(context, viewModel);
+                          },
+                        )
+                      ],
+                    ),
+                  );
           },
         ),
       ),

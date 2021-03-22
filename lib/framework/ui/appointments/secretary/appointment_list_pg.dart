@@ -64,7 +64,7 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                         : ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: 20, //viewModel.appointmentCount,
+                            itemCount: viewModel.appointmentCount,
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
@@ -73,12 +73,13 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                                     AppointmentSecretaryDetailsPage.routeName,
                                     arguments:
                                         AppointmentSecretaryDetailsArguments(
-                                      appointment: viewModel.appointmentAt(0),
+                                      appointment:
+                                          viewModel.appointmentAt(index),
                                     ),
                                   );
                                 },
                                 child: SecretaryAppointmentCard.fromAppointment(
-                                  viewModel.appointmentAt(0),
+                                  viewModel.appointmentAt(index),
                                 ),
                               );
                             },

@@ -82,7 +82,7 @@ Future<void> init() async {
 
   // View models
   sl.registerFactory(() => DoctorListViewModel(sl(), sl(), sl()));
-  sl.registerFactory(() => CreateAppointmentViewModel(sl()));
+  sl.registerFactory(() => CreateAppointmentViewModel(sl(), sl()));
   sl.registerFactory(() => ConfirmAppointmentViewModel(sl()));
   sl.registerFactory(() => AppointmentListViewModel(sl()));
   sl.registerFactory(() => AppointmentListSecretaryViewModel(sl(), sl(), sl()));

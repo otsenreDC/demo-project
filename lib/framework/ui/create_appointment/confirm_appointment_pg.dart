@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/day.dart';
 import 'package:project_docere/domain/models/doctor.dart';
+import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/models/ui_state.dart';
 import 'package:project_docere/domain/routers/routes.dart';
 import 'package:project_docere/domain/view_models/appointments/confirm_appointment_vm.dart';
@@ -24,8 +25,10 @@ class ConfirmAppointmentPage extends StatelessWidget
   final Day day;
   final DaySlot daySlot;
   final DateTime dateTime;
+  final Patient patient;
 
   ConfirmAppointmentPage({
+    @required this.patient,
     @required this.doctor,
     @required this.centerInfo,
     @required this.day,
@@ -51,6 +54,7 @@ class ConfirmAppointmentPage extends StatelessWidget
           day,
           daySlot,
           dateTime,
+          patient,
         );
         return viewModel;
       },

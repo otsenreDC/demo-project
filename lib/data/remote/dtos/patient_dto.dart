@@ -14,10 +14,15 @@ class PatientDTO {
 
   factory PatientDTO.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    final reference = json[_keyIdReference] as DocumentReference;
+    DocumentReference reference;
+    try {
+      reference = json[_keyIdReference] as DocumentReference;
+    } catch (e) {
+      reference = null;
+    }
 
     return PatientDTO(
-      idReference: reference.path,
+      idReference: reference?.path,
       name: json[_keyName],
       lastName: json[_keyLastName],
     );
@@ -26,7 +31,8 @@ class PatientDTO {
   Map<String, dynamic> toJson(FirebaseFirestore firestore) {
     return Map.fromEntries(
       [
-        MapEntry(_keyIdReference, firestore.doc(idReference)),
+        MapEntry(_keyIdReference,
+            idReference != null ? firestore.doc(idReference) : null),
         MapEntry(_keyName, name),
         MapEntry(_keyLastName, lastName),
       ],

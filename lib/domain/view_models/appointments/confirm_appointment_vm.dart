@@ -16,6 +16,7 @@ class ConfirmAppointmentViewModel extends ChangeNotifier {
   Day _day;
   DaySlot _daySlot;
   DateTime _dateTime;
+  Patient _patient;
 
   ConfirmAppointmentViewModel(
       CreateAppointmentUseCase createAppointmentUseCase) {
@@ -71,12 +72,14 @@ class ConfirmAppointmentViewModel extends ChangeNotifier {
     Day day,
     DaySlot daySlot,
     DateTime dateTime,
+    Patient patient,
   ) {
     _doctor = doctor;
     _centerInfo = centerInfo;
     _day = day;
     _daySlot = daySlot;
     _dateTime = dateTime;
+    _patient = patient;
 
     setUIState = UIShowData();
   }
@@ -89,11 +92,7 @@ class ConfirmAppointmentViewModel extends ChangeNotifier {
             _doctor,
             _centerInfo.calendarReference,
             _centerInfo.secretaries.first,
-            Patient(
-              lastName: "Guzmán",
-              name: "Luis",
-              idReference: "pacientes/tiJAkHwEm1qh7wh4eEj2",
-            ),
+            _patient,
             _daySlot.inOrderOfArrival,
             _day,
             _daySlot,
