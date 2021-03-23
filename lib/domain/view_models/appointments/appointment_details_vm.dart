@@ -61,11 +61,11 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
   }
 
   Insurance get getInsurance {
-    return _newInsurance;
+    return _appointment?.insurance;
   }
 
   bool get hasInsurance {
-    return _newInsurance != null;
+    return _newInsurance != null || _appointment?.insurance != null;
   }
 
   PatientDetails get patientDetails {
@@ -149,6 +149,7 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
       (failure) => _handleError(),
       (done) {
         _appointment.insurance = _newInsurance;
+        notifyListeners();
       },
     );
   }
