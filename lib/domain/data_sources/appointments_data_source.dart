@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:either_option/either_option.dart';
 import 'package:project_docere/data/remote/dtos/appointment_dto.dart';
+import 'package:project_docere/data/remote/dtos/insurance_dto.dart';
 import 'package:project_docere/domain/models/failure.dart';
 
 abstract class IAppointmentDataSource {
@@ -23,6 +24,11 @@ abstract class IAppointmentDataSource {
     String appointmentReference,
     Timestamp appointmentAt,
     String attentionOrder,
+  );
+
+  Future<Either<Failure, bool>> updateInsurance(
+    String appointmentReference,
+    InsuranceDTO insuranceDTO,
   );
 }
 

@@ -3,13 +3,16 @@ import 'package:project_docere/domain/models/appointment.dart';
 import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/insurance.dart';
 import 'package:project_docere/domain/use_cases/appointments/change_appointment_status_uc.dart';
+import 'package:project_docere/domain/use_cases/appointments/update_appointment_insurance_uc.dart';
 
 class AppointmentDetailsViewModel extends ChangeNotifier {
   ChangeAppointmentStatusUseCase _changeAppointmentStatusUseCase;
+  UpdateAppointmentInsuranceUseCase _updateAppointmentInsuranceUseCase;
   Appointment _appointment;
   Insurance _newInsurance;
 
-  AppointmentDetailsViewModel(this._changeAppointmentStatusUseCase);
+  AppointmentDetailsViewModel(this._changeAppointmentStatusUseCase,
+      this._updateAppointmentInsuranceUseCase);
 
   void init(Appointment appointment) {
     this._appointment = appointment;
@@ -53,6 +56,7 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
 
   set setInsurance(Insurance insurance) {
     _newInsurance = insurance;
+    updateInsurance(insurance);
     notifyListeners();
   }
 
@@ -133,6 +137,20 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
 
     result.fold((failure) => _handleError(),
         (success) => success ? _setCanceled() : _handleError());
+  }
+
+  void updateInsurance(Insurance insurance) async {
+    final result = await _updateAppointmentInsuranceUseCase.execute(
+      _appointment.appointmentReference,
+      _newInsurance,
+    );
+
+    result.fold(
+      (failure) => _handleError(),
+      (done) {
+        _appointment.insurance = _newInsurance;
+      },
+    );
   }
 
   void _setChecked() {

@@ -39,3 +39,42 @@ extension InsuranceProviderImage on InsuranceProvider {
     }
   }
 }
+
+extension InsuranceString on InsuranceProvider {
+  String string() {
+    switch (this) {
+      case InsuranceProvider.Mapfre:
+        return "MAPFRE";
+      case InsuranceProvider.SeNaSa:
+        return "SENASA";
+      case InsuranceProvider.Futuro:
+        return "FUTURO";
+      case InsuranceProvider.Humano:
+        return "HUMANO";
+      case InsuranceProvider.Primera:
+        return "PRIMERA";
+      case InsuranceProvider.Other:
+      default:
+        return "OTHER";
+    }
+  }
+}
+
+InsuranceProvider insuranceProviderFromString(String provider) {
+  switch (provider) {
+    case "MAPFRE":
+      return InsuranceProvider.Mapfre;
+    case "SENASA":
+      return InsuranceProvider.SeNaSa;
+    case "FUTURO":
+      return InsuranceProvider.Futuro;
+    case "HUMANO":
+      return InsuranceProvider.Humano;
+    case "PRIMERA":
+      return InsuranceProvider.Primera;
+    case "OTHER":
+      return InsuranceProvider.Other;
+    default:
+      return null;
+  }
+}

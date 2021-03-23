@@ -3,6 +3,7 @@ import 'package:either_option/either_option.dart';
 import 'package:project_docere/data/remote/dtos/appointment_dto.dart';
 import 'package:project_docere/data/remote/dtos/center_dto.dart';
 import 'package:project_docere/data/remote/dtos/doctor_dto.dart';
+import 'package:project_docere/data/remote/dtos/insurance_dto.dart';
 import 'package:project_docere/data/remote/dtos/patient_dto.dart';
 import 'package:project_docere/data/remote/dtos/secretary_dto.dart';
 import 'package:project_docere/domain/data_sources/appointments_data_source.dart';
@@ -10,6 +11,7 @@ import 'package:project_docere/domain/models/appointment.dart';
 import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/failure.dart';
+import 'package:project_docere/domain/models/insurance.dart';
 import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/models/secretary.dart';
 
@@ -39,6 +41,9 @@ abstract class IAppointmentRepository {
     Timestamp appointmentAt,
     String attentionOrder,
   );
+
+  Future<Either<Failure, bool>> updateInsurance(
+      String appointmentReference, Insurance insurance);
 }
 
 class AppointmentRepository implements IAppointmentRepository {
@@ -140,6 +145,22 @@ class AppointmentRepository implements IAppointmentRepository {
       );
 
       return result;
+    } catch (e) {
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateInsurance(
+    String appointmentReference,
+    Insurance insurance,
+  ) async {
+    try {
+      await dataStore.updateInsurance(
+        appointmentReference,
+        InsuranceDTO.fromDomain(insurance),
+      );
+      return Right(true);
     } catch (e) {
       return Left(Failure());
     }

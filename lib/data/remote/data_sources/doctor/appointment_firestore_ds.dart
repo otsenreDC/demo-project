@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:either_option/either_option.dart';
 import 'package:project_docere/data/remote/dtos/appointment_dto.dart';
+import 'package:project_docere/data/remote/dtos/insurance_dto.dart';
 import 'package:project_docere/domain/data_sources/appointments_data_source.dart';
 import 'package:project_docere/domain/models/failure.dart';
 
@@ -127,6 +128,20 @@ class AppointmentFirestoreDataStore implements IAppointmentRemoteDataSource {
               ],
             ),
           );
+      return Right(true);
+    } catch (e) {
+      return Left(Failure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateInsurance(
+    String appointmentReference,
+    InsuranceDTO insuranceDTO,
+  ) async {
+    try {
+      await _firestore.doc(appointmentReference).update(
+          Map.fromEntries([MapEntry("insurance", insuranceDTO.toJson())]));
       return Right(true);
     } catch (e) {
       return Left(Failure());
