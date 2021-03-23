@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/domain/models/appointment.dart';
+import 'package:project_docere/domain/models/insurance.dart';
+import 'package:project_docere/domain/routers/routes.dart';
 import 'package:project_docere/domain/view_models/appointments/appointment_details_vm.dart';
+import 'package:project_docere/framework/ui/appointments/secretary/appointment_authorization_wg.dart';
 import 'package:project_docere/framework/ui/widgets/doctor_card_wg.dart';
 import 'package:project_docere/framework/ui/widgets/simple_center_card_wg.dart';
 import 'package:project_docere/framework/ui/widgets/time_widget.dart';
@@ -47,22 +50,24 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
                 ),
                 Text("Info del paciente"),
                 GestureDetector(
-                  onTap: viewModel.canAddInsurance ? () {} : null,
+                  onTap: viewModel.canAddInsurance
+                      ? () {
+                          Routes.navigateToAppointmentAuthorization(
+                            context,
+                            AppointmentAuthorizationPage.routName,
+                            AppointmentAuthorizationArguments(
+                              (insurance) {
+                                viewModel.setInsurance = insurance;
+                              },
+                            ),
+                          );
+                        }
+                      : null,
                   child: Container(
                     child: Column(
                       children: [
                         Text("Seguro"),
-                        SizedBox(
-                          child: Container(
-                            color: Colors.grey,
-                            child: Icon(
-                              Icons.image,
-                              size: 60,
-                            ),
-                          ),
-                          width: 280,
-                          height: 160,
-                        ),
+                        _InsuranceVisor(viewModel.getInsurance)
                       ],
                     ),
                   ),
@@ -112,6 +117,45 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class _InsuranceVisor extends StatelessWidget {
+  final Insurance _insurance;
+
+  _InsuranceVisor(this._insurance);
+
+  @override
+  Widget build(BuildContext context) {
+    Widget child;
+    if (_insurance == null) {
+      child = Icon(
+        Icons.image,
+        size: 60,
+      );
+    } else {
+      if (_insurance.isPrivate == true) {
+        child = Center(
+          child: Text("Paciente privado"),
+        );
+      } else {
+        child = Image(
+          image: AssetImage(_insurance.insuranceProvider.asset()),
+        );
+      }
+    }
+
+    return SizedBox(
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: child,
+        ),
+        elevation: 10,
+      ),
+      width: 200,
+      height: 120,
     );
   }
 }

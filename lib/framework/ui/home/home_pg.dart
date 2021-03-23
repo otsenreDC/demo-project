@@ -6,7 +6,6 @@ import 'package:project_docere/domain/view_models/doctors/doctor_list_vm.dart';
 import 'package:project_docere/framework/ui/appointments/patient/appointment_list_pg.dart';
 import 'package:project_docere/framework/ui/appointments/secretary/appointment_list_pg.dart';
 import 'package:project_docere/framework/ui/doctors/doctor_list_pg.dart';
-import 'package:project_docere/framework/ui/widgets/expanded_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class Destination {
@@ -18,7 +17,7 @@ class Destination {
 }
 
 const List<Destination> allDestinations = <Destination>[
-  Destination(0, 'Home', Icons.home_outlined),
+  Destination(0, 'Doctores', Icons.home_outlined),
   Destination(1, 'Citas', Icons.calendar_today_sharp),
   Destination(2, 'Perfil', Icons.perm_identity),
 ];
@@ -34,6 +33,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with TickerProviderStateMixin<HomePage> {
+  String _title = 'Doctores';
   List<Key> _destinationKeys;
   List<AnimationController> _faders;
   AnimationController _hide;
@@ -41,6 +41,7 @@ class _HomePageState extends State<HomePage>
 
   void _onItemTapped(int index) {
     setState(() {
+      _title = allDestinations[index].title;
       _currentIndex = index;
     });
   }
@@ -55,7 +56,6 @@ class _HomePageState extends State<HomePage>
             to = AppointmentListSecretaryPage();
           else
             to = AppointmentListPage();
-
           return to;
         }
       case 2:
@@ -111,10 +111,13 @@ class _HomePageState extends State<HomePage>
     return NotificationListener<ScrollNotification>(
       onNotification: _handleScrollNotification,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(120),
-          child: ExpandedAppBar(),
+        appBar: AppBar(
+          title: Text(_title),
         ),
+        // PreferredSize(
+        //   preferredSize: Size.fromHeight(120),
+        //   child: ExpandedAppBar(),
+        // ),
         body: Stack(
           children: allDestinations.map(
             (Destination destination) {

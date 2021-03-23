@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:project_docere/domain/models/appointment.dart';
 import 'package:project_docere/domain/models/doctor.dart';
+import 'package:project_docere/domain/models/insurance.dart';
 import 'package:project_docere/domain/use_cases/appointments/change_appointment_status_uc.dart';
 
 class AppointmentDetailsViewModel extends ChangeNotifier {
   ChangeAppointmentStatusUseCase _changeAppointmentStatusUseCase;
   Appointment _appointment;
+  Insurance _newInsurance;
 
   AppointmentDetailsViewModel(this._changeAppointmentStatusUseCase);
 
@@ -49,6 +51,19 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
     return _appointment?.secretary?.phone;
   }
 
+  set setInsurance(Insurance insurance) {
+    _newInsurance = insurance;
+    notifyListeners();
+  }
+
+  Insurance get getInsurance {
+    return _newInsurance;
+  }
+
+  bool get hasInsurance {
+    return _newInsurance != null;
+  }
+
   PatientDetails get patientDetails {
     return PatientDetails(
       _appointment?.patient?.fullName,
@@ -87,7 +102,8 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
   bool get canAddInsurance {
     return (_appointment?.isScheduled == true ||
             _appointment?.isCheckedIn == true) &&
-        _appointment?.hasInsurance == false;
+        _appointment?.hasInsurance == false &&
+        _newInsurance == null;
   }
 
   void checkIn() async {
