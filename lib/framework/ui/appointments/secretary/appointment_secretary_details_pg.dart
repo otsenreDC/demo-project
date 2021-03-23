@@ -137,7 +137,13 @@ class _InsuranceVisor extends StatelessWidget {
     } else {
       if (_insurance.isPrivate == true) {
         child = Center(
-          child: Text("Paciente privado"),
+          child: Text(
+            "Paciente privado",
+            style: TextStyle(
+              color: Colors.green,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         );
       } else {
         child = Image(

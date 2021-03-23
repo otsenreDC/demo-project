@@ -63,7 +63,11 @@ class _AppointmentAuthorizationPageState
                       width: double.infinity,
                       margin: EdgeInsets.only(left: 30, right: 30),
                       child: OutlinedButton(
-                          onPressed: () {}, child: Text("Paciente privado"))),
+                          onPressed: () {
+                            _onProvidedSelected(Insurance.private());
+                            Routes.pop(context);
+                          },
+                          child: Text("Paciente privado"))),
                   Divider(
                     color: Colors.black54,
                   ),

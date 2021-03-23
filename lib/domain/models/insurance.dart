@@ -8,6 +8,14 @@ class Insurance {
     this.authorizationNumber,
     this.isPrivate = false,
   });
+
+  factory Insurance.private() {
+    return Insurance(
+      null,
+      authorizationNumber: null,
+      isPrivate: true,
+    );
+  }
 }
 
 enum InsuranceProvider { Mapfre, SeNaSa, Futuro, Humano, Primera, Other }
