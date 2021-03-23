@@ -30,6 +30,7 @@ class Appointment {
     this.comments,
     this.attentionOrder,
     this.status,
+    this.insurance,
   });
 
   static String attentionOrderHour = "hour";

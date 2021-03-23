@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/data/remote/dtos/center_dto.dart';
 import 'package:project_docere/data/remote/dtos/doctor_dto.dart';
+import 'package:project_docere/data/remote/dtos/insurance_dto.dart';
 import 'package:project_docere/data/remote/dtos/patient_dto.dart';
 import 'package:project_docere/data/remote/dtos/secretary_dto.dart';
 import 'package:project_docere/domain/models/appointment.dart';
@@ -16,6 +17,7 @@ final String _keyDoctorReference = "doctorReference";
 final String _keyPatient = "patient";
 final String _keySecretaryReference = "secretary";
 final String _keyStatus = "status";
+final String _keyInsurance = "insurance";
 
 class AppointmentDTO {
   String appointmentReference;
@@ -28,29 +30,34 @@ class AppointmentDTO {
   PatientDTO patient;
   SecretaryDTO secretary;
   String status;
+  InsuranceDTO insurance;
 
-  AppointmentDTO(
-      {@required this.attentionOrder,
-      @required this.comments,
-      @required this.appointmentAt,
-      @required this.createdAt,
-      @required this.centerInfo,
-      @required this.doctor,
-      @required this.patient,
-      @required this.secretary,
-      @required this.status});
+  AppointmentDTO({
+    @required this.attentionOrder,
+    @required this.comments,
+    @required this.appointmentAt,
+    @required this.createdAt,
+    @required this.centerInfo,
+    @required this.doctor,
+    @required this.patient,
+    @required this.secretary,
+    @required this.status,
+    @required this.insurance,
+  });
 
   factory AppointmentDTO.fromJson(Map<String, dynamic> json) {
     return AppointmentDTO(
-        attentionOrder: json[_keyAttentionOrder],
-        comments: json[_keyComments],
-        appointmentAt: json[_keyAppointmentAt],
-        createdAt: json[_keyCreatedAt],
-        patient: PatientDTO.fromJson(json[_keyPatient]),
-        centerInfo: CenterInfoDTO.fromJson(json[_keyCenterReference]),
-        doctor: DoctorDTO.fromJson(null, json[_keyDoctor]),
-        secretary: SecretaryDTO.fromJson(json[_keySecretaryReference]),
-        status: json[_keyStatus]);
+      attentionOrder: json[_keyAttentionOrder],
+      comments: json[_keyComments],
+      appointmentAt: json[_keyAppointmentAt],
+      createdAt: json[_keyCreatedAt],
+      patient: PatientDTO.fromJson(json[_keyPatient]),
+      centerInfo: CenterInfoDTO.fromJson(json[_keyCenterReference]),
+      doctor: DoctorDTO.fromJson(null, json[_keyDoctor]),
+      secretary: SecretaryDTO.fromJson(json[_keySecretaryReference]),
+      status: json[_keyStatus],
+      insurance: InsuranceDTO.fromJson(json[_keyInsurance]),
+    );
   }
 
   Map<String, dynamic> toJson(FirebaseFirestore firestore) {
@@ -64,7 +71,8 @@ class AppointmentDTO {
       MapEntry(_keySecretaryReference, secretary.toJson()),
       MapEntry(_keyDoctor, doctor.toJson(firestore)),
       MapEntry(_keyDoctorReference, firestore.doc(doctor.idReference)),
-      MapEntry(_keyStatus, status)
+      MapEntry(_keyStatus, status),
+      MapEntry(_keyInsurance, insurance?.toJson())
     ]);
   }
 
@@ -78,5 +86,6 @@ class AppointmentDTO {
       comments: comments,
       createdAt: createdAt,
       appointmentAt: appointmentAt,
-      status: appointmentStatusFromString(status));
+      status: appointmentStatusFromString(status),
+      insurance: insurance?.toDomain());
 }

@@ -16,6 +16,8 @@ class InsuranceDTO {
   );
 
   factory InsuranceDTO.fromJson(Map<String, dynamic> json) {
+    if (json == null) return null;
+
     return InsuranceDTO(
       json[keyProvider],
       json[keyAuthorization],
@@ -24,6 +26,8 @@ class InsuranceDTO {
   }
 
   factory InsuranceDTO.fromDomain(Insurance insurance) {
+    if (insurance == null) return null;
+
     return InsuranceDTO(
       insurance.insuranceProvider?.string(),
       insurance.authorizationNumber,
