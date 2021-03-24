@@ -1,0 +1,2 @@
+io/banana/data/BuildConfig.java
+ io.banana.data.BuildConfig
