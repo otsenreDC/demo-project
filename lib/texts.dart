@@ -2,6 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MedAppTextStyle {
+  static TextStyle title() {
+    return TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 22,
+    );
+  }
+
   static TextStyle header1() {
     return TextStyle(
       fontWeight: FontWeight.bold,
