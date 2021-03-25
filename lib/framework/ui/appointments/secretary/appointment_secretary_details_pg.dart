@@ -140,7 +140,7 @@ class _InsuranceVisor extends StatelessWidget {
           child: Text(
             "Paciente privado",
             style: TextStyle(
-              color: Colors.green,
+              color: Colors.lightBlue,
               fontWeight: FontWeight.bold,
             ),
           ),

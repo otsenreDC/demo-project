@@ -14,7 +14,7 @@ class TimeWidget extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
       padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
       decoration: BoxDecoration(
-        color: Colors.lightGreen[400],
+        color: Colors.lightBlueAccent[400],
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Row(

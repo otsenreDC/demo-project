@@ -33,7 +33,7 @@ class MedApp extends StatelessWidget {
         },
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: Colors.blue,
           fontFamily: 'Segoe',
         ),
       ),
