@@ -21,6 +21,7 @@ import 'package:project_docere/domain/view_models/appointments/appointment_detai
 import 'package:project_docere/domain/view_models/appointments/appointment_edit_vm.dart';
 import 'package:project_docere/domain/view_models/appointments/confirm_appointment_vm.dart';
 import 'package:project_docere/domain/view_models/doctors/doctor_list_vm.dart';
+import 'package:project_docere/domain/view_models/profile/profile_vm.dart';
 import 'package:project_docere/framework/helpers/network_info_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -90,6 +91,7 @@ Future<void> init() async {
   sl.registerFactory(() => AppointmentListSecretaryViewModel(sl(), sl(), sl()));
   sl.registerFactory(() => AppointmentDetailsViewModel(sl(), sl()));
   sl.registerFactory(() => AppointmentEditViewModel(sl(), sl()));
+  sl.registerFactory(() => ProfileViewModel());
   // Core
 
   // External

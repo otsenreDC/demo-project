@@ -6,6 +6,7 @@ import 'package:project_docere/domain/view_models/doctors/doctor_list_vm.dart';
 import 'package:project_docere/framework/ui/appointments/patient/appointment_list_pg.dart';
 import 'package:project_docere/framework/ui/appointments/secretary/appointment_list_pg.dart';
 import 'package:project_docere/framework/ui/doctors/doctor_list_pg.dart';
+import 'package:project_docere/framework/ui/profile/profile_pg.dart';
 import 'package:provider/provider.dart';
 
 class Destination {
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage>
           return to;
         }
       case 2:
-        return Container(color: Colors.purple);
+        return ProfilePage();
       default:
         return DoctorListPage();
     }
