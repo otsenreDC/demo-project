@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_docere/domain/routers/routes.dart';
 import 'package:project_docere/domain/view_models/profile/profile_vm.dart';
 import 'package:provider/provider.dart';
 
@@ -137,6 +138,10 @@ class _OptionsList extends StatelessWidget {
             "Cerrar sesión",
             leadingIcon: Icon(Icons.logout),
             trailingIcon: Icon(Icons.arrow_forward),
+            onSelected: () {
+              showAlertDialog(
+                  context, () => {Routes.popToLogin(context)}, () => {});
+            },
           ),
         ],
       ),
@@ -281,4 +286,42 @@ class _PhoneTile extends StatelessWidget {
       ),
     );
   }
+}
+
+showAlertDialog(
+  BuildContext context,
+  Function() agree,
+  Function() disagree,
+) {
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: Text("Cancelar"),
+    onPressed: () {
+      Navigator.of(context).pop();
+      disagree();
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text("Cerrar sesión"),
+    onPressed: () {
+      Navigator.of(context).pop();
+      agree();
+    },
+  );
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Advertencia"),
+    content: Text("¿Está seguro que quiere cerrar la sesión?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
