@@ -77,15 +77,16 @@ class AppointmentDTO {
   }
 
   Appointment toDomain() => Appointment(
-      appointmentReference: appointmentReference,
-      patient: patient.toDomain(),
-      secretary: secretary.toDomain(),
-      doctor: doctor.toDomain(),
-      centerInfo: centerInfo.toDomain(),
-      attentionOrder: attentionOrder,
-      comments: comments,
-      createdAt: createdAt,
-      appointmentAt: appointmentAt,
-      status: appointmentStatusFromString(status),
-      insurance: insurance?.toDomain());
+        appointmentReference: appointmentReference,
+        patient: patient.toDomain(),
+        secretary: secretary.toDomain(),
+        doctor: doctor.toDomain(),
+        centerInfo: centerInfo.toDomain(),
+        attentionOrder: attentionOrder,
+        comments: comments,
+        createdAt: createdAt,
+        appointmentAt: appointmentAt,
+        status: appointmentStatusFromString(status),
+        insurance: insurance?.toDomain(),
+      );
 }
