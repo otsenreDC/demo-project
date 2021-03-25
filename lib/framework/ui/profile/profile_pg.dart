@@ -26,7 +26,7 @@ class ProfilePage extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Citas"),
+          title: Text("Perfil"),
         ),
         body: Consumer<ProfileViewModel>(
           builder: (_, viewModel, __) {
@@ -133,12 +133,16 @@ class _OptionsList extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
+          SizedBox(
+            height: 40,
+          ),
           _TextTile(
             "Información de la cuenta",
             leadingIcon: Icon(Icons.account_circle_outlined),
             onSelected: _viewModel.showAccountDetails,
             trailingIcon: Icon(Icons.arrow_forward),
           ),
+          SizedBox(height: 10),
           _TextTile(
             "Cerrar sesión",
             leadingIcon: Icon(Icons.logout),
