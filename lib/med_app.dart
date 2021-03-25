@@ -36,11 +36,15 @@ class MedApp extends StatelessWidget {
           ProfilePage.routeName: (context) => ProfilePage()
         },
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          fontFamily: 'Segoe',
-        ),
+        theme: medAppTheme,
       ),
     );
   }
 }
+
+ThemeData medAppTheme = ThemeData(
+    primaryColor: Color.fromARGB(255, 25, 118, 210),
+    appBarTheme: AppBarTheme(
+      brightness: Brightness.dark,
+      backgroundColor: Color.fromARGB(255, 25, 118, 210),
+    ));

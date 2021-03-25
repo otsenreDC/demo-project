@@ -14,12 +14,16 @@ class LoginPage extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: [
+            SizedBox(
+              height: 200,
+            ),
             Container(
               height: 100,
               width: 100,
               child: Image.network(
-                  "https://is5-ssl.mzstatic.com/image/thumb/Purple111/v4/c1/c0/fc/c1c0fc10-f049-9c7f-f38d-9fd076b0f846/source/256x256bb.jpg"),
+                  "https://media.istockphoto.com/vectors/caduceus-medical-symbol-vector-id471629610?k=6&m=471629610&s=612x612&w=0&h=59MddMN1yIVPhleIBIhrhKEC74jCxI4CLTg6mGAPlqU="),
             ),
+            Spacer(),
             Container(
               width: double.infinity,
               margin: EdgeInsets.only(left: 30, right: 30),
@@ -32,13 +36,16 @@ class LoginPage extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              margin: EdgeInsets.only(left: 30, right: 30),
+              margin: EdgeInsets.only(left: 30, right: 30, top: 20),
               child: ElevatedButton(
                   onPressed: () {
                     currentTestSession = PatientSessionTmp();
                     Routes.goHome(context);
                   },
                   child: Text("Paciente")),
+            ),
+            Spacer(
+              flex: 2,
             )
           ],
         ),
