@@ -32,14 +32,13 @@ import 'domain/view_models/appointments/appointment_list_vm.dart';
 import 'domain/view_models/appointments/create_appointment_vm.dart';
 
 final sl = GetIt.instance;
+Session currentTestSession;
 
 Future<void> init() async {
   // Session
-  final _currentTestSession = //PatientSessionTmp();
-      SecretarySessionTmp();
-  sl.registerLazySingleton<Session>(
-    () => _currentTestSession,
-  );
+  // sl.registerFactory<Session>(
+  //   () => currentTestSession,
+  // );
 
   // Data sources
   sl.registerLazySingleton<IDoctorLocalDataSource>(
@@ -73,22 +72,22 @@ Future<void> init() async {
   );
 
   // Use cases
-  sl.registerLazySingleton(() => GetListDoctorsUseCase(sl()));
-  sl.registerLazySingleton(() => GetCurrentCalendarUseCase(sl()));
-  sl.registerLazySingleton(() => CreateAppointmentUseCase(sl(), sl()));
-  sl.registerLazySingleton(() => GetAppointmentsUseCase(sl()));
-  sl.registerLazySingleton(() => ChangeAppointmentStatusUseCase(sl()));
-  sl.registerLazySingleton(() => ChangeAppointmentTimeUseCase(sl(), sl()));
+  sl.registerFactory(() => GetListDoctorsUseCase(sl()));
+  sl.registerFactory(() => GetCurrentCalendarUseCase(sl()));
+  sl.registerFactory(() => CreateAppointmentUseCase(sl(), sl()));
+  sl.registerFactory(() => GetAppointmentsUseCase(sl()));
+  sl.registerFactory(() => ChangeAppointmentStatusUseCase(sl()));
+  sl.registerFactory(() => ChangeAppointmentTimeUseCase(sl(), sl()));
   sl.registerFactory(() => GetSecretaryDoctorUseCase(sl()));
   sl.registerFactory(() => GetDoctorAppointmentsUseCase(sl()));
   sl.registerFactory(() => UpdateAppointmentInsuranceUseCase(sl()));
 
   // View models
-  sl.registerFactory(() => DoctorListViewModel(sl(), sl(), sl()));
-  sl.registerFactory(() => CreateAppointmentViewModel(sl(), sl()));
+  sl.registerFactory(() => DoctorListViewModel(sl(), sl()));
+  sl.registerFactory(() => CreateAppointmentViewModel(sl()));
   sl.registerFactory(() => ConfirmAppointmentViewModel(sl()));
   sl.registerFactory(() => AppointmentListViewModel(sl()));
-  sl.registerFactory(() => AppointmentListSecretaryViewModel(sl(), sl(), sl()));
+  sl.registerFactory(() => AppointmentListSecretaryViewModel(sl(), sl()));
   sl.registerFactory(() => AppointmentDetailsViewModel(sl(), sl()));
   sl.registerFactory(() => AppointmentEditViewModel(sl(), sl()));
   sl.registerFactory(() => ProfileViewModel());

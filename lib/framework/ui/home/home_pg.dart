@@ -24,7 +24,7 @@ const List<Destination> allDestinations = <Destination>[
 ];
 
 class HomePage extends StatefulWidget {
-  static final String routeName = "/";
+  static final String routeName = "/home";
 
   @override
   State createState() {

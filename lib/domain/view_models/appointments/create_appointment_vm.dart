@@ -6,13 +6,14 @@ import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/models/session.dart';
 import 'package:project_docere/domain/use_cases/doctors/get_current_calendar_uc.dart';
+import 'package:project_docere/injection_container.dart';
 
 class CreateAppointmentViewModel extends ChangeNotifier {
-  Session _session;
+  // Session _session = currentTestSession;
   GetCurrentCalendarUseCase _getCurrentCalendarUseCase;
 
   CreateAppointmentViewModel(
-    this._session,
+    // this._session,
     this._getCurrentCalendarUseCase,
   );
 
@@ -28,7 +29,7 @@ class CreateAppointmentViewModel extends ChangeNotifier {
 
   void start(Doctor doctor) {
     this._doctor = doctor;
-    if (_session.isPatient) {
+    if (currentTestSession.isPatient) {
       _patient = Patient(
         lastName: "Guzmán",
         name: "Luis",

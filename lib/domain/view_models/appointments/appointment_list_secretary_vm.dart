@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:project_docere/domain/models/appointment.dart';
 import 'package:project_docere/domain/models/doctor.dart';
-import 'package:project_docere/domain/models/session.dart';
 import 'package:project_docere/domain/use_cases/doctors/get_doctor_appointments_uc.dart';
 import 'package:project_docere/domain/use_cases/doctors/get_secretary_doctors_uc.dart';
+import 'package:project_docere/injection_container.dart';
 
 class AppointmentListSecretaryViewModel extends ChangeNotifier {
-  Session _session;
+  // Session _session = currentTestSession;
   GetDoctorAppointmentsUseCase _getDoctorAppointmentsUseCase;
   GetSecretaryDoctorUseCase _getSecretaryDoctorUseCase;
 
@@ -90,7 +90,7 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
   }
 
   AppointmentListSecretaryViewModel(
-    this._session,
+    // this._session,
     this._getDoctorAppointmentsUseCase,
     this._getSecretaryDoctorUseCase,
   );
@@ -107,8 +107,8 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
   }
 
   void _loadDoctors() async {
-    final result =
-        await _getSecretaryDoctorUseCase.execute(_session.userReference);
+    final result = await _getSecretaryDoctorUseCase
+        .execute(currentTestSession.userReference);
 
     _setDoctors = result.fold(
       (failure) => List.empty(),

@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:project_docere/framework/ui/appointments/patient/appointment_details_pg.dart';
 import 'package:project_docere/framework/ui/appointments/secretary/appointment_authorization_wg.dart';
 import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
+import 'package:project_docere/framework/ui/login/login_pg.dart';
 import 'package:project_docere/framework/ui/profile/profile_pg.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,7 @@ class MedApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: {
+          LoginPage.routeName: (context) => LoginPage(),
           HomePage.routeName: (context) => HomePage(),
           CreateAppointmentPage.routeName: (context) => CreateAppointmentPage(),
           AppointmentDetailsPage.routeName: (context) =>
