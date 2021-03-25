@@ -22,6 +22,9 @@ class DoctorListPage extends StatelessWidget {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Doctores"),
+      ),
       body: ListView.builder(
         itemCount: _doctors.length,
         itemBuilder: (BuildContext context, int index) {

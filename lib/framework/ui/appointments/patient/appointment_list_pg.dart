@@ -18,24 +18,29 @@ class AppointmentListPage extends StatelessWidget {
       },
       child: Consumer<AppointmentListViewModel>(
         builder: (_, viewModel, __) {
-          return ListView.builder(
-            itemCount: viewModel.appointmentCount,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    AppointmentDetailsPage.routeName,
-                    arguments: AppointmentDetailsArguments(
-                      appointment: viewModel.appointmentAt(index),
-                    ),
-                  );
-                },
-                child: PatientAppointmentCard.fromAppointment(
-                  viewModel.appointmentAt(index),
-                ),
-              );
-            },
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Citas"),
+            ),
+            body: ListView.builder(
+              itemCount: viewModel.appointmentCount,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      AppointmentDetailsPage.routeName,
+                      arguments: AppointmentDetailsArguments(
+                        appointment: viewModel.appointmentAt(index),
+                      ),
+                    );
+                  },
+                  child: PatientAppointmentCard.fromAppointment(
+                    viewModel.appointmentAt(index),
+                  ),
+                );
+              },
+            ),
           );
         },
       ),

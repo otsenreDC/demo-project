@@ -24,17 +24,22 @@ class ProfilePage extends StatelessWidget {
       create: (_) {
         return sl();
       },
-      child: Consumer<ProfileViewModel>(
-        builder: (_, viewModel, __) {
-          if (viewModel.getShowAccountDetails) {
-            return WillPopScope(
-              child: AccountInformation(),
-              onWillPop: () => _willPop(viewModel),
-            );
-          } else {
-            return _OptionsList(viewModel);
-          }
-        },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Citas"),
+        ),
+        body: Consumer<ProfileViewModel>(
+          builder: (_, viewModel, __) {
+            if (viewModel.getShowAccountDetails) {
+              return WillPopScope(
+                child: AccountInformation(),
+                onWillPop: () => _willPop(viewModel),
+              );
+            } else {
+              return _OptionsList(viewModel);
+            }
+          },
+        ),
       ),
     );
   }

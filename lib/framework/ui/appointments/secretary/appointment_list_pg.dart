@@ -31,80 +31,87 @@ class AppointmentListSecretaryPage extends StatelessWidget {
       },
       child: Consumer<AppointmentListSecretaryViewModel>(
         builder: (_, viewModel, __) {
-          return Stack(
-            children: [
-              SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: 60),
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 90,
-                      child: Center(
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: viewModel.doctorsCount,
-                          itemBuilder: (context, index) => Container(
-                            width: 300,
-                            child: DoctorSecretaryCard(
-                              doctor: viewModel.doctorAt(index),
-                              isSelected:
-                                  viewModel.getSelectedDoctorPosition == index,
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Citas"),
+            ),
+            body: Stack(
+              children: [
+                SingleChildScrollView(
+                  padding: EdgeInsets.only(bottom: 60),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 90,
+                        child: Center(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: viewModel.doctorsCount,
+                            itemBuilder: (context, index) => Container(
+                              width: 300,
+                              child: DoctorSecretaryCard(
+                                doctor: viewModel.doctorAt(index),
+                                isSelected:
+                                    viewModel.getSelectedDoctorPosition ==
+                                        index,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Divider(
-                      height: 30,
-                      color: Colors.black54,
-                    ),
-                    viewModel.appointmentCount == 0
-                        ? Text("Doctor no seleccionado")
-                        : ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: viewModel.appointmentCount,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    AppointmentSecretaryDetailsPage.routeName,
-                                    arguments:
-                                        AppointmentSecretaryDetailsArguments(
-                                      appointment:
-                                          viewModel.appointmentAt(index),
-                                    ),
-                                  );
-                                },
-                                child: SecretaryAppointmentCard.fromAppointment(
-                                  viewModel.appointmentAt(index),
-                                ),
-                              );
-                            },
-                          ),
-                  ],
-                ),
-              ),
-              Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(30, 8, 30, 8),
-                  width: double.infinity,
-                  color: Colors.white,
-                  child: OutlinedButton(
-                    child: Text("Nueva cita"),
-                    onPressed: viewModel.canCreateAppointment
-                        ? () {
-                            final doctor = viewModel.getSelectedDoctor;
-                            _navigateCreateAppointment(context, doctor);
-                          }
-                        : null,
+                      Divider(
+                        height: 30,
+                        color: Colors.black54,
+                      ),
+                      viewModel.appointmentCount == 0
+                          ? Text("Doctor no seleccionado")
+                          : ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: viewModel.appointmentCount,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      AppointmentSecretaryDetailsPage.routeName,
+                                      arguments:
+                                          AppointmentSecretaryDetailsArguments(
+                                        appointment:
+                                            viewModel.appointmentAt(index),
+                                      ),
+                                    );
+                                  },
+                                  child:
+                                      SecretaryAppointmentCard.fromAppointment(
+                                    viewModel.appointmentAt(index),
+                                  ),
+                                );
+                              },
+                            ),
+                    ],
                   ),
                 ),
-              )
-            ],
+                Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(30, 8, 30, 8),
+                    width: double.infinity,
+                    color: Colors.white,
+                    child: OutlinedButton(
+                      child: Text("Nueva cita"),
+                      onPressed: viewModel.canCreateAppointment
+                          ? () {
+                              final doctor = viewModel.getSelectedDoctor;
+                              _navigateCreateAppointment(context, doctor);
+                            }
+                          : null,
+                    ),
+                  ),
+                )
+              ],
+            ),
           );
         },
       ),
