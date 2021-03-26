@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/domain/extensions.dart';
@@ -253,82 +256,105 @@ class _SecretaryAppointmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
+      margin: EdgeInsets.fromLTRB(27, 10, 27, 10),
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
           15,
         ),
       ),
-      color: Colors.grey[200],
+      color: MedAppColors.gray2,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Container(
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Column(
             children: [
-              Container(
-                margin: EdgeInsets.only(right: 8),
-                // color: Colors.indigo,
-                child: CircleAvatar(
-                  maxRadius: 25,
-                  minRadius: 25,
-                  backgroundImage: NetworkImage(
-                    "https://image.flaticon.com/icons/png/512/1430/1430453.png",
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: 8),
+                    // color: Colors.indigo,
+                    child: CircleAvatar(
+                      maxRadius: 20,
+                      minRadius: 20,
+                      backgroundImage: NetworkImage(
+                        "https://image.flaticon.com/icons/png/512/1430/1430453.png",
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "No ha llegado",
+                            maxLines: 3,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        centerName,
-                        maxLines: 3,
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    ],
+                    ),
                   ),
-                ),
+                  Container(
+                    width: 80,
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: MedAppColors.blue,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    margin: EdgeInsets.only(left: 4, right: 4),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            isAttentionOrderHour
+                                ? DateTimeHelper.format(appointmentAt,
+                                    pattern: DATE_FORMAT_TIME)
+                                : "Orden",
+                            textAlign: TextAlign.center,
+                            style: MedAppTextStyle.label().copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Container(
-                width: 80,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                margin: EdgeInsets.only(left: 4, right: 4),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        isAttentionOrderHour
-                            ? DateTimeHelper.format(appointmentAt,
-                                pattern: DATE_FORMAT_TIME)
-                            : "Orden",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+              SizedBox(height: 8),
+              Random(Timestamp.now().millisecondsSinceEpoch).nextBool()
+                  ? Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("15 min esperando"),
+                        ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Hacer que pase"),
+                            style: ElevatedButton.styleFrom(
+                              textStyle: MedAppTextStyle.header3(),
+                              primary: MedAppColors.lighterBlue, // background
+                              onPrimary: MedAppColors.lightBlue,
+                              shadowColor: Colors.transparent,
+                            ))
+                      ],
                     )
-                  ],
-                ),
-              ),
+                  : Container()
             ],
           ),
         ),
