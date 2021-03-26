@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../../colors.dart';
+
 class SimpleCenterCard extends StatelessWidget {
   final String name;
   final String address;
@@ -27,7 +29,7 @@ class SimpleCenterCard extends StatelessWidget {
             15,
           ),
         ),
-        color: selected == true ? Colors.grey[500] : Colors.grey[200],
+        color: selected == true ? Colors.grey[500] : MedAppColors.gray,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Column(

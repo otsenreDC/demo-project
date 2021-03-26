@@ -47,7 +47,8 @@ class Appointment {
 
   bool get isAttentionByHour => attentionOrder == attentionOrderHour;
 
-  bool get hasInsurance => insurance?.authorizationNumber != null;
+  bool get hasInsurance =>
+      insurance?.authorizationNumber != null || insurance?.isPrivate == true;
 }
 
 enum AppointmentStatus {

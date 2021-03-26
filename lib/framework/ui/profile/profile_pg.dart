@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_docere/colors.dart';
 import 'package:project_docere/domain/routers/routes.dart';
 import 'package:project_docere/domain/view_models/profile/profile_vm.dart';
 import 'package:provider/provider.dart';
@@ -86,12 +87,12 @@ class AccountInformation extends StatelessWidget {
             "Fecha de nacimiento",
             marging: EdgeInsets.fromLTRB(30, 10, 30, 0),
           ),
-          _BirthdayTile("00 | 00 | 0000"),
+          BirthdayTile("00 | 00 | 0000"),
           _OptionText(
             "Teléfono",
             marging: EdgeInsets.fromLTRB(30, 10, 30, 0),
           ),
-          _PhoneTile("888 - 555 - 1234")
+          PhoneTile("888 - 555 - 1234")
         ],
       ),
     );
@@ -191,13 +192,13 @@ class _TextTile extends StatelessWidget {
   }
 }
 
-class _BirthdayTile extends StatelessWidget {
+class BirthdayTile extends StatelessWidget {
   final String _title;
   final Function onSelected;
   final Icon leadingIcon;
   final Icon trailingIcon;
 
-  const _BirthdayTile(
+  const BirthdayTile(
     this._title, {
     this.onSelected,
     this.leadingIcon,
@@ -209,7 +210,7 @@ class _BirthdayTile extends StatelessWidget {
     return Container(
       margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: MedAppColors.gray,
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
@@ -224,15 +225,15 @@ class _BirthdayTile extends StatelessWidget {
               textAlign: TextAlign.center,
             )),
             Container(
-              width: 2,
+              width: 1,
               height: 40,
-              color: Colors.grey[500],
+              color: Colors.grey[400],
             ),
             Expanded(child: Text("02", textAlign: TextAlign.center)),
             Container(
-              width: 2,
+              width: 1,
               height: 40,
-              color: Colors.grey[500],
+              color: Colors.grey[400],
             ),
             Expanded(child: Text("2020", textAlign: TextAlign.center))
           ],
@@ -244,13 +245,13 @@ class _BirthdayTile extends StatelessWidget {
   }
 }
 
-class _PhoneTile extends StatelessWidget {
+class PhoneTile extends StatelessWidget {
   final String _title;
   final Function onSelected;
   final Icon leadingIcon;
   final Icon trailingIcon;
 
-  const _PhoneTile(
+  const PhoneTile(
     this._title, {
     this.onSelected,
     this.leadingIcon,
@@ -262,7 +263,7 @@ class _PhoneTile extends StatelessWidget {
     return Container(
       margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: MedAppColors.gray,
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
@@ -279,13 +280,13 @@ class _PhoneTile extends StatelessWidget {
             Container(
               width: 15,
               height: 1,
-              color: Colors.grey[500],
+              color: Colors.grey[400],
             ),
             Expanded(child: Text("555", textAlign: TextAlign.center)),
             Container(
               width: 15,
               height: 1,
-              color: Colors.grey[500],
+              color: Colors.grey[400],
             ),
             Expanded(child: Text("9898", textAlign: TextAlign.center))
           ],

@@ -28,7 +28,7 @@ class DoctorPatientCard extends StatelessWidget {
             15,
           ),
         ),
-        color: isSelected ? Colors.lightBlueAccent[200] : Colors.grey[200],
+        color: isSelected ? MedAppColors.lightBlue : MedAppColors.gray,
         child: Row(
           children: [
             Padding(
