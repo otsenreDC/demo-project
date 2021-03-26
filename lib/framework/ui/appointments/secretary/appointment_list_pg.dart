@@ -20,8 +20,10 @@ class AppointmentListSecretaryPage extends StatelessWidget {
   static String routeName = "appointments/secretary";
 
   final Doctor _doctor;
+  Function goToDoctorListPage;
 
-  AppointmentListSecretaryPage(this._doctor);
+  AppointmentListSecretaryPage(this._doctor,
+      {@required this.goToDoctorListPage});
 
   void _navigateCreateAppointment(BuildContext context, Doctor doctor) {
     Navigator.pushNamed(
@@ -81,7 +83,11 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                             ),
                           ),
                           Spacer(),
-                          _DoctorItem(_doctor.fullName, _doctor.specialty),
+                          GestureDetector(
+                            child: _DoctorItem(
+                                _doctor.fullName, _doctor.specialty),
+                            onTap: goToDoctorListPage,
+                          ),
                           SizedBox(width: 30),
                         ],
                       ),

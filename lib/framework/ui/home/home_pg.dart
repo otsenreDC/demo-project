@@ -90,7 +90,14 @@ class _HomePageState extends State<HomePage>
                 ],
               );
             } else {
-              to = AppointmentListSecretaryPage(_currentDoctor);
+              to = AppointmentListSecretaryPage(
+                _currentDoctor,
+                goToDoctorListPage: () {
+                  setState(() {
+                    _currentIndex = INDEX_DOCTORS;
+                  });
+                },
+              );
             }
           } else
             to = AppointmentListPage();
