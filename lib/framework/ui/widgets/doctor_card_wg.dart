@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_docere/colors.dart';
 import 'package:project_docere/domain/models/doctor.dart';
+import 'package:project_docere/framework/ui/widgets/summary_item.dart';
 import 'package:project_docere/texts.dart';
 
 class DoctorPatientCard extends StatelessWidget {
@@ -136,9 +137,9 @@ class DoctorSecretaryCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    _SummaryItem("Atendidos", 2),
-                    _SummaryItem("En espera", 4),
-                    _SummaryItem("Pendiente", 2),
+                    SummaryItem("Atendidos", 2),
+                    SummaryItem("En espera", 4),
+                    SummaryItem("Pendiente", 2),
                   ],
                 ),
               ),
@@ -181,36 +182,6 @@ class DoctorSecretaryCard extends StatelessWidget {
               ),
             ],
           )),
-    );
-  }
-}
-
-class _SummaryItem extends StatelessWidget {
-  final String _label;
-  final int _value;
-
-  _SummaryItem(this._label, this._value);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            _label,
-            style: MedAppTextStyle.label().copyWith(
-              color: Colors.white,
-            ),
-          ),
-          Text(
-            "$_value",
-            style: MedAppTextStyle.body().copyWith(
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
