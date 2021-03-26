@@ -42,8 +42,13 @@ class AppointmentListSecretaryPage extends StatelessWidget {
       child: Consumer<AppointmentListSecretaryViewModel>(
         builder: (_, viewModel, __) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text("Citas"),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(250),
+              child: _AppointmentsAppBar(
+                onAdd: () {
+                  _navigateCreateAppointment(context, _doctor);
+                },
+              ),
             ),
             body: Stack(
               children: [
@@ -51,6 +56,7 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 60),
                   child: Column(
                     children: [
+                      SizedBox(height: 16),
                       Row(
                         children: [
                           SizedBox(width: 30),
@@ -79,7 +85,9 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                           SizedBox(width: 30),
                         ],
                       ),
+                      SizedBox(height: 8),
                       _PatientsSummary(),
+                      SizedBox(height: 8),
                       viewModel.appointmentCount == 0
                           ? Text("Doctor no seleccionado")
                           : ListView.builder(
@@ -107,23 +115,6 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                               },
                             ),
                     ],
-                  ),
-                ),
-                Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(30, 8, 30, 8),
-                    width: double.infinity,
-                    color: Colors.white,
-                    child: OutlinedButton(
-                      child: Text("Nueva cita"),
-                      onPressed: viewModel.canCreateAppointment
-                          ? () {
-                              final doctor = viewModel.getSelectedDoctor;
-                              _navigateCreateAppointment(context, doctor);
-                            }
-                          : null,
-                    ),
                   ),
                 )
               ],
@@ -362,6 +353,91 @@ class _SecretaryAppointmentCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _AppointmentsAppBar extends StatelessWidget {
+  final Function onAdd;
+
+  _AppointmentsAppBar({@required this.onAdd});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(color: MedAppColors.blue, boxShadow: [
+        BoxShadow(
+          color: MedAppColors.gray2,
+          offset: Offset(0.0, 1.0), //(x,y)
+          blurRadius: 6.0,
+        )
+      ]),
+      padding: EdgeInsets.only(left: 25, right: 25, top: 60, bottom: 20),
+      height: 120,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "Citas",
+            style: MedAppTextStyle.title().copyWith(color: Colors.white),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Material(
+            borderRadius: BorderRadius.circular(4),
+            color: MedAppColors.lighterBlue,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(4),
+              splashColor: MedAppColors.lighterBlue,
+              highlightColor: MedAppColors.lighterBlue,
+              child: Icon(
+                Icons.add,
+                size: 30,
+                color: MedAppColors.lightBlue,
+              ),
+              onTap: onAdd,
+            ),
+          ),
+          Spacer(),
+          Material(
+            borderRadius: BorderRadius.circular(4),
+            color: MedAppColors.lighterBlue,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(4),
+              splashColor: MedAppColors.lighterBlue,
+              highlightColor: MedAppColors.lighterBlue,
+              child: Icon(
+                Icons.list,
+                size: 30,
+                color: MedAppColors.lightBlue,
+              ),
+              onTap: () {},
+            ),
+          ),
+          Container(
+            width: 1,
+            margin: EdgeInsets.only(left: 8, right: 8),
+            color: Colors.black87,
+            height: 30,
+          ),
+          Material(
+            borderRadius: BorderRadius.circular(4),
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(4),
+              splashColor: MedAppColors.lighterBlue,
+              highlightColor: MedAppColors.lighterBlue,
+              child: Icon(
+                Icons.calendar_today_outlined,
+                size: 30,
+                color: MedAppColors.lightBlue,
+              ),
+              onTap: () {},
+            ),
+          ),
+        ],
       ),
     );
   }
