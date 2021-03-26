@@ -10,6 +10,10 @@ import 'package:project_docere/texts.dart';
 import 'package:provider/provider.dart';
 
 class DoctorListPage extends StatelessWidget {
+  final Function(Doctor) onDoctorSelected;
+
+  DoctorListPage({this.onDoctorSelected});
+
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<DoctorListViewModel>(context);
@@ -21,6 +25,12 @@ class DoctorListPage extends StatelessWidget {
         CreateAppointmentPage.routeName,
         arguments: CreateAppointmentArguments(doctor: doctor),
       );
+    }
+
+    void _navigateAppointmentList(BuildContext context, Doctor doctor) {
+      if (this.onDoctorSelected != null) {
+        this.onDoctorSelected(doctor);
+      }
     }
 
     return Scaffold(
@@ -36,7 +46,9 @@ class DoctorListPage extends StatelessWidget {
               {
                 return DoctorSecretaryCard(
                   doctor: _doctors[index],
-                  onTap: null,
+                  onTap: (Doctor doctor) {
+                    _navigateAppointmentList(context, doctor);
+                  },
                 );
               }
             case Rol.Patient:

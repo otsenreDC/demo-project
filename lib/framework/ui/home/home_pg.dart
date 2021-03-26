@@ -1,13 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/models/session.dart';
 import 'package:project_docere/domain/view_models/doctors/doctor_list_vm.dart';
 import 'package:project_docere/framework/ui/appointments/patient/appointment_list_pg.dart';
 import 'package:project_docere/framework/ui/appointments/secretary/appointment_list_pg.dart';
 import 'package:project_docere/framework/ui/doctors/doctor_list_pg.dart';
 import 'package:project_docere/framework/ui/profile/profile_pg.dart';
+import 'package:project_docere/texts.dart';
 import 'package:provider/provider.dart';
+
+const INDEX_DOCTORS = 0;
+const INDEX_APPOINTMENTS = 1;
+const INDEX_PROFILE = 2;
 
 class Destination {
   const Destination(this.index, this.title, this.icon);
@@ -18,9 +24,9 @@ class Destination {
 }
 
 const List<Destination> allDestinations = <Destination>[
-  Destination(0, 'Doctores', Icons.home_outlined),
-  Destination(1, 'Citas', Icons.calendar_today_sharp),
-  Destination(2, 'Perfil', Icons.perm_identity),
+  Destination(INDEX_DOCTORS, 'Doctores', Icons.home_outlined),
+  Destination(INDEX_APPOINTMENTS, 'Citas', Icons.calendar_today_sharp),
+  Destination(INDEX_PROFILE, 'Perfil', Icons.perm_identity),
 ];
 
 class HomePage extends StatefulWidget {
@@ -34,35 +40,72 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with TickerProviderStateMixin<HomePage> {
-  String _title = 'Doctores';
   List<Key> _destinationKeys;
   List<AnimationController> _faders;
   AnimationController _hide;
-  int _currentIndex = 0;
+  int _currentIndex = INDEX_DOCTORS;
+  Doctor _currentDoctor;
 
   void _onItemTapped(int index) {
     setState(() {
-      _title = allDestinations[index].title;
       _currentIndex = index;
+    });
+  }
+
+  void _onDoctorSelected(Doctor doctor) {
+    _currentDoctor = doctor;
+    setState(() {
+      _currentIndex = INDEX_APPOINTMENTS;
     });
   }
 
   Widget _getPage(int index) {
     switch (index) {
-      case 1:
+      case INDEX_APPOINTMENTS:
         {
           final rol = Provider.of<DoctorListViewModel>(context).sessionRol;
           Widget to;
-          if (rol == Rol.Secretary)
-            to = AppointmentListSecretaryPage();
-          else
+          if (rol == Rol.Secretary) {
+            if (_currentDoctor == null) {
+              to = Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Debe seleccionar un doctor",
+                    maxLines: 4,
+                    style: MedAppTextStyle.header2()
+                        .copyWith(color: Colors.black87),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      setState(() {
+                        _currentIndex = 0;
+                      });
+                    },
+                    child: Text("Ir a Doctores"),
+                  )
+                ],
+              );
+            } else {
+              to = AppointmentListSecretaryPage(_currentDoctor);
+            }
+          } else
             to = AppointmentListPage();
           return to;
         }
-      case 2:
+      case INDEX_PROFILE:
         return ProfilePage();
+      case INDEX_DOCTORS:
       default:
-        return DoctorListPage();
+        {
+          final rol = Provider.of<DoctorListViewModel>(context).sessionRol;
+          final onDoctorSelected =
+              rol == Rol.Secretary ? _onDoctorSelected : null;
+          return DoctorListPage(onDoctorSelected: onDoctorSelected);
+        }
     }
   }
 

@@ -19,6 +19,10 @@ import '../../../../colors.dart';
 class AppointmentListSecretaryPage extends StatelessWidget {
   static String routeName = "appointments/secretary";
 
+  final Doctor _doctor;
+
+  AppointmentListSecretaryPage(this._doctor);
+
   void _navigateCreateAppointment(BuildContext context, Doctor doctor) {
     Navigator.pushNamed(
       context,
@@ -71,7 +75,7 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                             ),
                           ),
                           Spacer(),
-                          _DoctorItem("Luis Javier", "Neumólogo"),
+                          _DoctorItem(_doctor.fullName, _doctor.specialty),
                           SizedBox(width: 30),
                         ],
                       ),
