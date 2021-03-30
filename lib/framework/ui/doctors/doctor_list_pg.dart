@@ -77,7 +77,7 @@ class _DoctorListAppBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(color: MedAppColors.blue, boxShadow: [
         BoxShadow(
-          color: MedAppColors.gray2,
+          color: MedAppColors.black196,
           offset: Offset(0.0, 1.0), //(x,y)
           blurRadius: 6.0,
         )

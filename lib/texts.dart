@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_docere/colors.dart';
 
 class MedAppTextStyle {
   static TextStyle title() {
@@ -12,6 +13,7 @@ class MedAppTextStyle {
   static TextStyle header1() {
     return TextStyle(
       fontWeight: FontWeight.bold,
+      color: MedAppColors.text,
       fontSize: 18,
     );
   }
@@ -19,6 +21,7 @@ class MedAppTextStyle {
   static TextStyle header2() {
     return TextStyle(
       fontWeight: FontWeight.bold,
+      color: MedAppColors.text,
       fontSize: 16,
     );
   }
@@ -26,6 +29,7 @@ class MedAppTextStyle {
   static TextStyle header3() {
     return TextStyle(
       fontWeight: FontWeight.bold,
+      color: MedAppColors.text,
       fontSize: 14,
     );
   }
@@ -33,12 +37,21 @@ class MedAppTextStyle {
   static TextStyle body() {
     return TextStyle(
       fontSize: 14,
+      color: MedAppColors.text,
     );
   }
 
   static TextStyle label() {
     return TextStyle(
       fontSize: 12,
+      color: MedAppColors.text,
+    );
+  }
+
+  static TextStyle labelSmall() {
+    return TextStyle(
+      fontSize: 10,
+      color: MedAppColors.text,
     );
   }
 }

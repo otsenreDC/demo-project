@@ -5,15 +5,17 @@ import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/day.dart';
 import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/view_models/appointments/create_appointment_vm.dart';
-import 'package:project_docere/framework/ui/create_appointment/input_patient_info.dart';
 import 'package:project_docere/framework/ui/widgets/date_selector_wg.dart';
-import 'package:project_docere/framework/ui/widgets/doctor_app_bar.dart';
+import 'package:project_docere/framework/ui/widgets/doctor_item.dart';
 import 'package:project_docere/framework/ui/widgets/hours_wg.dart';
 import 'package:project_docere/framework/ui/widgets/simple_center_card_wg.dart';
 import 'package:project_docere/injection_container.dart';
+import 'package:project_docere/texts.dart';
 import 'package:provider/provider.dart';
 
+import '../../../colors.dart';
 import 'confirm_appointment_pg.dart';
+import 'input_patient_info.dart';
 
 class CreateAppointmentArguments {
   final Doctor doctor;
@@ -52,69 +54,103 @@ class CreateAppointmentPage extends StatelessWidget {
       create: (_) {
         final CreateAppointmentViewModel viewModel =
             sl<CreateAppointmentViewModel>();
-        viewModel.start(_doctor);
+        viewModel.start(_doctor, () {
+          _navigateToConfirmationPage(context, viewModel);
+        });
         return viewModel;
       },
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(150),
-          child: DoctorAppBar(
-            fullName: "${_doctor.name} ${_doctor.lastName}",
-            specialty: _doctor.specialty,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(
+            "Creando Cita",
+            style: MedAppTextStyle.title(),
           ),
         ),
         body: Consumer<CreateAppointmentViewModel>(
           builder: (_, viewModel, __) {
-            return viewModel.needPatientInfo
-                ? PatientInfoForm(
-                    (patient) {
-                      viewModel.setPatient = patient;
-                    },
-                  )
-                : Container(
-                    child: ListView(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Centros Médicos",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(width: 8),
-                            Icon(
-                              Icons.local_hospital_outlined,
-                              size: 15,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: _doctor.centerInfo.map((CenterInfo center) {
-                            return SimpleCenterCard(
-                              name: center.name,
-                              address: center.address,
-                              selected: viewModel.centerIsSelected(center),
-                              onTap: () {
-                                viewModel.setSelectedCenter = center;
-                              },
-                            );
-                          }).toList(),
-                        ),
-                        HourSection(
-                          key: UniqueKey(),
-                          calendarStatus: viewModel.getCalendarStatus,
-                          onSlotSelected: (day, slot, dateTime) {
-                            viewModel.setSelectedDate = day;
-                            viewModel.setSelectedHour = slot;
-                            viewModel.setSelectedDateTime = dateTime;
-                            _navigateToConfirmationPage(context, viewModel);
-                          },
-                        )
-                      ],
+            if (viewModel.showPatientInfo) {
+              return PatientInfoForm(
+                (patient) {
+                  viewModel.setPatient = patient;
+                },
+              );
+            } else {
+              return SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 30,),
+                    DoctorItem(
+                      viewModel.getDoctor.fullName,
+                      viewModel.getDoctor.specialty,
                     ),
-                  );
+                    SizedBox(
+                      height: 30,
+                    ),
+                    _TimeSelection(viewModel),
+                  ],
+                ),
+              );
+            }
           },
         ),
+      ),
+    );
+  }
+}
+
+class _TimeSelection extends StatelessWidget {
+  final CreateAppointmentViewModel _viewModel;
+
+  _TimeSelection(this._viewModel);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(left: 30, right: 30),
+      child: ListView(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        children: [
+          Row(
+            children: [
+              Text(
+                "Centros Médicos",
+                style: MedAppTextStyle.header3(),
+              ),
+              SizedBox(width: 8),
+              Icon(
+                Icons.local_hospital_outlined,
+                size: 15,
+              ),
+            ],
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: _viewModel.getDoctor.centerInfo.map((CenterInfo center) {
+              return SimpleCenterCard(
+                name: center.name,
+                address: center.address,
+                selected: _viewModel.centerIsSelected(center),
+                onTap: () {
+                  _viewModel.setSelectedCenter = center;
+                },
+              );
+            }).toList(),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          HourSection(
+            key: UniqueKey(),
+            calendarStatus: _viewModel.getCalendarStatus,
+            onSlotSelected: (day, slot, dateTime) {
+              _viewModel.confirmInspection(day, slot, dateTime);
+            },
+          )
+        ],
       ),
     );
   }
@@ -162,7 +198,14 @@ class _HourSectionState extends State<HourSection> {
         value: null,
       ));
     } else if (calendarStatus.data == null) {
-      return Center(child: Text("Select a center"));
+      return Container(
+          width: double.infinity,
+          height: 200,
+          child: Center(
+              child: Text(
+            "Seleccione un centro",
+            style: MedAppTextStyle.body(),
+          )));
     } else if (calendarStatus.data != null) {
       return Container(
         child: Column(
@@ -171,7 +214,7 @@ class _HourSectionState extends State<HourSection> {
               children: [
                 Text(
                   "Horas disponibles",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: MedAppTextStyle.header3(),
                 ),
                 SizedBox(width: 8),
                 Icon(
@@ -185,35 +228,40 @@ class _HourSectionState extends State<HourSection> {
               onDateChanged: (date) {
                 setState(() {
                   _selectedHour = null;
-                  _selectedDay = calendarStatus.data.days
-                      .firstWhere((element) => element.id == date.dayOfYear,
-                          // date.difference(DateTime(2021, 1, 1, 0, 0)).inDays,
-                          orElse: () => null);
+                  _selectedDay = calendarStatus.data.days.firstWhere(
+                      (element) => element.id == date.dayOfYear,
+                      orElse: () => null);
                   _selectedDateTime = date;
                 });
               },
             ),
+            SizedBox(
+              height: 15,
+            ),
             Container(
-              padding: EdgeInsets.only(left: 50, right: 50),
+              padding: EdgeInsets.only(left: 40, right: 40),
               width: double.infinity,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                    primary: _selectedHour?.inOrderOfArrival == true
-                        ? Colors.white
-                        : Colors.blue[800],
-                    textStyle: TextStyle(fontWeight: FontWeight.bold),
-                    backgroundColor: _selectedHour?.inOrderOfArrival == true
-                        ? Theme.of(context).accentColor
-                        : Colors.lightBlue[100]),
-                onPressed: () {
-                  setState(() {
-                    _selectedHour = DaySlot.inOrderOfArrival();
-                    onSlotSelected(
-                        _selectedDay, _selectedHour, _selectedDateTime);
-                  });
-                },
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  textStyle: MedAppTextStyle.header3(),
+                  primary: MedAppColors.lighterBlue, // background
+                  onPrimary: MedAppColors.lightBlue,
+                  shadowColor: Colors.transparent,
+                ),
+                onPressed: _selectedDay?.isEnabled == true
+                    ? () {
+                        setState(() {
+                          _selectedHour = DaySlot.inOrderOfArrival();
+                          onSlotSelected(
+                              _selectedDay, _selectedHour, _selectedDateTime);
+                        });
+                      }
+                    : null,
                 child: Text("Orden de llegada"),
               ),
+            ),
+            SizedBox(
+              height: 25,
             ),
             Container(
               child: HoursWidget(

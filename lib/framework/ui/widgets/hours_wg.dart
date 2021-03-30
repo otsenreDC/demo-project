@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:project_docere/domain/extensions.dart';
 import 'package:project_docere/domain/models/day.dart';
 
+import '../../../texts.dart';
+
 class HoursWidget extends StatelessWidget {
   final Day day;
   final DaySlot selectedHour;
@@ -17,30 +19,64 @@ class HoursWidget extends StatelessWidget {
       return Container(
         margin: EdgeInsets.only(top: 30),
         alignment: Alignment.center,
-        child: Text("Día no configurado."),
+        child: Text(
+          "Día no configurado.",
+          style: MedAppTextStyle.body(),
+        ),
       );
     }
     if (day.holiday) {
       return Container(
         margin: EdgeInsets.only(top: 30),
         alignment: Alignment.center,
-        child: Text("Día feriado nacional."),
+        child: Text(
+          "Día feriado nacional.",
+          style: MedAppTextStyle.body(),
+        ),
       );
     }
     if (!day.workday) {
       return Container(
         margin: EdgeInsets.only(top: 30),
         alignment: Alignment.center,
-        child: Text("Día no laborable."),
+        child: Text(
+          "Día no laborable.",
+          style: MedAppTextStyle.body(),
+        ),
       );
     } else if (day?.daySlots?.isEmpty == true) {
       return Container(
         margin: EdgeInsets.only(top: 30),
         alignment: Alignment.center,
-        child: Text("No hay horario disponible."),
+        child: Text(
+          "No hay horario disponible.",
+          style: MedAppTextStyle.body(),
+        ),
       );
     } else {
-      return Column(
+      return GridView.count(
+        crossAxisCount: 3,
+        shrinkWrap: true,
+        primary: false,
+        childAspectRatio: 100 / 40,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 10,
+        children: day.daySlots.map((value) {
+          return ElevatedButton(
+              onPressed: value.taken
+                  ? null
+                  : () {
+                      onTap(value);
+                    },
+              child: Text(
+                "${DateTimeHelper.format(
+                  value?.start?.toDate(),
+                  pattern: DATE_FORMAT_TIME,
+                )}",
+              ));
+        }).toList(),
+      );
+      /*return Column(
         mainAxisSize: MainAxisSize.min,
         children: day.daySlots.map((value) {
           return ElevatedButton(
@@ -54,10 +90,13 @@ class HoursWidget extends StatelessWidget {
                       onTap(value);
                     },
               child: Text(
-                "${DateTimeHelper.format(value?.start?.toDate(), pattern: DATE_FORMAT_TIME)}",
+                "${DateTimeHelper.format(
+                  value?.start?.toDate(),
+                  pattern: DATE_FORMAT_TIME,
+                )}",
               ));
         }).toList(),
-      );
+      );*/
     }
   }
 }

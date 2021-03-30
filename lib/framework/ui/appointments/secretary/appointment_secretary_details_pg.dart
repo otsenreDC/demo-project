@@ -250,7 +250,7 @@ class _LabelItem extends StatelessWidget {
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: MedAppColors.gray,
+        color: MedAppColors.black247,
       ),
       child: Text(
         _text,
@@ -302,7 +302,7 @@ class _InsuranceVisor extends StatelessWidget {
 
     return SizedBox(
       child: Card(
-        color: MedAppColors.gray,
+        color: MedAppColors.black247,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: child,

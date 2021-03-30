@@ -8,6 +8,10 @@ class Day {
 
   Day({this.id, this.workday, this.holiday, this.daySlots});
 
+  bool get isEnabled {
+    return workday && !holiday;
+  }
+
   DateTime toDateTime() {
     return DateTime.now();
   }

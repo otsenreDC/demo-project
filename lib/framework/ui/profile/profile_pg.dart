@@ -210,7 +210,7 @@ class BirthdayTile extends StatelessWidget {
     return Container(
       margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
       decoration: BoxDecoration(
-        color: MedAppColors.gray,
+        color: MedAppColors.black247,
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
@@ -263,7 +263,7 @@ class PhoneTile extends StatelessWidget {
     return Container(
       margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
       decoration: BoxDecoration(
-        color: MedAppColors.gray,
+        color: MedAppColors.black247,
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project_docere/texts.dart';
 
 import '../../../colors.dart';
 
@@ -22,26 +23,39 @@ class SimpleCenterCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+        margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
             15,
           ),
         ),
-        color: selected == true ? Colors.grey[500] : MedAppColors.gray,
+        color:
+            selected == true ? MedAppColors.lighterBlue : MedAppColors.black247,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                "$name",
-                style: TextStyle(fontWeight: FontWeight.bold),
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    size: 16,
+                    color: MedAppColors.black120,
+                  ),
+                  Text(
+                    "$name",
+                    style: MedAppTextStyle.header3(),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 8,
               ),
               Text(
                 "$address",
-                style: TextStyle(fontSize: 12),
+                style: MedAppTextStyle.labelSmall(),
               ),
             ],
           ),

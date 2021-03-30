@@ -9,6 +9,7 @@ import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/view_models/appointments/appointment_list_secretary_vm.dart';
 import 'package:project_docere/framework/ui/appointments/secretary/appointment_secretary_details_pg.dart';
 import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
+import 'package:project_docere/framework/ui/widgets/doctor_item.dart';
 import 'package:project_docere/framework/ui/widgets/summary_item.dart';
 import 'package:project_docere/injection_container.dart';
 import 'package:project_docere/texts.dart';
@@ -59,6 +60,11 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(height: 16),
+                      GestureDetector(
+                        child: DoctorItem(_doctor.fullName, _doctor.specialty),
+                        onTap: goToDoctorListPage,
+                      ),
+                      SizedBox(height: 10),
                       Row(
                         children: [
                           SizedBox(width: 30),
@@ -66,7 +72,7 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                             "Hoy",
                             style: MedAppTextStyle.header1(),
                           ),
-                          SizedBox(width: 8),
+                          Spacer(),
                           Container(
                             decoration: BoxDecoration(
                               color: MedAppColors.lighterBlue,
@@ -82,18 +88,12 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Spacer(),
-                          GestureDetector(
-                            child: _DoctorItem(
-                                _doctor.fullName, _doctor.specialty),
-                            onTap: goToDoctorListPage,
-                          ),
                           SizedBox(width: 30),
                         ],
                       ),
-                      SizedBox(height: 8),
-                      _PatientsSummary(),
-                      SizedBox(height: 8),
+                      // SizedBox(height: 8),
+                      // _PatientsSummary(),
+                      SizedBox(height: 10),
                       viewModel.appointmentCount == 0
                           ? Text("Doctor no seleccionado")
                           : ListView.builder(
@@ -169,68 +169,6 @@ class _PatientsSummary extends StatelessWidget {
   }
 }
 
-class _DoctorItem extends StatelessWidget {
-  final String _name;
-  final String _specialty;
-  final double width;
-
-  _DoctorItem(this._name, this._specialty, {this.width = 150});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(4),
-      padding: EdgeInsets.fromLTRB(5, 3, 5, 3),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(8),
-        ),
-        color: MedAppColors.lighterBlue,
-      ),
-      child: Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: MedAppColors.lightBlue,
-            borderRadius: BorderRadius.all(
-              Radius.circular(8),
-            ),
-          ),
-          // width: width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    _name,
-                    style: MedAppTextStyle.label().copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    _specialty,
-                    style:
-                        MedAppTextStyle.label().copyWith(color: Colors.white),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              CircleAvatar(
-                radius: 15,
-                backgroundImage: NetworkImage(
-                  "https://cdn2.iconfinder.com/data/icons/avatar-business-people-set-one/128/avatar-25-512.png",
-                ),
-              ),
-            ],
-          )),
-    );
-  }
-}
-
 class _SecretaryAppointmentCard extends StatelessWidget {
   final String name;
   final DateTime appointmentAt;
@@ -264,7 +202,7 @@ class _SecretaryAppointmentCard extends StatelessWidget {
           15,
         ),
       ),
-      color: MedAppColors.gray2,
+      color: MedAppColors.black196,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(
@@ -374,7 +312,7 @@ class _AppointmentsAppBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(color: MedAppColors.blue, boxShadow: [
         BoxShadow(
-          color: MedAppColors.gray2,
+          color: MedAppColors.black196,
           offset: Offset(0.0, 1.0), //(x,y)
           blurRadius: 6.0,
         )
