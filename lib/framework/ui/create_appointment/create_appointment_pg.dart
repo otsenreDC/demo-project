@@ -80,7 +80,9 @@ class CreateAppointmentPage extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(height: 30,),
+                    SizedBox(
+                      height: 30,
+                    ),
                     DoctorItem(
                       viewModel.getDoctor.fullName,
                       viewModel.getDoctor.specialty,
@@ -118,7 +120,7 @@ class _TimeSelection extends StatelessWidget {
             children: [
               Text(
                 "Centros Médicos",
-                style: MedAppTextStyle.header3(),
+                style: MedAppTextStyle.header2(),
               ),
               SizedBox(width: 8),
               Icon(
@@ -214,7 +216,7 @@ class _HourSectionState extends State<HourSection> {
               children: [
                 Text(
                   "Horas disponibles",
-                  style: MedAppTextStyle.header3(),
+                  style: MedAppTextStyle.header2(),
                 ),
                 SizedBox(width: 8),
                 Icon(

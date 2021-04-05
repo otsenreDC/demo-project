@@ -11,7 +11,7 @@ class TimeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
       padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
       decoration: BoxDecoration(
         color: Colors.lightBlueAccent[400],

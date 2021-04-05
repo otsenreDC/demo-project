@@ -62,6 +62,22 @@ class ConfirmAppointmentViewModel extends ChangeNotifier {
     return _centerInfo.secretaries.first?.phone;
   }
 
+  String get patientName {
+    return _patient.fullName;
+  }
+
+  String get patientPhoneNumber {
+    return _patient.phone; // _patient.phone;
+  }
+
+  String get patientEmail {
+    return _patient.email;
+  }
+
+  String get patientPersonalId {
+    return _patient.personalId;
+  }
+
   DateTime getStartHour() {
     return appointmentSlot.start?.toDate();
   }

@@ -6,7 +6,7 @@ class MedAppTextStyle {
   static TextStyle title() {
     return TextStyle(
       fontWeight: FontWeight.bold,
-      fontSize: 22,
+      fontSize: 24,
     );
   }
 
@@ -14,7 +14,7 @@ class MedAppTextStyle {
     return TextStyle(
       fontWeight: FontWeight.bold,
       color: MedAppColors.text,
-      fontSize: 18,
+      fontSize: 20,
     );
   }
 
@@ -22,7 +22,7 @@ class MedAppTextStyle {
     return TextStyle(
       fontWeight: FontWeight.bold,
       color: MedAppColors.text,
-      fontSize: 16,
+      fontSize: 18,
     );
   }
 
@@ -30,7 +30,7 @@ class MedAppTextStyle {
     return TextStyle(
       fontWeight: FontWeight.bold,
       color: MedAppColors.text,
-      fontSize: 14,
+      fontSize: 16,
     );
   }
 
@@ -43,14 +43,14 @@ class MedAppTextStyle {
 
   static TextStyle label() {
     return TextStyle(
-      fontSize: 12,
+      fontSize: 14,
       color: MedAppColors.text,
     );
   }
 
   static TextStyle labelSmall() {
     return TextStyle(
-      fontSize: 10,
+      fontSize: 14,
       color: MedAppColors.text,
     );
   }

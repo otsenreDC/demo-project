@@ -31,7 +31,7 @@ class SimpleCenterCard extends StatelessWidget {
           ),
         ),
         color:
-            selected == true ? MedAppColors.lighterBlue : MedAppColors.black247,
+            selected == true ? MedAppColors.lighterBlue : MedAppColors.black196,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Column(

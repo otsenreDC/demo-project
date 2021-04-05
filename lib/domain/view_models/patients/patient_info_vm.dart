@@ -5,20 +5,23 @@ class PatientInfoViewModel {
   String lastName;
   String personalId;
   String phone;
+  String email;
 
   bool get isComplete {
     return name?.isNotEmpty == true &&
         lastName?.isNotEmpty == true &&
         personalId?.isNotEmpty == true &&
-        phone?.isNotEmpty == true;
+        phone?.isNotEmpty == true &&
+        email?.isNotEmpty == true;
   }
 
   Patient getDetails() {
     return Patient(
-      name: name,
-      lastName: lastName,
-      phone: phone,
-      personalId: personalId,
+      name: name.trim(),
+      lastName: lastName.trim(),
+      phone: phone.trim(),
+      personalId: personalId.trim(),
+      email: email.trim(),
     );
   }
 }

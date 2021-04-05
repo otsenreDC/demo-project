@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_docere/colors.dart';
 import 'package:project_docere/domain/routers/routes.dart';
 import 'package:project_docere/domain/view_models/profile/profile_vm.dart';
+import 'package:project_docere/framework/ui/widgets/text_tile.dart';
 import 'package:provider/provider.dart';
 
 import '../../../injection_container.dart';
@@ -77,12 +78,12 @@ class AccountInformation extends StatelessWidget {
             "Nombre",
             marging: EdgeInsets.fromLTRB(30, 10, 30, 0),
           ),
-          _TextTile("Susuna Robles"),
+          TextTile("Susuna Robles"),
           _OptionText(
             "Cédula",
             marging: EdgeInsets.fromLTRB(30, 10, 30, 0),
           ),
-          _TextTile("000-1111111-2"),
+          TextTile("000-1111111-2"),
           _OptionText(
             "Fecha de nacimiento",
             marging: EdgeInsets.fromLTRB(30, 10, 30, 0),
@@ -137,14 +138,14 @@ class _OptionsList extends StatelessWidget {
           SizedBox(
             height: 40,
           ),
-          _TextTile(
+          TextTile(
             "Información de la cuenta",
             leadingIcon: Icon(Icons.account_circle_outlined),
             onSelected: _viewModel.showAccountDetails,
             trailingIcon: Icon(Icons.arrow_forward),
           ),
           SizedBox(height: 10),
-          _TextTile(
+          TextTile(
             "Cerrar sesión",
             leadingIcon: Icon(Icons.logout),
             trailingIcon: Icon(Icons.arrow_forward),
@@ -154,39 +155,6 @@ class _OptionsList extends StatelessWidget {
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _TextTile extends StatelessWidget {
-  final String _title;
-  final Function onSelected;
-  final Icon leadingIcon;
-  final Icon trailingIcon;
-
-  const _TextTile(
-    this._title, {
-    this.onSelected,
-    this.leadingIcon,
-    this.trailingIcon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      child: ListTile(
-        onTap: onSelected,
-        title: Text(_title),
-        leading: leadingIcon,
-        trailing: trailingIcon,
       ),
     );
   }
@@ -261,9 +229,9 @@ class PhoneTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(30, 10, 30, 10),
+      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
       decoration: BoxDecoration(
-        color: MedAppColors.black247,
+        color: MedAppColors.black196,
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),

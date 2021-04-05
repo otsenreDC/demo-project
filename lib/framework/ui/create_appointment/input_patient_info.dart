@@ -1,12 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_docere/colors.dart';
 import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/view_models/patients/patient_info_vm.dart';
 
 InputDecoration _inputDecoration(String hint) {
   return InputDecoration(
     hintText: hint,
-    border: OutlineInputBorder(),
+    fillColor: MedAppColors.black196,
+    filled: true,
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        style: BorderStyle.none,
+      ),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: MedAppColors.blue),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.red),
+      borderRadius: BorderRadius.circular(8),
+    ),
   );
 }
 
@@ -59,18 +75,27 @@ class PatientInfoForm extends StatelessWidget {
           _inputContainer(
             TextFormField(
               maxLines: 1,
-              decoration: _inputDecoration("Cédula"),
+              decoration: _inputDecoration("Teléfono"),
               onChanged: (text) {
-                viewModel.personalId = text;
+                viewModel.phone = text;
               },
             ),
           ),
           _inputContainer(
             TextFormField(
               maxLines: 1,
-              decoration: _inputDecoration("Teléfono"),
+              decoration: _inputDecoration("Correo electrónico"),
               onChanged: (text) {
-                viewModel.phone = text;
+                viewModel.email = text;
+              },
+            ),
+          ),
+          _inputContainer(
+            TextFormField(
+              maxLines: 1,
+              decoration: _inputDecoration("Cédula"),
+              onChanged: (text) {
+                viewModel.personalId = text;
               },
             ),
           ),

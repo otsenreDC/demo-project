@@ -12,6 +12,7 @@ import 'package:project_docere/framework/ui/create_appointment/create_appointmen
 import 'package:project_docere/framework/ui/widgets/doctor_item.dart';
 import 'package:project_docere/framework/ui/widgets/summary_item.dart';
 import 'package:project_docere/injection_container.dart';
+import 'package:project_docere/styles.dart';
 import 'package:project_docere/texts.dart';
 import 'package:provider/provider.dart';
 
@@ -285,12 +286,7 @@ class _SecretaryAppointmentCard extends StatelessWidget {
                         ElevatedButton(
                             onPressed: () {},
                             child: Text("Hacer que pase"),
-                            style: ElevatedButton.styleFrom(
-                              textStyle: MedAppTextStyle.header3(),
-                              primary: MedAppColors.lighterBlue, // background
-                              onPrimary: MedAppColors.lightBlue,
-                              shadowColor: Colors.transparent,
-                            ))
+                            style: MedAppStyles.lighBlueButtonStyle)
                       ],
                     )
                   : Container()
