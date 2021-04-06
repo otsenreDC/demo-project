@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project_docere/colors.dart';
 import 'package:project_docere/domain/models/session.dart';
 import 'package:project_docere/domain/routers/routes.dart';
+import 'package:project_docere/framework/ui/widgets/text_input_decoration.dart';
+import 'package:project_docere/framework/ui/widgets/vertical_spacer.dart';
 import 'package:project_docere/injection_container.dart';
+import 'package:project_docere/texts.dart';
+
+Container _inputContainer(Widget child) {
+  return Container(
+    margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+    child: child,
+  );
+}
 
 class LoginPage extends StatelessWidget {
   static String routeName = "/";
@@ -10,44 +21,96 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 200,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
+            child: Column(
+              // padding: EdgeInsets.only(left: 30, right: 30),
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Image.asset("images/login_img.jpeg"),
+                _inputContainer(TextFormField(
+                  decoration: inputDecoration("Correo electrónico"),
+                )),
+                _inputContainer(TextFormField(
+                  obscureText: true,
+                  autocorrect: false,
+                  enableSuggestions: false,
+                  decoration: inputDecoration("Contraseña"),
+                )),
+                VerticalSpacer(30),
+                ElevatedButton(onPressed: () {}, child: Text("Inicia sesión")),
+                VerticalSpacer(10),
+                TextButton(
+                    onPressed: () {}, child: Text("Olvidó su contraseña")),
+                VerticalSpacer(20),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        color: MedAppColors.blue,
+                        height: 1,
+                        endIndent: 10,
+                      ),
+                    ),
+                    Text("o"),
+                    Expanded(
+                        child: Divider(
+                      indent: 10,
+                      color: MedAppColors.blue,
+                    ))
+                  ],
+                ),
+                VerticalSpacer(10),
+                Text(
+                  "Inicia con".toUpperCase(),
+                  style: MedAppTextStyle.label().copyWith(
+                    color: MedAppColors.black180,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                VerticalSpacer(10),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                        color: MedAppColors.black120,
+                        icon: Icon(Icons.ac_unit_outlined),
+                        onPressed: () {}),
+                    IconButton(
+                        color: MedAppColors.blue,
+                        icon: Icon(Icons.face),
+                        onPressed: () {}),
+                    IconButton(
+                        color: MedAppColors.red,
+                        icon: Icon(Icons.account_box),
+                        onPressed: () {}),
+                  ],
+                ),
+                VerticalSpacer(100),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.cyan),
+                    onPressed: () {
+                      currentTestSession = SecretarySessionTmp();
+                      Routes.goHome(context);
+                    },
+                    child: Text("Secretaria")),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.teal),
+                    onPressed: () {
+                      currentTestSession = PatientSessionTmp();
+                      Routes.goHome(context);
+                    },
+                    child: Text("Paciente")),
+              ],
             ),
-            Container(
-              height: 100,
-              width: 100,
-              child: Image.network(
-                  "https://media.istockphoto.com/vectors/caduceus-medical-symbol-vector-id471629610?k=6&m=471629610&s=612x612&w=0&h=59MddMN1yIVPhleIBIhrhKEC74jCxI4CLTg6mGAPlqU="),
-            ),
-            Spacer(),
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(left: 30, right: 30),
-              child: ElevatedButton(
-                  onPressed: () {
-                    currentTestSession = SecretarySessionTmp();
-                    Routes.goHome(context);
-                  },
-                  child: Text("Secretaria")),
-            ),
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(left: 30, right: 30, top: 20),
-              child: ElevatedButton(
-                  onPressed: () {
-                    currentTestSession = PatientSessionTmp();
-                    Routes.goHome(context);
-                  },
-                  child: Text("Paciente")),
-            ),
-            Spacer(
-              flex: 2,
-            )
-          ],
+          ),
         ),
       ),
     );

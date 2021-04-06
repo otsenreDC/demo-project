@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project_docere/colors.dart';
 import 'package:project_docere/framework/ui/appointments/patient/appointment_details_pg.dart';
 import 'package:project_docere/framework/ui/appointments/secretary/appointment_authorization_wg.dart';
 import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
@@ -43,8 +44,8 @@ class MedApp extends StatelessWidget {
 }
 
 ThemeData medAppTheme = ThemeData(
-    primaryColor: Color.fromARGB(255, 25, 118, 210),
+    primaryColor: MedAppColors.blue,
     appBarTheme: AppBarTheme(
       brightness: Brightness.dark,
-      backgroundColor: Color.fromARGB(255, 25, 118, 210),
+      backgroundColor: Colors.white,
     ));

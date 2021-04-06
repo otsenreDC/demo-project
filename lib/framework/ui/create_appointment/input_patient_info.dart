@@ -1,30 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project_docere/colors.dart';
 import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/view_models/patients/patient_info_vm.dart';
-
-InputDecoration _inputDecoration(String hint) {
-  return InputDecoration(
-    hintText: hint,
-    fillColor: MedAppColors.black196,
-    filled: true,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        style: BorderStyle.none,
-      ),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: MedAppColors.blue),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.red),
-      borderRadius: BorderRadius.circular(8),
-    ),
-  );
-}
+import 'package:project_docere/framework/ui/widgets/text_input_decoration.dart';
 
 Container _inputContainer(Widget child) {
   return Container(
@@ -57,7 +35,7 @@ class PatientInfoForm extends StatelessWidget {
           _inputContainer(
             TextField(
               maxLines: 1,
-              decoration: _inputDecoration("Nombre"),
+              decoration: inputDecoration("Nombre"),
               onChanged: (text) {
                 viewModel.name = text;
               },
@@ -66,7 +44,7 @@ class PatientInfoForm extends StatelessWidget {
           _inputContainer(
             TextFormField(
               maxLines: 1,
-              decoration: _inputDecoration("Apellidos"),
+              decoration: inputDecoration("Apellidos"),
               onChanged: (text) {
                 viewModel.lastName = text;
               },
@@ -75,7 +53,7 @@ class PatientInfoForm extends StatelessWidget {
           _inputContainer(
             TextFormField(
               maxLines: 1,
-              decoration: _inputDecoration("Teléfono"),
+              decoration: inputDecoration("Teléfono"),
               onChanged: (text) {
                 viewModel.phone = text;
               },
@@ -84,7 +62,7 @@ class PatientInfoForm extends StatelessWidget {
           _inputContainer(
             TextFormField(
               maxLines: 1,
-              decoration: _inputDecoration("Correo electrónico"),
+              decoration: inputDecoration("Correo electrónico"),
               onChanged: (text) {
                 viewModel.email = text;
               },
@@ -93,7 +71,7 @@ class PatientInfoForm extends StatelessWidget {
           _inputContainer(
             TextFormField(
               maxLines: 1,
-              decoration: _inputDecoration("Cédula"),
+              decoration: inputDecoration("Cédula"),
               onChanged: (text) {
                 viewModel.personalId = text;
               },
