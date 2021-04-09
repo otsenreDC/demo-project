@@ -5,8 +5,10 @@ import 'package:get_it/get_it.dart';
 import 'package:project_docere/data/local/data_sources/db_data_source.dart';
 import 'package:project_docere/data/remote/data_sources/doctor/appointment_firestore_ds.dart';
 import 'package:project_docere/data/remote/data_sources/doctor/firestore_data_source.dart';
+import 'package:project_docere/data/remote/data_sources/profiles/profiles_firestore_ds.dart';
 import 'package:project_docere/domain/data_sources/appointments_data_source.dart';
 import 'package:project_docere/domain/data_sources/doctors_data_source.dart';
+import 'package:project_docere/domain/data_sources/profiles_data_source.dart';
 import 'package:project_docere/domain/models/session.dart';
 import 'package:project_docere/domain/repositories/patient/appointment_repository.dart';
 import 'package:project_docere/domain/repositories/patient/doctor_repository.dart';
@@ -55,6 +57,9 @@ Future<void> init() async {
   sl.registerLazySingleton<IAppointmentRemoteDataSource>(
     () => AppointmentFirestoreDataStore(sl()),
   );
+  sl.registerLazySingleton<IProfilesDataSource>(
+    () => ProfilesFirestoreDataSource(sl()),
+  );
 
   // Repositories
   sl.registerLazySingleton<IPatientRepository>(
@@ -88,7 +93,7 @@ Future<void> init() async {
   sl.registerFactory(() => UpdateAppointmentInsuranceUseCase(sl()));
 
   // Services
-  sl.registerLazySingleton<ISessionService>(() => SessionService(sl()));
+  sl.registerLazySingleton<ISessionService>(() => SessionService(sl(), sl()));
 
   // View models
   sl.registerFactory(() => DoctorListViewModel(sl(), sl()));

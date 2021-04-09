@@ -1,12 +1,14 @@
 import 'package:either_option/either_option.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project_docere/domain/data_sources/profiles_data_source.dart';
 import 'package:project_docere/domain/models/failure.dart';
 import 'package:project_docere/domain/services/session_service.dart';
 
 class SessionService with ISessionService {
   final FirebaseAuth _auth;
+  final IProfilesDataSource _profilesDataSource;
 
-  SessionService(this._auth);
+  SessionService(this._auth, this._profilesDataSource);
 
   @override
   Future<Either<Failure, bool>> signInWithEmail(
@@ -18,6 +20,8 @@ class SessionService with ISessionService {
         email: email,
         password: password,
       );
+
+      final result = await _profilesDataSource.getByEmail(email);
 
       return Right(true);
       // STORE DATA
@@ -32,6 +36,11 @@ class SessionService with ISessionService {
     } catch (e) {
       return Left(UnknownSignInFailure());
     }
+  }
+
+  @override
+  Future<Either<Failure, User>> getUser(String email) async {
+    return Left(Failure());
   }
 
   void authenticateWithFacebook() {}
