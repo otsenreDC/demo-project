@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:project_docere/data/local/data_sources/db_data_source.dart';
 import 'package:project_docere/data/remote/data_sources/doctor/appointment_firestore_ds.dart';
@@ -21,15 +23,18 @@ import 'package:project_docere/domain/view_models/appointments/appointment_detai
 import 'package:project_docere/domain/view_models/appointments/appointment_edit_vm.dart';
 import 'package:project_docere/domain/view_models/appointments/confirm_appointment_vm.dart';
 import 'package:project_docere/domain/view_models/doctors/doctor_list_vm.dart';
+import 'package:project_docere/domain/view_models/login/login_vm.dart';
 import 'package:project_docere/domain/view_models/profile/profile_vm.dart';
 import 'package:project_docere/framework/helpers/network_info_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'domain/helpers/netork_info_helper.dart';
+import 'domain/services/session_service.dart';
 import 'domain/use_cases/doctors/get_list_doctors_use_case.dart';
 import 'domain/view_models/appointments/appointment_list_secretary_vm.dart';
 import 'domain/view_models/appointments/appointment_list_vm.dart';
 import 'domain/view_models/appointments/create_appointment_vm.dart';
+import 'framework/services/session_service.dart';
 
 final sl = GetIt.instance;
 Session currentTestSession;
@@ -82,6 +87,9 @@ Future<void> init() async {
   sl.registerFactory(() => GetDoctorAppointmentsUseCase(sl()));
   sl.registerFactory(() => UpdateAppointmentInsuranceUseCase(sl()));
 
+  // Services
+  sl.registerLazySingleton<ISessionService>(() => SessionService(sl()));
+
   // View models
   sl.registerFactory(() => DoctorListViewModel(sl(), sl()));
   sl.registerFactory(() => CreateAppointmentViewModel(sl()));
@@ -91,6 +99,12 @@ Future<void> init() async {
   sl.registerFactory(() => AppointmentDetailsViewModel(sl(), sl()));
   sl.registerFactory(() => AppointmentEditViewModel(sl(), sl()));
   sl.registerFactory(() => ProfileViewModel());
+
+  sl.registerFactoryParam<LoginViewModel, BuildContext, void>(
+      (param1, param2) => LoginViewModel(
+            sl(),
+            param1,
+          ));
   // Core
 
   // External
@@ -100,4 +114,6 @@ Future<void> init() async {
   sl.registerLazySingleton<INetworkInfoHelper>(() => NetworkInfoHelper());
   // Firestore
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
+  // Fireauth
+  sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 }

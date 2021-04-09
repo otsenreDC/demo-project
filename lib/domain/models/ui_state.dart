@@ -1,16 +1,16 @@
-import 'package:flutter/cupertino.dart';
-
 abstract class UIState {}
 
 class UILoading implements UIState {}
 
-class UIError implements UIState {
+class UIError<T> implements UIState {
   Exception exception;
   String message;
+  T errorData;
 
   UIError({
-    @required this.message,
+    this.message = "",
     this.exception,
+    this.errorData,
   });
 }
 
