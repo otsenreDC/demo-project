@@ -1,16 +1,17 @@
 class Session {
   final String fullName;
-  final Rol rol;
+  final Rol role;
   final String userReference;
+  final String authentication;
 
-  Session(this.fullName, this.rol, this.userReference);
+  Session(this.fullName, this.role, this.userReference, {this.authentication});
 
   bool get isSecretary {
-    return rol == Rol.Secretary;
+    return role == Rol.Secretary;
   }
 
   bool get isPatient {
-    return rol == Rol.Patient;
+    return role == Rol.Patient;
   }
 }
 
@@ -33,3 +34,10 @@ class SecretarySessionTmp extends Session {
 }
 
 enum Rol { Patient, Secretary }
+
+Rol roleFromString(String input) {
+  if (input.toLowerCase() == "secretary") {
+    return Rol.Secretary;
+  } else
+    return Rol.Patient;
+}

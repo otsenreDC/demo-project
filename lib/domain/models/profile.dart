@@ -14,4 +14,6 @@ class Profile {
     @required this.name,
     @required this.lastName,
   });
+
+  String get fullName => "$name $lastName";
 }

@@ -34,4 +34,16 @@ class ProfilesFirestoreDataSource extends IProfilesDataSource {
       return Left(Failure(cause: e));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> save(Profile profile) async {
+    return Left(Failure(
+        cause: Exception("This method is no implemented for Firestore")));
+  }
+
+  @override
+  Either<Failure, Profile> getByCurrent() {
+    return Left(Failure(
+        cause: Exception("This method is no implemented for Firestore")));
+  }
 }

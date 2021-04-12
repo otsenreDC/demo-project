@@ -27,7 +27,11 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (BuildContext buildContext) {
-        return sl<LoginViewModel>(param1: buildContext);
+        final viewModel = sl<LoginViewModel>(param1: buildContext);
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => {viewModel.validateSession()},
+        );
+        return viewModel;
       },
       child: Scaffold(
         backgroundColor: Colors.white,

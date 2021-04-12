@@ -24,7 +24,7 @@ class DoctorListViewModel extends ChangeNotifier {
   }
 
   Rol get sessionRol {
-    return currentTestSession.rol;
+    return currentTestSession.role;
   }
 
   List<Doctor> get getDoctors {

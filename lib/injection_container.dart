@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:project_docere/data/local/data_sources/db_data_source.dart';
+import 'package:project_docere/data/local/data_sources/profiles_preferences_ds.dart';
 import 'package:project_docere/data/remote/data_sources/doctor/appointment_firestore_ds.dart';
 import 'package:project_docere/data/remote/data_sources/doctor/firestore_data_source.dart';
 import 'package:project_docere/data/remote/data_sources/profiles/profiles_firestore_ds.dart';
@@ -21,6 +22,8 @@ import 'package:project_docere/domain/use_cases/appointments/update_appointment_
 import 'package:project_docere/domain/use_cases/doctors/get_current_calendar_uc.dart';
 import 'package:project_docere/domain/use_cases/doctors/get_doctor_appointments_uc.dart';
 import 'package:project_docere/domain/use_cases/doctors/get_secretary_doctors_uc.dart';
+import 'package:project_docere/domain/use_cases/session/sign_in_uc.dart';
+import 'package:project_docere/domain/use_cases/session/validate_session_uc.dart';
 import 'package:project_docere/domain/view_models/appointments/appointment_details_vm.dart';
 import 'package:project_docere/domain/view_models/appointments/appointment_edit_vm.dart';
 import 'package:project_docere/domain/view_models/appointments/confirm_appointment_vm.dart';
@@ -59,6 +62,12 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<IProfilesDataSource>(
     () => ProfilesFirestoreDataSource(sl()),
+    instanceName: "profiles-firestore",
+  );
+
+  sl.registerLazySingleton<IProfilesDataSource>(
+    () => ProfilesPreferencesDataSource(sl()),
+    instanceName: "profiles-preferences",
   );
 
   // Repositories
@@ -91,9 +100,17 @@ Future<void> init() async {
   sl.registerFactory(() => GetSecretaryDoctorUseCase(sl()));
   sl.registerFactory(() => GetDoctorAppointmentsUseCase(sl()));
   sl.registerFactory(() => UpdateAppointmentInsuranceUseCase(sl()));
+  sl.registerFactory(() => SignInUseCase(sl()));
+  sl.registerFactory(() => ValidateSessionUseCase(sl()));
 
   // Services
-  sl.registerLazySingleton<ISessionService>(() => SessionService(sl(), sl()));
+  sl.registerLazySingleton<ISessionService>(
+    () => SessionService(
+      sl(),
+      sl.get(instanceName: "profiles-firestore"),
+      sl.get(instanceName: "profiles-preferences"),
+    ),
+  );
 
   // View models
   sl.registerFactory(() => DoctorListViewModel(sl(), sl()));
@@ -107,6 +124,7 @@ Future<void> init() async {
 
   sl.registerFactoryParam<LoginViewModel, BuildContext, void>(
       (param1, param2) => LoginViewModel(
+            sl(),
             sl(),
             param1,
           ));

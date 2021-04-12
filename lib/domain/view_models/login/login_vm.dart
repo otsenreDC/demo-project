@@ -3,21 +3,37 @@ import 'package:flutter/widgets.dart';
 import 'package:project_docere/domain/models/failure.dart';
 import 'package:project_docere/domain/models/ui_state.dart';
 import 'package:project_docere/domain/routers/routes.dart';
-import 'package:project_docere/domain/services/session_service.dart';
+import 'package:project_docere/domain/use_cases/session/sign_in_uc.dart';
+import 'package:project_docere/domain/use_cases/session/validate_session_uc.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  final ISessionService _sessionService;
+  final SignInUseCase _signInUseCase;
+  final ValidateSessionUseCase _validateSessionUseCase;
   final BuildContext _buildContext;
 
   UIState _uiState = UIShowData();
   String _email;
   String _password;
 
-  LoginViewModel(this._sessionService, this._buildContext);
+  LoginViewModel(
+    this._signInUseCase,
+    this._validateSessionUseCase,
+    this._buildContext,
+  );
+
+  void validateSession() {
+    final result = _validateSessionUseCase.execute();
+
+    result.fold((failure) => null, (value) {
+      if (value) {
+        Routes.goHome(_buildContext);
+      }
+    });
+  }
 
   void signIn() async {
     _setUIState = UILoading();
-    final result = await _sessionService.signInWithEmail(_email, _password);
+    final result = await _signInUseCase.execute(_email, _password);
 
     result.fold(_handleSignInError, _handleSignInSuccess);
     print(result);
