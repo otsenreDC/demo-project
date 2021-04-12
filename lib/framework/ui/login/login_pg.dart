@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_docere/colors.dart';
-import 'package:project_docere/domain/models/session.dart';
 import 'package:project_docere/domain/models/ui_state.dart';
-import 'package:project_docere/domain/routers/routes.dart';
 import 'package:project_docere/domain/view_models/login/login_vm.dart';
 import 'package:project_docere/framework/ui/widgets/error_wg.dart';
 import 'package:project_docere/framework/ui/widgets/loadgin_wg.dart';
@@ -157,6 +155,7 @@ class _LoginScreen extends StatelessWidget {
                 ],
               ),
                */
+              /*
               VerticalSpacer(100),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.cyan),
@@ -172,6 +171,7 @@ class _LoginScreen extends StatelessWidget {
                     Routes.goHome(context);
                   },
                   child: Text("Paciente")),
+               */
             ],
           ),
         ),

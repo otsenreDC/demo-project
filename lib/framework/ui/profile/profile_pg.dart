@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/colors.dart';
-import 'package:project_docere/domain/routers/routes.dart';
 import 'package:project_docere/domain/view_models/profile/profile_vm.dart';
 import 'package:project_docere/framework/ui/widgets/text_tile.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +28,7 @@ class ProfilePage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Perfil"),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Consumer<ProfileViewModel>(
           builder: (_, viewModel, __) {
@@ -151,7 +151,7 @@ class _OptionsList extends StatelessWidget {
             trailingIcon: Icon(Icons.arrow_forward),
             onSelected: () {
               showAlertDialog(
-                  context, () => {Routes.popToLogin(context)}, () => {});
+                  context, () => {_viewModel.signOut(context)}, () => {});
             },
           ),
         ],

@@ -8,6 +8,7 @@ abstract class ISessionService {
     String email,
     String password,
   );
+  Future<Either<Failure, bool>> signOut();
 
   Future<Either<Failure, bool>> saveProfile(Profile profile);
 

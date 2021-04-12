@@ -66,6 +66,17 @@ class SessionService with ISessionService {
   }
 
   @override
+  Future<Either<Failure, bool>> signOut() async {
+    try {
+      _auth.signOut();
+      _profilesPreferencesDataSource.clear();
+      return Right(true);
+    } catch (e) {
+      return Left(Failure.withCause(e));
+    }
+  }
+
+  @override
   Future<Either<Failure, Profile>> getUser(String email) async {
     return Left(Failure(cause: Exception("Not implemented")));
   }
@@ -85,7 +96,7 @@ class SessionService with ISessionService {
   Either<Failure, Session> getSession() {
     final currentFirebaseUser = _auth.currentUser;
 
-    final profileResult = _profilesPreferencesDataSource.getByCurrent();
+    final profileResult = _profilesPreferencesDataSource.current();
     final profile = profileResult.fold((failure) => null, (profile) => profile);
 
     if (profile == null || currentFirebaseUser == null) {

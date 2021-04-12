@@ -36,7 +36,7 @@ class ProfilesPreferencesDataSource extends IProfilesDataSource {
   }
 
   @override
-  Either<Failure, Profile> getByCurrent() {
+  Either<Failure, Profile> current() {
     try {
       final id = _preferences.getString(_keyId);
       final email = _preferences.getString(_keyEmail);
@@ -55,6 +55,16 @@ class ProfilesPreferencesDataSource extends IProfilesDataSource {
           role: role,
         ));
       }
+    } catch (e) {
+      return Left(Failure.withCause(e));
+    }
+  }
+
+  @override
+  Either<Failure, bool> clear() {
+    try {
+      _preferences.clear();
+      return Right(true);
     } catch (e) {
       return Left(Failure.withCause(e));
     }
