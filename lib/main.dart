@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:project_docere/domain/services/session_service.dart';
 
 import 'injection_container.dart' as di;
+import 'injection_container.dart';
 import 'med_app.dart';
 
 void main() async {
@@ -25,6 +27,9 @@ class _AppState extends State<MyApp> {
     try {
       await di.init();
       await Firebase.initializeApp();
+      di.currentSession = sl<ISessionService>()
+          .getSession()
+          .fold((failure) => null, (session) => session);
       setState(() {
         _initialized = true;
       });

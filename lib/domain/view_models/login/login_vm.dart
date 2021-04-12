@@ -11,7 +11,7 @@ class LoginViewModel extends ChangeNotifier {
   final ValidateSessionUseCase _validateSessionUseCase;
   final BuildContext _buildContext;
 
-  UIState _uiState = UIShowData();
+  UIState _uiState = UILoading();
   String _email;
   String _password;
 
@@ -21,14 +21,22 @@ class LoginViewModel extends ChangeNotifier {
     this._buildContext,
   );
 
-  void validateSession() {
-    final result = _validateSessionUseCase.execute();
+  validateSession() {
+    try {
+      final result = _validateSessionUseCase.execute();
 
-    result.fold((failure) => null, (value) {
-      if (value) {
-        Routes.goHome(_buildContext);
-      }
-    });
+      result.fold((failure) {
+        _setUIState = UIShowData();
+      }, (value) {
+        if (value) {
+          Routes.goHome(_buildContext);
+        } else {
+          _setUIState = UIShowData();
+        }
+      });
+    } catch (e) {
+      _setUIState = UIShowData();
+    }
   }
 
   void signIn() async {

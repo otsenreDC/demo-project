@@ -42,14 +42,9 @@ import 'domain/view_models/appointments/create_appointment_vm.dart';
 import 'framework/services/session_service.dart';
 
 final sl = GetIt.instance;
-Session currentTestSession;
+Session currentSession;
 
 Future<void> init() async {
-  // Session
-  // sl.registerFactory<Session>(
-  //   () => currentTestSession,
-  // );
-
   // Data sources
   sl.registerLazySingleton<IDoctorLocalDataSource>(
     () => DoctorDatabaseDataSource(),

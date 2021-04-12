@@ -39,10 +39,10 @@ class ProfilesPreferencesDataSource extends IProfilesDataSource {
   Either<Failure, Profile> getByCurrent() {
     try {
       final id = _preferences.getString(_keyId);
-      final email = _preferences.getString(_keyId);
-      final name = _preferences.getString(_keyId);
-      final lastName = _preferences.getString(_keyId);
-      final role = _preferences.getString(_keyId);
+      final email = _preferences.getString(_keyEmail);
+      final name = _preferences.getString(_keyName);
+      final lastName = _preferences.getString(_keyLastName);
+      final role = _preferences.getString(_keyRole);
 
       if (id == null || email == null || role == null) {
         return Left(ProfileNotFoundFailure());

@@ -24,7 +24,7 @@ class DoctorListViewModel extends ChangeNotifier {
   }
 
   Rol get sessionRol {
-    return currentTestSession.role;
+    return currentSession.role;
   }
 
   List<Doctor> get getDoctors {
@@ -37,16 +37,16 @@ class DoctorListViewModel extends ChangeNotifier {
   }
 
   void _loadDoctors() async {
-    if (currentTestSession.isPatient) {
+    if (currentSession.isPatient) {
       final result = await _getPatientDoctorsUseCase.execute('42');
       if (result is List<Doctor>) {
         _setDoctors = result;
       } else {
         _setDoctors = List.empty();
       }
-    } else if (currentTestSession.isSecretary) {
+    } else if (currentSession.isSecretary) {
       final result = await _getSecretaryDoctorUseCase.execute(
-        currentTestSession.userReference,
+        currentSession.userReference,
       );
 
       _setDoctors = result.fold(

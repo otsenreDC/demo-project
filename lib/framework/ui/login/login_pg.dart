@@ -161,14 +161,14 @@ class _LoginScreen extends StatelessWidget {
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.cyan),
                   onPressed: () {
-                    currentTestSession = SecretarySessionTmp();
+                    currentSession = SecretarySessionTmp();
                     Routes.goHome(context);
                   },
                   child: Text("Secretaria")),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.teal),
                   onPressed: () {
-                    currentTestSession = PatientSessionTmp();
+                    currentSession = PatientSessionTmp();
                     Routes.goHome(context);
                   },
                   child: Text("Paciente")),

@@ -107,8 +107,8 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
   }
 
   void _loadDoctors() async {
-    final result = await _getSecretaryDoctorUseCase
-        .execute(currentTestSession.userReference);
+    final result =
+        await _getSecretaryDoctorUseCase.execute(currentSession.userReference);
 
     _setDoctors = result.fold(
       (failure) => List.empty(),

@@ -36,7 +36,7 @@ class CreateAppointmentViewModel extends ChangeNotifier {
     _showPatientInfo = false;
     _onConfirm = onConfirm;
     this._doctor = doctor;
-    if (currentTestSession.isPatient) {
+    if (currentSession.isPatient) {
       _patient = Patient(
         lastName: "Guzmán",
         name: "Luis",
