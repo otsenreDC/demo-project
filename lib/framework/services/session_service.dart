@@ -113,6 +113,11 @@ class SessionService with ISessionService {
     );
   }
 
+  @override
+  Either<Failure, Profile> getCurrent() {
+    return _profilesPreferencesDataSource.current();
+  }
+
   void authenticateWithFacebook() {}
 
   void authenticateWithGmail() {}

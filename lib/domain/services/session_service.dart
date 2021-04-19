@@ -17,4 +17,6 @@ abstract class ISessionService {
   Future<Either<Failure, Profile>> getUser(
     String email,
   );
+
+  Either<Failure, Profile> getCurrent();
 }

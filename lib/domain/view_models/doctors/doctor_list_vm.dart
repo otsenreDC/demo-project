@@ -1,12 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:project_docere/domain/models/doctor.dart';
+import 'package:project_docere/domain/models/profile.dart';
 import 'package:project_docere/domain/models/session.dart';
+import 'package:project_docere/domain/use_cases/doctors/get_current_profile_uc.dart';
 import 'package:project_docere/domain/use_cases/doctors/get_list_doctors_use_case.dart';
 import 'package:project_docere/domain/use_cases/doctors/get_secretary_doctors_uc.dart';
 import 'package:project_docere/injection_container.dart';
 
 class DoctorListViewModel extends ChangeNotifier {
   // final Session _session = currentTestSession;
+  final GetCurrentProfileUseCase _getCurrentProfileUseCase;
   final GetListDoctorsUseCase _getPatientDoctorsUseCase;
   final GetSecretaryDoctorUseCase _getSecretaryDoctorUseCase;
 
@@ -14,6 +17,7 @@ class DoctorListViewModel extends ChangeNotifier {
 
   DoctorListViewModel(
     // this._session,
+    this._getCurrentProfileUseCase,
     this._getPatientDoctorsUseCase,
     this._getSecretaryDoctorUseCase,
   );
@@ -25,6 +29,13 @@ class DoctorListViewModel extends ChangeNotifier {
 
   Rol get sessionRol {
     return currentSession.role;
+  }
+
+  Profile get getProfile {
+    return this._getCurrentProfileUseCase.execute().fold(
+          (failure) => null,
+          (profile) => profile,
+        );
   }
 
   List<Doctor> get getDoctors {

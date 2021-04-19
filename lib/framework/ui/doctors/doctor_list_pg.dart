@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/colors.dart';
 import 'package:project_docere/domain/models/doctor.dart';
+import 'package:project_docere/domain/models/profile.dart';
 import 'package:project_docere/domain/models/session.dart';
 import 'package:project_docere/domain/view_models/doctors/doctor_list_vm.dart';
 import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
@@ -36,7 +37,7 @@ class DoctorListPage extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(250),
-        child: _DoctorListAppBar(),
+        child: _DoctorListAppBar(viewModel.getProfile),
       ),
       body: ListView.builder(
         itemCount: _doctors.length,
@@ -72,6 +73,10 @@ class DoctorListPage extends StatelessWidget {
 }
 
 class _DoctorListAppBar extends StatelessWidget {
+  final Profile _profile;
+
+  _DoctorListAppBar(this._profile);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -94,7 +99,7 @@ class _DoctorListAppBar extends StatelessWidget {
           Row(
             children: [
               Text(
-                "¡Hola \$usuario!",
+                "¡Hola ${_profile.name}!",
                 style: MedAppTextStyle.title().copyWith(color: Colors.white),
               ),
               SizedBox(

@@ -162,13 +162,6 @@ class _HomePageState extends State<HomePage>
     return NotificationListener<ScrollNotification>(
       onNotification: _handleScrollNotification,
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text(_title),
-        // ),
-        // PreferredSize(
-        //   preferredSize: Size.fromHeight(120),
-        //   child: ExpandedAppBar(),
-        // ),
         body: Stack(
           children: allDestinations.map(
             (Destination destination) {
