@@ -177,7 +177,7 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
                             style: MedAppTextStyle.header3(),
                           ),
                         ),
-                        BirthdayTile(""),
+                        BirthdayTile(null),
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 30, right: 30, top: 16, bottom: 8),
@@ -186,7 +186,7 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
                             style: MedAppTextStyle.header3(),
                           ),
                         ),
-                        PhoneTile("888 - 555 - 1234"),
+                        PhoneTile("000 - 000 - 0000"),
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 30, right: 30, top: 16, bottom: 8),

@@ -10,6 +10,9 @@ class ProfilesPreferencesDataSource extends IProfilesDataSource {
   final String _keyName = "name";
   final String _keyLastName = "lastName";
   final String _keyRole = "role";
+  final String _keyPersonalId = "personal_id";
+  final String _keyPhone = "phone";
+  final String _keyBirthday = "birthday";
 
   final SharedPreferences _preferences;
 
@@ -28,6 +31,9 @@ class ProfilesPreferencesDataSource extends IProfilesDataSource {
       await _preferences.setString(_keyName, profile.name);
       await _preferences.setString(_keyLastName, profile.lastName);
       await _preferences.setString(_keyRole, profile.role);
+      await _preferences.setString(_keyPersonalId, profile.personalId);
+      await _preferences.setString(_keyPhone, profile.phone);
+      await _preferences.setInt(_keyBirthday, profile.birthday?.millisecondsSinceEpoch);
 
       return Right(true);
     } catch (e) {
@@ -43,17 +49,35 @@ class ProfilesPreferencesDataSource extends IProfilesDataSource {
       final name = _preferences.getString(_keyName);
       final lastName = _preferences.getString(_keyLastName);
       final role = _preferences.getString(_keyRole);
+      final personalId = _preferences.getString(_keyPersonalId);
+      final phone = _preferences.getString(_keyPhone);
+      DateTime birthday;
+      try {
+        final birthdayMillis = _preferences.getInt(_keyBirthday);
+        if (birthdayMillis != null && birthdayMillis > 0) {
+          birthday = DateTime.fromMillisecondsSinceEpoch(birthdayMillis);
+        } else {
+          birthday = null;
+        }
+      } catch(e) {
+        birthday = null;
+      }
 
       if (id == null || email == null || role == null) {
         return Left(ProfileNotFoundFailure());
       } else {
-        return Right(Profile(
-          id: id,
-          email: email,
-          name: name,
-          lastName: lastName,
-          role: role,
-        ));
+        return Right(
+          Profile(
+            id: id,
+            email: email,
+            name: name,
+            lastName: lastName,
+            role: role,
+            personalId: personalId,
+            phone: phone,
+            birthday: birthday
+          ),
+        );
       }
     } catch (e) {
       return Left(Failure.withCause(e));

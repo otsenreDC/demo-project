@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/colors.dart';
+import 'package:project_docere/domain/extensions.dart';
+import 'package:project_docere/domain/models/profile.dart';
 import 'package:project_docere/domain/view_models/profile/profile_vm.dart';
 import 'package:project_docere/framework/ui/widgets/text_tile.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +36,7 @@ class ProfilePage extends StatelessWidget {
           builder: (_, viewModel, __) {
             if (viewModel.getShowAccountDetails) {
               return WillPopScope(
-                child: AccountInformation(),
+                child: AccountInformation(viewModel.getProfile),
                 onWillPop: () => _willPop(viewModel),
               );
             } else {
@@ -48,9 +50,9 @@ class ProfilePage extends StatelessWidget {
 }
 
 class AccountInformation extends StatelessWidget {
-  const AccountInformation({
-    Key key,
-  }) : super(key: key);
+  final Profile _profile;
+
+  const AccountInformation(this._profile);
 
   @override
   Widget build(BuildContext context) {
@@ -78,17 +80,17 @@ class AccountInformation extends StatelessWidget {
             "Nombre",
             marging: EdgeInsets.fromLTRB(30, 10, 30, 0),
           ),
-          TextTile("Susuna Robles"),
+          TextTile(_profile?.fullName),
           _OptionText(
             "Cédula",
             marging: EdgeInsets.fromLTRB(30, 10, 30, 0),
           ),
-          TextTile("000-1111111-2"),
+          TextTile(_profile?.personalId),
           _OptionText(
             "Fecha de nacimiento",
             marging: EdgeInsets.fromLTRB(30, 10, 30, 0),
           ),
-          BirthdayTile("00 | 00 | 0000"),
+          BirthdayTile(_profile?.birthday),
           _OptionText(
             "Teléfono",
             marging: EdgeInsets.fromLTRB(30, 10, 30, 0),
@@ -161,17 +163,41 @@ class _OptionsList extends StatelessWidget {
 }
 
 class BirthdayTile extends StatelessWidget {
-  final String _title;
+  final DateTime _birthday;
   final Function onSelected;
   final Icon leadingIcon;
   final Icon trailingIcon;
 
   const BirthdayTile(
-    this._title, {
+    this._birthday, {
     this.onSelected,
     this.leadingIcon,
     this.trailingIcon,
   });
+
+  String _getDay() {
+    if (_birthday != null) {
+      return DateTimeHelper.format(_birthday, pattern: "dd");
+    } else {
+      return "DD";
+    }
+  }
+
+  String _getMonth() {
+    if (_birthday != null) {
+      return DateTimeHelper.format(_birthday, pattern: "MM");
+    } else {
+      return "MM";
+    }
+  }
+
+  String _getYear() {
+    if (_birthday != null) {
+      return DateTimeHelper.format(_birthday, pattern: "yyyy");
+    } else {
+      return "YYYY";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +215,7 @@ class BirthdayTile extends StatelessWidget {
           children: [
             Expanded(
                 child: Text(
-              "00",
+              _getDay(),
               textAlign: TextAlign.center,
             )),
             Container(
@@ -197,13 +223,13 @@ class BirthdayTile extends StatelessWidget {
               height: 40,
               color: Colors.grey[400],
             ),
-            Expanded(child: Text("02", textAlign: TextAlign.center)),
+            Expanded(child: Text(_getMonth(), textAlign: TextAlign.center)),
             Container(
               width: 1,
               height: 40,
               color: Colors.grey[400],
             ),
-            Expanded(child: Text("2020", textAlign: TextAlign.center))
+            Expanded(child: Text(_getYear(), textAlign: TextAlign.center))
           ],
         ),
         leading: leadingIcon,

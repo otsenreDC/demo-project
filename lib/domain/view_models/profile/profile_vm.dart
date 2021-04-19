@@ -1,12 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:project_docere/domain/models/profile.dart';
 import 'package:project_docere/domain/routers/routes.dart';
+import 'package:project_docere/domain/use_cases/doctors/get_current_profile_uc.dart';
 import 'package:project_docere/domain/use_cases/session/sign_out_uc.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   bool _showAccountDetails = false;
   SignOutUseCase _signOutUseCase;
+  GetCurrentProfileUseCase _getCurrentProfileUseCase;
 
-  ProfileViewModel(this._signOutUseCase);
+  ProfileViewModel(
+    this._signOutUseCase,
+    this._getCurrentProfileUseCase,
+  );
 
   set _setShowAccountDetails(bool newValue) {
     _showAccountDetails = newValue;
@@ -15,6 +21,13 @@ class ProfileViewModel extends ChangeNotifier {
 
   bool get getShowAccountDetails {
     return _showAccountDetails;
+  }
+
+  Profile get getProfile {
+    return this._getCurrentProfileUseCase.execute().fold(
+          (failure) => null,
+          (profile) => profile,
+        );
   }
 
   void showOptions() {

@@ -119,7 +119,7 @@ Future<void> init() async {
   sl.registerFactory(() => AppointmentListSecretaryViewModel(sl(), sl()));
   sl.registerFactory(() => AppointmentDetailsViewModel(sl(), sl()));
   sl.registerFactory(() => AppointmentEditViewModel(sl(), sl()));
-  sl.registerFactory(() => ProfileViewModel(sl()));
+  sl.registerFactory(() => ProfileViewModel(sl(), sl()));
 
   sl.registerFactoryParam<LoginViewModel, BuildContext, void>(
       (param1, param2) => LoginViewModel(
