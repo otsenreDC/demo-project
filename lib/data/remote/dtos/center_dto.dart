@@ -8,7 +8,7 @@ final String _keyIdReference = "idReference";
 final String _keyName = "name";
 final String _keyAddress = "address";
 final String _keyCalendar = "calendar";
-final String _ketSecretaryIds = "secretarias";
+final String _ketSecretaryIds = "secretaries";
 final String _keyCalendarReference = "calendarReference";
 
 class CenterInfoDTO {
@@ -70,12 +70,12 @@ class CenterInfoDTO {
 
   Map<String, dynamic> toJson(FirebaseFirestore firestore) {
     return Map.fromEntries([
-      MapEntry(_keyIdReference, firestore.doc(idReference)),
+      MapEntry(_keyIdReference, firestore.doc("profiles/$idReference")),
       MapEntry(_keyName, name),
       MapEntry(_keyAddress, address),
       MapEntry(
         _keyCalendarReference,
-        calendarReference,
+        "calendars/calendarReference",
       ),
     ]);
   }

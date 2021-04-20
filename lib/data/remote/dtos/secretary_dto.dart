@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:project_docere/domain/models/secretary.dart';
 
@@ -41,12 +40,9 @@ class SecretaryDTO {
   factory SecretaryDTO.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
 
-    final idReference = json[_keyIdReference] as DocumentReference;
-    final profileReference = json[_keyProfileReference] as DocumentReference;
-
     return SecretaryDTO(
-        idReference: idReference?.path,
-        profileReference: profileReference?.path,
+        idReference: json[_keyIdReference],
+        profileReference: json[_keyProfileReference],
         name: json[_keyName],
         phone: json[_keyPhone]);
   }

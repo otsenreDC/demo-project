@@ -1,9 +1,7 @@
-import 'package:either_option/either_option.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:project_docere/domain/models/center_info.dart';
 import 'package:project_docere/domain/models/day.dart';
 import 'package:project_docere/domain/models/doctor.dart';
-import 'package:project_docere/domain/models/failure.dart';
 import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/models/ui_state.dart';
 import 'package:project_docere/domain/use_cases/appointments/create_appointment_uc.dart';
@@ -100,35 +98,31 @@ class ConfirmAppointmentViewModel extends ChangeNotifier {
     setUIState = UIShowData();
   }
 
-  void createAppointment() {
-    setUIState = UILoading();
-    _createAppointmentUseCase
-        .execute(
-            _centerInfo,
-            _doctor,
-            _centerInfo.calendarReference,
-            _centerInfo.secretaries.first,
-            _patient,
-            _daySlot.inOrderOfArrival,
-            _day,
-            _daySlot,
-            _dateTime)
-        .then(
-          (Either<Failure, bool> value) => {
-            value.fold(
-              (failure) {
-                setUIState = UIError(message: "Error creaando cita");
-              },
-              (done) {
-                setUIState = UIShowData<bool>(data: true);
-              },
-            )
-          },
-          // )
-          // .catchError(
-          //   (error) => {
-          //     setUIState = UIError(message: "ERROR"),
-          //   },
-        );
+  void createAppointment() async {
+    try {
+      setUIState = UILoading();
+      final result = await _createAppointmentUseCase.execute(
+          _centerInfo,
+          _doctor,
+          _centerInfo.calendarReference,
+          _centerInfo.secretaries.first,
+          _patient,
+          _daySlot.inOrderOfArrival,
+          _day,
+          _daySlot,
+          _dateTime);
+
+      result.fold(
+        (failure) {
+          setUIState = UIError(message: "Error creando cita");
+        },
+        (done) {
+          setUIState = UIShowData<bool>(data: true);
+        },
+      );
+    } catch (e) {
+      setUIState = UIError(message: "Error creando cita");
+      print(e);
+    }
   }
 }

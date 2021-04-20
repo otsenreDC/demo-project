@@ -35,7 +35,7 @@ class AppointmentFirestoreDataStore implements IAppointmentRemoteDataSource {
     } catch (e) {
       completer.complete(
         Left(
-          Failure(),
+          Failure(cause: e),
         ),
       );
     }
