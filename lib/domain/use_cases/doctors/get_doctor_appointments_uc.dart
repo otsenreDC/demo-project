@@ -10,11 +10,15 @@ class GetDoctorAppointmentsUseCase {
 
   Future<Either<Failure, List<Appointment>>> execute(
       String doctorReference) async {
-    final result = await _appointmentRepository.listByDoctor(doctorReference);
+    try {
+      final result = await _appointmentRepository.listByDoctor(doctorReference);
 
-    return result.fold(
-      (failure) => Left(failure),
-      (appointments) => Right(appointments),
-    );
+      return result.fold(
+        (failure) => Left(failure),
+        (appointments) => Right(appointments),
+      );
+    } catch (e) {
+      return Left(Failure.withCause(e));
+    }
   }
 }

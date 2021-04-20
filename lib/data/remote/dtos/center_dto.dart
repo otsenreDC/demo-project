@@ -70,12 +70,12 @@ class CenterInfoDTO {
 
   Map<String, dynamic> toJson(FirebaseFirestore firestore) {
     return Map.fromEntries([
-      MapEntry(_keyIdReference, firestore.doc("profiles/$idReference")),
+      MapEntry(_keyIdReference, idReference),
       MapEntry(_keyName, name),
       MapEntry(_keyAddress, address),
       MapEntry(
         _keyCalendarReference,
-        "calendars/calendarReference",
+        calendarReference,
       ),
     ]);
   }
