@@ -8,7 +8,7 @@ final String _keyProfileReference = "profileId";
 final String _keyName = "name";
 final String _keyLastName = "lastName";
 final String _keySpecialty = "specialty";
-final String _keyCenterInfo = "centroInfo";
+final String _keyCenterInfo = "centerInfo";
 
 class DoctorDTO {
   String id;

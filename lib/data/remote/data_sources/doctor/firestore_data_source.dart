@@ -44,23 +44,28 @@ class DoctorFirestoreDataSource extends IDoctorRemoteDataSource {
     String calendarReference,
     int year,
   ) async {
-    QuerySnapshot snapshot = await _firestore
-        .doc(doctorId)
-        .collection("$calendarReference/$year")
-        .get();
+    try {
+      QuerySnapshot snapshot = await _firestore
+          .doc(doctorId)
+          .collection("calendars/$calendarReference/$year")
+          .get();
 
-    Iterator<DocumentSnapshot> docs = snapshot.docs.iterator;
+      Iterator<DocumentSnapshot> docs = snapshot.docs.iterator;
 
-    final List<DayDTO> days = List.empty(growable: true);
+      final List<DayDTO> days = List.empty(growable: true);
 
-    while (docs.moveNext()) {
-      final Map<String, dynamic> day = docs.current.data();
-      final DayDTO dto = DayDTO.fromJson(day);
-      dto.id = docs.current.id;
-      days.add(dto);
+      while (docs.moveNext()) {
+        final Map<String, dynamic> day = docs.current.data();
+        final DayDTO dto = DayDTO.fromJson(day);
+        dto.id = docs.current.id;
+        days.add(dto);
+      }
+
+      return CalendarDTO.days(days);
+    } catch (e) {
+      print(e);
+      return CalendarDTO();
     }
-
-    return CalendarDTO.days(days);
   }
 
   @override
@@ -98,7 +103,7 @@ class DoctorFirestoreDataSource extends IDoctorRemoteDataSource {
     try {
       final doctorReference = _firestore.collection(_collectionDoctors);
       final query = doctorReference.where("secretaryReferences",
-          arrayContains: _firestore.doc(secretaryReference));
+          arrayContains: secretaryReference);
 
       final snapshot = await query.get();
 

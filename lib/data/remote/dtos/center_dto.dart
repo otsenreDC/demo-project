@@ -55,11 +55,9 @@ class CenterInfoDTO {
     if (json == null) return null;
 
     Iterable secretaries = json[_ketSecretaryIds];
-    DocumentReference calendarReference = json[_keyCalendarReference];
-    DocumentReference centerIdReference = json[_keyIdReference];
 
     return CenterInfoDTO(
-        idReference: centerIdReference?.path,
+        idReference: json[_keyIdReference],
         name: json[_keyName],
         address: json[_keyAddress],
         secretaries: secretaries
@@ -67,7 +65,7 @@ class CenterInfoDTO {
                 SecretaryDTO.fromJson(secretary as Map<String, dynamic>))
             ?.toList(),
         calendar: CalendarDTO.fromJson(json[_keyCalendar]),
-        calendarReference: calendarReference?.path);
+        calendarReference: json[_keyCalendarReference]);
   }
 
   Map<String, dynamic> toJson(FirebaseFirestore firestore) {
@@ -77,7 +75,7 @@ class CenterInfoDTO {
       MapEntry(_keyAddress, address),
       MapEntry(
         _keyCalendarReference,
-        firestore.doc(calendarReference),
+        calendarReference,
       ),
     ]);
   }

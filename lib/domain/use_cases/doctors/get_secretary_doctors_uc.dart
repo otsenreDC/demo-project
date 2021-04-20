@@ -19,7 +19,7 @@ class GetSecretaryDoctorUseCase {
         (doctors) => Right(doctors),
       );
     } catch (e) {
-      return Left(Failure());
+      return Left(Failure(cause: e));
     }
   }
 }
