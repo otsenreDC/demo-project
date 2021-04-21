@@ -30,11 +30,10 @@ class _DateSelectorState extends State<DateSelector> {
   final DateFormat formatter = DateFormat(DATE_FORMAT_EXPRESSIVE);
 
   String _dateString(DateTime dateTime) {
-    if (dateTime.isToday()) {
-      return "HOY";
-    } else {
-      return formatter.format(date).toUpperCase();
-    }
+    if (dateTime.isToday()) return "HOY";
+    if (dateTime.isYesterday()) return "AYER";
+    if (dateTime.isTomorrow()) return "MAÑANA";
+    return formatter.format(date).toUpperCase();
   }
 
   @override

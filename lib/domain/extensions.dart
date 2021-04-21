@@ -17,7 +17,7 @@ class DateTimeHelper {
 
 extension DateTimeExt on DateTime {
   int get dayOfYear {
-    return this.difference(DateTime(this.year, 1, 1, 0, 0)).inDays;
+    return this.difference(DateTime(this.year, 1, 1, 0, 0)).inDays + 1;
   }
 
   bool isToday() {
@@ -25,5 +25,19 @@ extension DateTimeExt on DateTime {
     return this.year == now.year &&
         this.month == now.month &&
         this.day == now.day;
+  }
+
+  bool isYesterday() {
+    final now = DateTime.now();
+    return this.year == now.year &&
+        this.month == now.month &&
+        this.day - now.day == -1;
+  }
+
+  bool isTomorrow() {
+    final now = DateTime.now();
+    return this.year == now.year &&
+        this.month == now.month &&
+        this.day - now.day == 1;
   }
 }
