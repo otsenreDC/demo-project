@@ -86,7 +86,7 @@ class DoctorFirestoreDataSource extends IDoctorRemoteDataSource {
     try {
       await _firestore
           .doc(doctorIdReference)
-          .collection("$calendarIdReference/${2021}")
+          .collection("calendars/$calendarIdReference/${2021}")
           .doc(day.id)
           .update(day.toJson(_firestore));
 

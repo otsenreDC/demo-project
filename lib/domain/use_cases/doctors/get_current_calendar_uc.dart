@@ -17,7 +17,7 @@ class GetCurrentCalendarUseCase {
       doctorId,
       centerId,
       calendarReference,
-      2021,
+      DateTime.now().year,
     );
 
     return result.fold(
