@@ -68,12 +68,16 @@ class AppointmentFirestoreDataStore implements IAppointmentRemoteDataSource {
   @override
   Future<Either<Failure, List<AppointmentDTO>>> listByDoctor(
     String doctorReference,
+    DateTime date,
   ) async {
     try {
       final reference = _firestore.collection(_collectionAppointments);
+      final start = DateTime(date.year, date.month, date.day, 0, 0, 0);
+      final end = DateTime(date.year, date.month, date.day, 23, 59, 59);
       final query = reference.where(
-        "doctorReference",
-        isEqualTo: _firestore.doc(doctorReference),
+        "appointmentAt",
+        isGreaterThan: start,
+        isLessThan: end,
       );
       final QuerySnapshot result = await query.get();
 
@@ -87,6 +91,9 @@ class AppointmentFirestoreDataStore implements IAppointmentRemoteDataSource {
           return appointment;
         },
       ).toList();
+
+      appointments.removeWhere(
+          (element) => element.doctor.idReference != doctorReference);
 
       return Right(appointments);
     } catch (e) {

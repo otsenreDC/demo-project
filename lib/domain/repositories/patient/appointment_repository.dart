@@ -29,7 +29,9 @@ abstract class IAppointmentRepository {
   Future<Either<Failure, List<Appointment>>> list();
 
   Future<Either<Failure, List<Appointment>>> listByDoctor(
-      String doctorReference);
+    String doctorReference,
+    DateTime date,
+  );
 
   Future<Either<Failure, bool>> updateStatus(
     String appointmentReference,
@@ -96,9 +98,11 @@ class AppointmentRepository implements IAppointmentRepository {
 
   @override
   Future<Either<Failure, List<Appointment>>> listByDoctor(
-      String doctorReference) async {
+    String doctorReference,
+    DateTime date,
+  ) async {
     try {
-      final result = await dataStore.listByDoctor(doctorReference);
+      final result = await dataStore.listByDoctor(doctorReference, date);
 
       final Either<Failure, List<Appointment>> value = result.fold((failure) {
         return Left(Failure());

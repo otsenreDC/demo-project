@@ -74,21 +74,21 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                             style: MedAppTextStyle.header1(),
                           ),
                           Spacer(),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: MedAppColors.lighterBlue,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            padding: EdgeInsets.all(4),
-                            height: 30,
-                            child: Center(
-                              child: Text(
-                                "8899",
-                                style: MedAppTextStyle.header1()
-                                    .copyWith(color: MedAppColors.blue),
-                              ),
-                            ),
-                          ),
+                          // Container(
+                          //   decoration: BoxDecoration(
+                          //     color: MedAppColors.lighterBlue,
+                          //     borderRadius: BorderRadius.circular(4),
+                          //   ),
+                          //   padding: EdgeInsets.all(4),
+                          //   height: 30,
+                          //   child: Center(
+                          //     child: Text(
+                          //       "8899",
+                          //       style: MedAppTextStyle.header1()
+                          //           .copyWith(color: MedAppColors.blue),
+                          //     ),
+                          //   ),
+                          // ),
                           SizedBox(width: 30),
                         ],
                       ),

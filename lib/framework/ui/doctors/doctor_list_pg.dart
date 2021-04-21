@@ -40,6 +40,7 @@ class DoctorListPage extends StatelessWidget {
         child: _DoctorListAppBar(viewModel.getProfile),
       ),
       body: ListView.builder(
+        padding: EdgeInsets.only(top: 20),
         itemCount: _doctors.length,
         itemBuilder: (BuildContext context, int index) {
           switch (viewModel.sessionRol) {

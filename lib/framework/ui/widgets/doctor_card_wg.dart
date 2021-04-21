@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_docere/colors.dart';
 import 'package:project_docere/domain/models/doctor.dart';
-import 'package:project_docere/framework/ui/widgets/summary_item.dart';
 import 'package:project_docere/texts.dart';
 
 class DoctorPatientCard extends StatelessWidget {
@@ -132,14 +131,15 @@ class DoctorSecretaryCard extends StatelessWidget {
               ),
               Container(
                 color: MedAppColors.blue,
-                height: 56,
+                height: 10,
+                // height: 56,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    SummaryItem("Atendidos", 2),
-                    SummaryItem("En espera", 4),
-                    SummaryItem("Pendiente", 2),
+                    // SummaryItem("Atendidos", 2),
+                    // SummaryItem("En espera", 4),
+                    // SummaryItem("Pendiente", 2),
                   ],
                 ),
               ),
@@ -150,35 +150,36 @@ class DoctorSecretaryCard extends StatelessWidget {
                       bottomRight: Radius.circular(15)),
                   color: MedAppColors.green,
                 ),
-                height: 100,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        "Próximo paciente:",
-                        style: MedAppTextStyle.header3(),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundImage: NetworkImage(
-                              "https://image.flaticon.com/icons/png/512/1430/1430453.png",
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text("Ricardo López"),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                height: 20,
+                // height: 100,
+                // child: Padding(
+                //   padding: const EdgeInsets.only(left: 16.0, right: 16),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.stretch,
+                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //     children: [
+                //       Text(
+                //         "Próximo paciente:",
+                //         style: MedAppTextStyle.header3(),
+                //       ),
+                //       Row(
+                //         mainAxisSize: MainAxisSize.max,
+                //         children: [
+                //           CircleAvatar(
+                //             radius: 20,
+                //             backgroundImage: NetworkImage(
+                //               "https://image.flaticon.com/icons/png/512/1430/1430453.png",
+                //             ),
+                //           ),
+                //           SizedBox(
+                //             width: 10,
+                //           ),
+                //           Text("Ricardo López"),
+                //         ],
+                //       )
+                //     ],
+                //   ),
+                // ),
               ),
             ],
           )),

@@ -96,7 +96,10 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
   );
 
   void _loadAppointments(String doctorReference) async {
-    final result = await _getDoctorAppointmentsUseCase.execute(doctorReference);
+    final result = await _getDoctorAppointmentsUseCase.execute(
+      doctorReference,
+      DateTime.now(),
+    );
 
     result.fold(
       (failure) => null,

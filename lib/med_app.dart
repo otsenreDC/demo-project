@@ -47,5 +47,5 @@ ThemeData medAppTheme = ThemeData(
     primaryColor: MedAppColors.blue,
     appBarTheme: AppBarTheme(
       brightness: Brightness.dark,
-      backgroundColor: Colors.white,
+      backgroundColor: MedAppColors.blue,
     ));

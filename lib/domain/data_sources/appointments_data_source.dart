@@ -9,6 +9,7 @@ abstract class IAppointmentDataSource {
 
   Future<Either<Failure, List<AppointmentDTO>>> listByDoctor(
     String doctorReference,
+    DateTime dateTime,
   );
 
   Future<Either<Failure, String>> create(
