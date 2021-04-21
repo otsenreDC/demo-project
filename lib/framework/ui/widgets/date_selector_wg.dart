@@ -29,6 +29,14 @@ class _DateSelectorState extends State<DateSelector> {
 
   final DateFormat formatter = DateFormat(DATE_FORMAT_EXPRESSIVE);
 
+  String _dateString(DateTime dateTime) {
+    if (dateTime.isToday()) {
+      return "HOY";
+    } else {
+      return formatter.format(date).toUpperCase();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -49,7 +57,7 @@ class _DateSelectorState extends State<DateSelector> {
         Expanded(
           child: Center(
             child: Text(
-              formatter.format(date),
+              _dateString(date),
               style: MedAppTextStyle.body(),
             ),
           ),

@@ -13,6 +13,7 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
   List<Appointment> _appointments;
   List<Doctor> _doctors;
   int _selectedDoctorPosition = 0;
+  Doctor _doctor;
 
   set _setAppointments(List<Appointment> appointments) {
     _appointments = appointments;
@@ -29,8 +30,9 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
 
   set _setDoctors(List<Doctor> doctors) {
     _doctors = doctors;
+    _doctor = _doctors.first;
     if (doctors.isNotEmpty) {
-      _loadAppointments(doctors.first.idReference);
+      _loadAppointments(_doctor.idReference, DateTime.now());
     }
     notifyListeners();
   }
@@ -95,10 +97,14 @@ class AppointmentListSecretaryViewModel extends ChangeNotifier {
     this._getSecretaryDoctorUseCase,
   );
 
-  void _loadAppointments(String doctorReference) async {
+  void loadAppointments(DateTime date) {
+    _loadAppointments(_doctor.idReference, date);
+  }
+
+  void _loadAppointments(String doctorReference, DateTime date) async {
     final result = await _getDoctorAppointmentsUseCase.execute(
       doctorReference,
-      DateTime.now(),
+      date,
     );
 
     result.fold(

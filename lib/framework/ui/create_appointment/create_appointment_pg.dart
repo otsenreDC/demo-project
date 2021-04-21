@@ -277,7 +277,8 @@ class _HourSectionState extends State<HourSection> {
                   });
                 },
               ),
-            )
+            ),
+            SizedBox(height: 30,),
           ],
         ),
       );

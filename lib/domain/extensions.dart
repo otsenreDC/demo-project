@@ -19,4 +19,11 @@ extension DateTimeExt on DateTime {
   int get dayOfYear {
     return this.difference(DateTime(this.year, 1, 1, 0, 0)).inDays;
   }
+
+  bool isToday() {
+    final now = DateTime.now();
+    return this.year == now.year &&
+        this.month == now.month &&
+        this.day == now.day;
+  }
 }

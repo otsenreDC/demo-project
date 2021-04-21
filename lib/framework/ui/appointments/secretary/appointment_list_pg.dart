@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_docere/domain/extensions.dart';
@@ -9,10 +6,10 @@ import 'package:project_docere/domain/models/doctor.dart';
 import 'package:project_docere/domain/view_models/appointments/appointment_list_secretary_vm.dart';
 import 'package:project_docere/framework/ui/appointments/secretary/appointment_secretary_details_pg.dart';
 import 'package:project_docere/framework/ui/create_appointment/create_appointment_pg.dart';
+import 'package:project_docere/framework/ui/widgets/date_selector_wg.dart';
 import 'package:project_docere/framework/ui/widgets/doctor_item.dart';
 import 'package:project_docere/framework/ui/widgets/summary_item.dart';
 import 'package:project_docere/injection_container.dart';
-import 'package:project_docere/styles.dart';
 import 'package:project_docere/texts.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +20,7 @@ class AppointmentListSecretaryPage extends StatelessWidget {
 
   final Doctor _doctor;
   Function goToDoctorListPage;
+  DateTime _selectedDate = DateTime.now();
 
   AppointmentListSecretaryPage(this._doctor,
       {@required this.goToDoctorListPage});
@@ -66,37 +64,44 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                         onTap: goToDoctorListPage,
                       ),
                       SizedBox(height: 10),
-                      Row(
-                        children: [
-                          SizedBox(width: 30),
-                          Text(
-                            "Hoy",
-                            style: MedAppTextStyle.header1(),
-                          ),
-                          Spacer(),
-                          // Container(
-                          //   decoration: BoxDecoration(
-                          //     color: MedAppColors.lighterBlue,
-                          //     borderRadius: BorderRadius.circular(4),
-                          //   ),
-                          //   padding: EdgeInsets.all(4),
-                          //   height: 30,
-                          //   child: Center(
-                          //     child: Text(
-                          //       "8899",
-                          //       style: MedAppTextStyle.header1()
-                          //           .copyWith(color: MedAppColors.blue),
-                          //     ),
-                          //   ),
-                          // ),
-                          SizedBox(width: 30),
-                        ],
+                      DateSelector(
+                        date: _selectedDate,
+                        onDateChanged: (date) {
+                          _selectedDate = date;
+                          viewModel.loadAppointments(date);
+                        },
                       ),
+                      // Row(
+                      //   children: [
+                      //     SizedBox(width: 30),
+                      //     Text(
+                      //       "Hoy",
+                      //       style: MedAppTextStyle.header1(),
+                      //     ),
+                      //     Spacer(),
+                      //     // Container(
+                      //     //   decoration: BoxDecoration(
+                      //     //     color: MedAppColors.lighterBlue,
+                      //     //     borderRadius: BorderRadius.circular(4),
+                      //     //   ),
+                      //     //   padding: EdgeInsets.all(4),
+                      //     //   height: 30,
+                      //     //   child: Center(
+                      //     //     child: Text(
+                      //     //       "8899",
+                      //     //       style: MedAppTextStyle.header1()
+                      //     //           .copyWith(color: MedAppColors.blue),
+                      //     //     ),
+                      //     //   ),
+                      //     // ),
+                      //     SizedBox(width: 30),
+                      //   ],
+                      // ),
                       // SizedBox(height: 8),
                       // _PatientsSummary(),
                       SizedBox(height: 10),
                       viewModel.appointmentCount == 0
-                          ? Text("Doctor no seleccionado")
+                          ? Text("Sin citas para mostrar")
                           : ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
@@ -277,19 +282,19 @@ class _SecretaryAppointmentCard extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 8),
-              Random(Timestamp.now().millisecondsSinceEpoch).nextBool()
-                  ? Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("15 min esperando"),
-                        ElevatedButton(
-                            onPressed: () {},
-                            child: Text("Hacer que pase"),
-                            style: MedAppStyles.lighBlueButtonStyle)
-                      ],
-                    )
-                  : Container()
+              // Random(Timestamp.now().millisecondsSinceEpoch).nextBool()
+              //     ? Row(
+              //         mainAxisSize: MainAxisSize.max,
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           Text("15 min esperando"),
+              //           ElevatedButton(
+              //               onPressed: () {},
+              //               child: Text("Hacer que pase"),
+              //               style: MedAppStyles.lighBlueButtonStyle)
+              //         ],
+              //       )
+              //     : Container()
             ],
           ),
         ),
