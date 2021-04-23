@@ -4,13 +4,26 @@ import 'package:project_docere/domain/models/patient.dart';
 const String _keyIdReference = "idReference";
 const String _keyName = "name";
 const String _keyLastName = "lastName";
+const String _keyPhone = "phone";
+const String _keyEmail = "email";
+const String _keyPersonalId = "personalId";
 
 class PatientDTO {
   String idReference;
   String name;
   String lastName;
+  String phone;
+  String email;
+  String personalId;
 
-  PatientDTO({this.idReference, this.name, this.lastName});
+  PatientDTO({
+    this.idReference,
+    this.name,
+    this.lastName,
+    this.phone,
+    this.email,
+    this.personalId,
+  });
 
   factory PatientDTO.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
@@ -25,6 +38,9 @@ class PatientDTO {
       idReference: reference?.path,
       name: json[_keyName],
       lastName: json[_keyLastName],
+      phone: json[_keyPhone],
+      personalId: json[_keyPersonalId],
+      email: json[_keyEmail],
     );
   }
 
@@ -35,6 +51,9 @@ class PatientDTO {
             idReference != null ? firestore.doc(idReference) : null),
         MapEntry(_keyName, name),
         MapEntry(_keyLastName, lastName),
+        MapEntry(_keyPhone, phone),
+        MapEntry(_keyEmail, email),
+        MapEntry(_keyPersonalId, personalId),
       ],
     );
   }
@@ -44,6 +63,9 @@ class PatientDTO {
       idReference: this.idReference,
       name: this.name,
       lastName: this.lastName,
+      phone: this.phone,
+      personalId: this.personalId,
+      email: this.email,
     );
   }
 
@@ -52,6 +74,9 @@ class PatientDTO {
       idReference: patient.idReference,
       name: patient.name,
       lastName: patient.lastName,
+      phone: patient.phone,
+      personalId: patient.personalId,
+      email: patient.email,
     );
   }
 }

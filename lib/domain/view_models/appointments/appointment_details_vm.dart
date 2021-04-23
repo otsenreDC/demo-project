@@ -71,7 +71,7 @@ class AppointmentDetailsViewModel extends ChangeNotifier {
   PatientDetails get patientDetails {
     return PatientDetails(
       _appointment?.patient?.fullName,
-      "(888) 555-1234",
+      _appointment?.patient?.phone,
       "000-1234567-8",
       "01/01/1970",
       "Santiago",

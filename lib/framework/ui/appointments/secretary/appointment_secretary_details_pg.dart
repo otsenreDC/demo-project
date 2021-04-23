@@ -187,7 +187,7 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
                             style: MedAppTextStyle.header3(),
                           ),
                         ),
-                        PhoneTile("000-000-0000"),
+                        PhoneTile(viewModel.patientDetails.phone),
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 30, right: 30, top: 16, bottom: 8),

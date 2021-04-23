@@ -20,6 +20,8 @@ class PhoneTile extends StatelessWidget {
   }
 
   String _getPhoneSection(int section) {
+    if (_splitted == null) return "";
+
     if (_splitted.length > section) {
       return _splitted[section];
     } else {
