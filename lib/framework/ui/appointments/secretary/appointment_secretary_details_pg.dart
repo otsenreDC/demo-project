@@ -7,6 +7,7 @@ import 'package:project_docere/domain/view_models/appointments/appointment_detai
 import 'package:project_docere/framework/ui/appointments/secretary/appointment_authorization_wg.dart';
 import 'package:project_docere/framework/ui/profile/profile_pg.dart';
 import 'package:project_docere/framework/ui/widgets/doctor_card_wg.dart';
+import 'package:project_docere/framework/ui/widgets/phone_tile.dart';
 import 'package:project_docere/framework/ui/widgets/simple_center_card_wg.dart';
 import 'package:project_docere/injection_container.dart';
 import 'package:project_docere/texts.dart';
@@ -186,7 +187,7 @@ class AppointmentSecretaryDetailsPage extends StatelessWidget {
                             style: MedAppTextStyle.header3(),
                           ),
                         ),
-                        PhoneTile("000 - 000 - 0000"),
+                        PhoneTile("000-000-0000"),
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 30, right: 30, top: 16, bottom: 8),

@@ -4,6 +4,7 @@ import 'package:project_docere/colors.dart';
 import 'package:project_docere/domain/extensions.dart';
 import 'package:project_docere/domain/models/profile.dart';
 import 'package:project_docere/domain/view_models/profile/profile_vm.dart';
+import 'package:project_docere/framework/ui/widgets/phone_tile.dart';
 import 'package:project_docere/framework/ui/widgets/text_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -230,59 +231,6 @@ class BirthdayTile extends StatelessWidget {
               color: Colors.grey[400],
             ),
             Expanded(child: Text(_getYear(), textAlign: TextAlign.center))
-          ],
-        ),
-        leading: leadingIcon,
-        trailing: trailingIcon,
-      ),
-    );
-  }
-}
-
-class PhoneTile extends StatelessWidget {
-  final String _title;
-  final Function onSelected;
-  final Icon leadingIcon;
-  final Icon trailingIcon;
-
-  const PhoneTile(
-    this._title, {
-    this.onSelected,
-    this.leadingIcon,
-    this.trailingIcon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-      decoration: BoxDecoration(
-        color: MedAppColors.black196,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      child: ListTile(
-        onTap: onSelected,
-        title: Row(
-          children: [
-            Expanded(
-                child: Text(
-              "849",
-              textAlign: TextAlign.center,
-            )),
-            Container(
-              width: 15,
-              height: 1,
-              color: Colors.grey[400],
-            ),
-            Expanded(child: Text("555", textAlign: TextAlign.center)),
-            Container(
-              width: 15,
-              height: 1,
-              color: Colors.grey[400],
-            ),
-            Expanded(child: Text("9898", textAlign: TextAlign.center))
           ],
         ),
         leading: leadingIcon,

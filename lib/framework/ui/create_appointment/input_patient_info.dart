@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:project_docere/domain/models/patient.dart';
 import 'package:project_docere/domain/view_models/patients/patient_info_vm.dart';
 import 'package:project_docere/framework/ui/widgets/text_input_decoration.dart';
@@ -54,6 +56,9 @@ class PatientInfoForm extends StatelessWidget {
             TextFormField(
               maxLines: 1,
               decoration: inputDecoration("Teléfono"),
+              inputFormatters: <TextInputFormatter>[
+                MaskedInputFormater("000-000-0000"),
+              ],
               onChanged: (text) {
                 viewModel.phone = text;
               },
