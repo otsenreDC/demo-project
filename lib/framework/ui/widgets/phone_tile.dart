@@ -8,22 +8,21 @@ class PhoneTile extends StatelessWidget {
   final Function onSelected;
   final Icon leadingIcon;
   final Icon trailingIcon;
-  List<String> _splitted = List.empty();
 
   PhoneTile(
     this._title, {
     this.onSelected,
     this.leadingIcon,
     this.trailingIcon,
-  }) {
-    _splitted = _title.split('-');
-  }
+  });
 
   String _getPhoneSection(int section) {
-    if (_splitted == null) return "";
+    if (_title == null) return "";
 
-    if (_splitted.length > section) {
-      return _splitted[section];
+    final _split = _title.split('-');
+
+    if (_split.length > section) {
+      return _split[section];
     } else {
       return "";
     }

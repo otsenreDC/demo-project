@@ -19,8 +19,7 @@ class AppointmentListSecretaryPage extends StatelessWidget {
   static String routeName = "appointments/secretary";
 
   final Doctor _doctor;
-  Function goToDoctorListPage;
-  DateTime _selectedDate = DateTime.now();
+  final Function goToDoctorListPage;
 
   AppointmentListSecretaryPage(this._doctor,
       {@required this.goToDoctorListPage});
@@ -38,11 +37,11 @@ class AppointmentListSecretaryPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) {
         final viewModel = sl<AppointmentListSecretaryViewModel>();
-        viewModel.init();
         return viewModel;
       },
       child: Consumer<AppointmentListSecretaryViewModel>(
         builder: (_, viewModel, __) {
+          viewModel.refresh(_doctor);
           return Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(250),
@@ -60,14 +59,17 @@ class AppointmentListSecretaryPage extends StatelessWidget {
                     children: [
                       SizedBox(height: 16),
                       GestureDetector(
-                        child: DoctorItem(_doctor.fullName, _doctor.specialty),
+                        child: DoctorItem(
+                          viewModel.getSelectedDoctor.fullName,
+                          viewModel.getSelectedDoctor.specialty,
+                        ),
                         onTap: goToDoctorListPage,
                       ),
                       SizedBox(height: 10),
                       DateSelector(
-                        date: _selectedDate,
+                        date: viewModel.getSelectedDate,
                         onDateChanged: (date) {
-                          _selectedDate = date;
+                          viewModel.setSelectedDate = date;
                           viewModel.loadAppointments(date);
                         },
                       ),
